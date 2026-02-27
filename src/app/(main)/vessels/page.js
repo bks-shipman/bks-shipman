@@ -43,6 +43,15 @@ export default function Vessels() {
         return ["All", ...uniqueTypes];
     }, [vessels]);
 
+    const filteredVessels = useMemo(() => {
+        return vessels?.filter(v => {
+            const matchesType = filter === 'All' || v?.vesselType?.name === filter;
+            const matchesSearch = v?.name.toLowerCase().includes(searchTerm.toLowerCase());
+            return matchesType && matchesSearch;
+        });
+    }, [filter, searchTerm, vessels]);
+
+    console.log(filter);
 
     if (isLoading) {
         return (
@@ -65,15 +74,6 @@ export default function Vessels() {
     }
 
 
-    const filteredVessels = useMemo(() => {
-        return vessels?.filter(v => {
-            const matchesType = filter === 'All' || v?.vesselType?.name === filter;
-            const matchesSearch = v?.name.toLowerCase().includes(searchTerm.toLowerCase());
-            return matchesType && matchesSearch;
-        });
-    }, [filter, searchTerm, vessels]);
-
-    console.log(filter);
 
 
     return (

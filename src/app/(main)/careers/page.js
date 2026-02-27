@@ -20,9 +20,6 @@ export default function Careers() {
             dedupingInterval: 60000,
         }
     );
-
-    console.log(data);
-
     const titleCareer = data?.titles;
     const career = data?.career;
     const phone = data?.phone;

@@ -12,7 +12,7 @@ import { useAuthGuard } from '@/hooks/useAuthGuard'
 export default function Dashboard({ children, title }) {
     const authorized = useAuthGuard();
 
-    const [opened, { toggle }] = useDisclosure(true);
+    const [opened, { toggle }] = useDisclosure();
     const pathname = usePathname();
 
     if (!authorized) return null;

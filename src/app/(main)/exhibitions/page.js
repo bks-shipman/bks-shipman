@@ -9,7 +9,6 @@ import useSWR from 'swr';
 import { getExhibitionPage } from '@/utils/api/exhibitionPage';
 import dayjs from 'dayjs';
 import Image from 'next/image';
-import Loading from '@/components/Loading';
 
 const fetcher = async () => {
     return await getExhibitionPage();

@@ -4,7 +4,6 @@ import Hero from '@/components/Hero';
 import Image from 'next/image';
 import { getAboutPage } from '@/utils/api/aboutPage';
 import useSWR from 'swr';
-import Loading from '@/components/Loading';
 
 const fetcher = async () => {
     return await getAboutPage();

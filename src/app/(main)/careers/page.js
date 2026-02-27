@@ -5,7 +5,6 @@ import { JOBS } from '@/lib/constants';
 import { Mail, Phone, MapPin, ArrowRight, MessageSquare, Send } from 'lucide-react';
 import useSWR from 'swr';
 import { getCareerPage } from '@/utils/api/careerPage';
-import Loading from '@/components/Loading';
 
 const fetcher = async () => {
     return await getCareerPage();

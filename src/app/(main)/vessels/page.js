@@ -7,7 +7,6 @@ import { Search, Filter, X, ArrowRight, Anchor, Activity, Info, Users, Box, Ship
 import { getVesselPage } from '@/utils/api/vesselPage';
 import useSWR from 'swr';
 import Image from 'next/image';
-import Loading from '@/components/Loading';
 
 const fetcher = async () => {
     return await getVesselPage();

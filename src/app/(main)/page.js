@@ -13,6 +13,7 @@ import Image from 'next/image';
 import { getLandingPage } from '@/utils/api/landingPage';
 import useSWR from 'swr';
 import Counter from '@/components/Counter';
+import Loading from '@/components/Loading';
 
 const fetcher = async () => {
   return await getLandingPage();
@@ -47,11 +48,7 @@ export default function Home() {
 
   if (isLoading) {
     return (
-      <div className="flex justify-center items-center h-screen">
-        <p className="text-slate-500 font-semibold text-lg">
-          Loading Landing Page...
-        </p>
-      </div>
+      <Loading />
     );
   }
 
@@ -233,8 +230,8 @@ export default function Home() {
                   />
                   <div className="absolute inset-0 bg-blue-900/20 mix-blend-multiply"></div>
                 </div>
-                <div className="absolute -bottom-10 -left-10 bg-white p-12 rounded-4xl shadow-2xl hidden md:block max-w-sm">
-                  <p className="text-slate-900 font-serif font-bold text-2xl mb-4 italic leading-tight">"{captain?.quote}"</p>
+                <div className="absolute -left-4 -bottom-8 md:-bottom-10 md:-left-10 bg-white p-6 md:p-12 rounded-4xl shadow-2xl max-w-2xs md:max-w-sm">
+                  <p className="text-slate-900 font-serif font-bold text-lg md:text-2xl mb-4 italic leading-tight">"{captain?.quote}"</p>
                   <div className="flex items-center gap-4">
                     <div className="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold text-xs">CEO</div>
                     <div>
@@ -250,13 +247,14 @@ export default function Home() {
       </section>
 
       {/* Gallery Section */}
-      <section className="py-32 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-20">
-            <h2 className="text-blue-600 font-bold tracking-[0.3em] uppercase mb-4 text-xs">{titleGallery?.tag}</h2>
-            <h3 className="text-5xl font-serif font-bold text-slate-900">{titleGallery?.title}</h3>
-          </div>
-          {gallery && (
+      {gallery && gallery.length > 2 && (
+        <section className="py-32 bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center max-w-2xl mx-auto mb-20">
+              <h2 className="text-blue-600 font-bold tracking-[0.3em] uppercase mb-4 text-xs">{titleGallery?.tag}</h2>
+              <h3 className="text-5xl font-serif font-bold text-slate-900">{titleGallery?.title}</h3>
+            </div>
+
             <div className="grid grid-cols-1 md:grid-cols-12 gap-6 h-175">
               <div
                 className="md:col-span-7 group relative overflow-hidden rounded-[2.5rem] cursor-pointer"
@@ -314,9 +312,9 @@ export default function Home() {
                 </div>
               </div>
             </div>
-          )}
-        </div>
-      </section>
+          </div>
+        </section>
+      )}
 
       {/* Lightbox Modal - Updated with Black Blurred Background */}
       {selectedImage !== null && (

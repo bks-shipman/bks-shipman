@@ -150,7 +150,7 @@ export default function AboutUs() {
                     Captain Data
                 </h1>
                 <p className="text-slate-500">
-                    Define core brand identity and communication channels.
+                    Define captain data.
                 </p>
             </header>
 

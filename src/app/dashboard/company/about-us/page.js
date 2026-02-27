@@ -124,7 +124,7 @@ export default function AboutUs() {
                     Company About
                 </h1>
                 <p className="text-slate-500">
-                    Define core brand identity and communication channels.
+                    Define what's company about.
                 </p>
             </header>
 

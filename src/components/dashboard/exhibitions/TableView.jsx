@@ -5,9 +5,12 @@ import { Ban, Pencil, Trash2 } from "lucide-react";
 import { Checkbox } from "@mantine/core";
 import ReadMore from "@/components/ReadMore";
 import dayjs from "dayjs";
+import { Pagination } from "@mantine/core";
 
 export default function TableView({ exhibitions, onDeleteMany, onEdit }) {
   const [selectedIds, setSelectedIds] = useState([]);
+  const [page, setPage] = useState(1);
+  const itemsPerPage = 5; // mau berapa data per halaman
 
   const isAllSelected =
   exhibitions.length > 0 && selectedIds.length === exhibitions.length;
@@ -45,7 +48,15 @@ export default function TableView({ exhibitions, onDeleteMany, onEdit }) {
 const formattedDate = (dateStr) => {
         return dayjs(dateStr).format('MMMM, DD YYYY');
     }
+
+    const totalPages = Math.ceil(exhibitions.length / itemsPerPage);
+
+    const paginatedData = exhibitions.slice(
+      (page - 1) * itemsPerPage,
+      page * itemsPerPage
+    );
   return (
+    <>
     <div className="bg-white rounded-[2rem] md:rounded-[2.5rem] border border-slate-200 shadow-xl mb-12">
       
       {/* DELETE SELECTED BUTTON */}
@@ -89,7 +100,7 @@ const formattedDate = (dateStr) => {
           </thead>
 
           <tbody className="divide-y divide-slate-50">
-            {exhibitions?.map((exhibition) => {
+            {paginatedData?.map((exhibition) => {
               const isSelected = selectedIds.includes(exhibition.id);
 
               return (
@@ -136,5 +147,13 @@ const formattedDate = (dateStr) => {
         </table>
       </div>
     </div>
+          <div className="flex justify-center py-6">
+            <Pagination
+              value={page}
+              onChange={setPage}
+              total={totalPages}
+            />
+          </div>
+    </>
   );
 }

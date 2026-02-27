@@ -75,7 +75,7 @@ export default function Navbar() {
                 key={link.name}
                 href={link.path}
                 onClick={() => setIsOpen(false)}
-                className={`block px-4 py-5 text-sm font-bold tracking-widest uppercase rounded-2xl ${location.pathname === link.path ? 'text-blue-600 bg-blue-50' : 'text-slate-600 hover:bg-slate-50'}`}
+                className={`block px-4 py-5 text-sm font-bold font-poppins tracking-widest uppercase rounded-2xl ${location.pathname === link.path ? 'text-blue-600 bg-blue-50' : 'text-slate-600 hover:bg-slate-50'}`}
               >
                 {link.name}
               </Link>

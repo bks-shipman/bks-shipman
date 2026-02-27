@@ -157,7 +157,7 @@ export default function Sidebar() {
                         : "text-slate-700 hover:text-slate-900 hover:bg-slate-100"
                     }`}
                   >
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-3 text-sm font-medium">
                       <Icon className="w-5 h-5" />
                       {menu.label}
                     </div>
@@ -181,7 +181,7 @@ export default function Sidebar() {
                     }`}
                   >
                     {active && (
-                      <div className="absolute h-full w-1 right-0 bg-blue-700 rounded-l-2xl"></div>
+                      <div className="absolute h-full w-1 right-0 bg-blue-700 rounded-l-2xl text-sm font-medium"></div>
                     )}
 
                     <Icon className="w-5 h-5" />

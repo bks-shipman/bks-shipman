@@ -3,10 +3,12 @@
 import React, { useState } from "react";
 import { Ban, Pencil, Trash2 } from "lucide-react";
 import { Checkbox } from "@mantine/core";
+import { Pagination } from "@mantine/core";
 
 export default function TableView({ vessels, onDeleteMany, onEdit }) {
   const [selectedIds, setSelectedIds] = useState([]);
-
+const [page, setPage] = useState(1);
+  const itemsPerPage = 5;
   const isAllSelected =
   vessels.length > 0 && selectedIds.length === vessels.length;
 
@@ -41,7 +43,14 @@ export default function TableView({ vessels, onDeleteMany, onEdit }) {
     setSelectedIds([]);
   };
 
+  const totalPages = Math.ceil(vessels.length / itemsPerPage);
+
+  const paginatedData = vessels.slice(
+      (page - 1) * itemsPerPage,
+      page * itemsPerPage
+    );
   return (
+    <>
     <div className="bg-white rounded-[2rem] md:rounded-[2.5rem] border border-slate-200 shadow-xl mb-12">
       
       {/* DELETE SELECTED BUTTON */}
@@ -91,7 +100,7 @@ export default function TableView({ vessels, onDeleteMany, onEdit }) {
           </thead>
 
           <tbody className="divide-y divide-slate-50">
-            {vessels?.map((vessel) => {
+            {paginatedData.map((vessel) => {
               const isSelected = selectedIds.includes(vessel.id);
 
               return (
@@ -146,5 +155,13 @@ export default function TableView({ vessels, onDeleteMany, onEdit }) {
         </table>
       </div>
     </div>
+    <div className="flex justify-center py-6">
+      <Pagination
+        value={page}
+        onChange={setPage}
+        total={totalPages}
+      />
+    </div>
+    </>
   );
 }

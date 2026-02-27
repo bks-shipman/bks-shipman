@@ -7,6 +7,7 @@ import { Search, Filter, X, ArrowRight, Anchor, Activity, Info, Users, Box, Ship
 import { getVesselPage } from '@/utils/api/vesselPage';
 import useSWR from 'swr';
 import Image from 'next/image';
+import Loading from '@/components/Loading';
 
 const fetcher = async () => {
     return await getVesselPage();
@@ -45,11 +46,7 @@ export default function Vessels() {
 
     if (isLoading) {
         return (
-            <div className="flex justify-center items-center h-screen">
-                <p className="text-slate-500 font-semibold text-lg">
-                    Loading Vessel Page...
-                </p>
-            </div>
+            <Loading />
         );
     }
 
@@ -117,7 +114,7 @@ export default function Vessels() {
                                 <button
                                     key={type}
                                     onClick={() => setFilter(type)}
-                                    className={`px-6 py-3 rounded-xl font-bold text-xs uppercase tracking-wider transition-all duration-300 ${filter === type
+                                    className={`px-6 py-3 rounded-xl font-bold text-xs uppercase tracking-wider transition-all cursor-pointer duration-300 ${filter === type
                                         ? 'bg-slate-900 text-white shadow-lg shadow-slate-900/20 scale-105'
                                         : 'bg-white text-slate-500 border border-slate-100 hover:border-slate-300 hover:text-slate-900'
                                         }`}
@@ -131,9 +128,18 @@ export default function Vessels() {
 
                 {/* Results Header */}
                 <div className="mb-10 flex flex-col sm:flex-row justify-between items-center gap-4">
-                    <h2 className="text-sm font-bold text-slate-400 uppercase tracking-[0.3em]">
-                        Fleet Directory <span className="mx-2 text-slate-200">|</span>
-                        <span className="text-slate-900">{filteredVessels.length} Vessels Found</span>
+                    <h2 className="flex flex-col sm:flex-row md:items-center text-sm font-bold uppercase tracking-[0.3em]">
+                        <span className="text-slate-400">
+                            Fleet Directory
+                        </span>
+
+                        <span className="hidden sm:inline mx-2 text-slate-200">
+                            |
+                        </span>
+
+                        <span className="text-slate-900">
+                            {filteredVessels.length} Vessels Found
+                        </span>
                     </h2>
                     {searchTerm && (
                         <div className="px-4 py-1 bg-blue-50 text-blue-600 text-xs font-bold rounded-full border border-blue-100">
@@ -175,9 +181,9 @@ export default function Vessels() {
                                     <h3 className="text-3xl font-serif font-bold text-slate-950 group-hover:text-blue-600 transition-colors duration-300">
                                         {vessel.name}
                                     </h3>
-                                    <div className="flex items-center gap-1.5 px-3 py-1 bg-green-50 text-green-600 text-[10px] font-bold rounded-full border border-green-100 uppercase tracking-tighter">
+                                    {/* <div className="flex items-center gap-1.5 px-3 py-1 bg-green-50 text-green-600 text-[10px] font-bold rounded-full border border-green-100 uppercase tracking-tighter">
                                         <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" /> Live
-                                    </div>
+                                    </div> */}
                                 </div>
 
                                 <p className="text-slate-500 leading-relaxed mb-8 text-sm font-medium opacity-80 group-hover:opacity-100 transition-opacity">
@@ -188,7 +194,7 @@ export default function Vessels() {
                                     <div className="space-y-4">
                                         <button
                                             onClick={() => setSelectedVessel(vessel)}
-                                            className="flex items-center gap-2 px-4 py-2 bg-slate-50 hover:bg-blue-600 hover:text-white rounded-xl text-xs font-bold uppercase tracking-widest transition-all duration-300 group/btn"
+                                            className="flex items-center gap-2 px-4 py-2 bg-slate-50 hover:bg-blue-600 hover:text-white rounded-xl text-xs font-bold uppercase tracking-widest transition-all duration-300 group/btn cursor-pointer"
                                         >
                                             <Info className="w-4 h-4 group-hover/btn:rotate-12 transition-transform" /> View Specifications
                                         </button>
@@ -196,7 +202,7 @@ export default function Vessels() {
 
                                     <button
                                         onClick={() => setSelectedVessel(vessel)}
-                                        className="relative h-14 w-14 rounded-2xl bg-slate-950 text-white flex items-center justify-center overflow-hidden transition-all duration-500 group-hover:bg-blue-600 group-hover:shadow-lg group-hover:shadow-blue-600/30"
+                                        className="relative h-14 w-14 rounded-2xl bg-slate-950 text-white flex items-center justify-center overflow-hidden transition-all duration-500 group-hover:bg-blue-600 group-hover:shadow-lg group-hover:shadow-blue-600/30 cursor-pointer"
                                     >
                                         <ArrowRight className="w-6 h-6 transition-transform duration-500 group-hover:translate-x-1 group-hover:-rotate-12" />
                                     </button>
@@ -230,7 +236,7 @@ export default function Vessels() {
                             <div className="md:w-1/2 p-10 md:p-16 overflow-y-auto">
                                 <button
                                     onClick={() => setSelectedVessel(null)}
-                                    className="absolute top-8 right-8 p-3 bg-slate-50 hover:bg-blue-600 hover:text-white rounded-full transition-all group z-10"
+                                    className="absolute top-8 right-8 p-3 bg-slate-50 hover:bg-blue-600 hover:text-white rounded-full transition-all group z-10 cursor-pointer"
                                 >
                                     <X className="w-6 h-6 transition-transform group-hover:rotate-90" />
                                 </button>

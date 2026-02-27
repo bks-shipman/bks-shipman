@@ -8,7 +8,7 @@ import { notifications } from '@mantine/notifications';
 import { nprogress } from '@mantine/nprogress';
 import useSWR from 'swr';
 import { useState } from "react";
-import { UserPlus } from 'lucide-react';
+import { FileUser, UserPlus } from 'lucide-react';
 import { deleteCareer, getCareer } from '@/utils/api/dashboard/careers';
 import TableView from '@/components/dashboard/careers/TableView';
 import CareerModal from '@/components/dashboard/careers/CareerModal';
@@ -117,14 +117,14 @@ export default function Careers() {
             {/* Header */}
             <header className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-8 lg:mb-12">
                 <div>
-                    <h1 className="text-3xl md:text-4xl font-serif font-bold text-slate-900 mb-2">User Access Control</h1>
-                    <p className="text-slate-500 text-sm md:text-base">Manage internal staff accounts and access levels.</p>
+                    <h1 className="text-3xl md:text-4xl font-serif font-bold text-slate-900 mb-2">Job Applications</h1>
+                    <p className="text-slate-500 text-sm md:text-base">Manage job applications and career opportunities.</p>
                 </div>
                 <button
                     onClick={handleCreate}
                     className={`flex-1 md:flex-none flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all  bg-blue-600 hover:bg-blue-700 text-white shadow-lg shadow-blue-200 cursor-pointer`}
                 >
-                    <UserPlus className="w-4 h-4" /> Add Career
+                    <FileUser className="w-4 h-4" /> Add Career
                 </button>
             </header>
             <div className="max-w-6xl mx-auto pb-12">

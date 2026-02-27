@@ -4,6 +4,7 @@ import Hero from '@/components/Hero';
 import Image from 'next/image';
 import { getAboutPage } from '@/utils/api/aboutPage';
 import useSWR from 'swr';
+import Loading from '@/components/Loading';
 
 const fetcher = async () => {
     return await getAboutPage();
@@ -25,11 +26,7 @@ export default function About() {
 
     if (isLoading) {
         return (
-            <div className="flex justify-center items-center h-screen">
-                <p className="text-slate-500 font-semibold text-lg">
-                    Loading About Page...
-                </p>
-            </div>
+            <Loading />
         );
     }
 
@@ -52,39 +49,39 @@ export default function About() {
             />
 
             <section className="py-24 max-w-7xl mx-auto px-4">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 font-poppins">
                     <div>
-                        <h2 className="text-blue-600 font-bold uppercase mb-4">
+                        <h2 className="text-blue-600 text-2xl font-bold uppercase mb-4">
                             About BKS SHIPMAN
                         </h2>
 
                         <div className="space-y-6 text-slate-600">
-                            <p>{aboutUs?.description}</p>
+                            <p className='text-lg'>{aboutUs?.description}</p>
                         </div>
                     </div>
 
                     <div className="relative">
                         <Image
-                            src="https://images.unsplash.com/photo-1548574505-5e239809ee19?auto=format&fit=crop&q=80&w=800"
+                            src="/logo.png"
                             width={1000}
                             height={500}
                             className="rounded-2xl shadow-2xl object-cover"
                             alt="about us"
                         />
 
-                        <div className="absolute bottom-10 -left-10 bg-white p-8 rounded-2xl shadow-xl max-w-xs">
+                        {/* <div className="absolute bottom-10 -left-10 bg-white p-8 rounded-2xl shadow-xl max-w-xs">
                             <span className="block text-4xl font-bold text-blue-600 mb-1">
                                 25+
                             </span>
                             <span className="text-slate-600 font-medium">
                                 Years of Excellence
                             </span>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </section>
 
-            <section className="bg-slate-900 py-24 text-white">
+            {/* <section className="bg-slate-900 py-24 text-white">
                 <div className="max-w-7xl mx-auto px-4">
                     <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
                         <div>
@@ -121,7 +118,7 @@ export default function About() {
                         </div>
                     </div>
                 </div>
-            </section>
+            </section> */}
         </div>
     );
 }

@@ -9,6 +9,7 @@ import useSWR from 'swr';
 import { getExhibitionPage } from '@/utils/api/exhibitionPage';
 import dayjs from 'dayjs';
 import Image from 'next/image';
+import Loading from '@/components/Loading';
 
 const fetcher = async () => {
     return await getExhibitionPage();
@@ -36,11 +37,7 @@ export default function Exhibitions() {
 
     if (isLoading) {
         return (
-            <div className="flex justify-center items-center h-screen">
-                <p className="text-slate-500 font-semibold text-lg">
-                    Loading Exhibition Page...
-                </p>
-            </div>
+            <Loading />
         );
     }
 
@@ -85,17 +82,17 @@ export default function Exhibitions() {
                             <Image
                                 src={ex?.photo || null}
                                 alt={ex?.name}
-                                className="w-full h-full object-cover transition-transform duration-[2s] ease-out group-hover:scale-110 grayscale-[0.2] group-hover:grayscale-0"
+                                className="w-full h-full min-h-60 object-cover transition-transform duration-[2s] ease-out group-hover:scale-110 grayscale-[0.2] group-hover:grayscale-0"
                                 width={600}
                                 height={400}
                             />
                             <div className="absolute inset-0 bg-slate-950/20 group-hover:bg-transparent transition-all duration-700" />
 
                             {/* Floating Date Plate */}
-                            <div className={`absolute top-12 ${idx % 2 !== 0 ? 'left-12' : 'right-12'} p-6 bg-white/10 backdrop-blur-2xl border border-white/20 rounded-3xl text-white shadow-2xl animate-in zoom-in duration-700`}>
+                            <div className={`absolute top-2 md:top-12 ${idx % 2 !== 0 ? 'left-2 md:left-12' : 'right-2 md:right-12'} p-6 bg-white/10 backdrop-blur-2xl border border-white/20 rounded-3xl text-white shadow-2xl animate-in zoom-in duration-700`}>
                                 <div className="flex items-center gap-3 mb-1">
                                     <Calendar className="w-4 h-4 text-blue-400" />
-                                    <span className="text-[10px] font-black uppercase tracking-[0.2em]">{formattedDate(ex?.date)}</span>
+                                    <span className="text-[10px] font-medium font-poppins uppercase tracking-[0.2em]">{formattedDate(ex?.date)}</span>
                                 </div>
                                 <div className="h-0.5 w-12 bg-blue-600 rounded-full" />
                             </div>

@@ -5,6 +5,7 @@ import { JOBS } from '@/lib/constants';
 import { Mail, Phone, MapPin, ArrowRight, MessageSquare, Send } from 'lucide-react';
 import useSWR from 'swr';
 import { getCareerPage } from '@/utils/api/careerPage';
+import Loading from '@/components/Loading';
 
 const fetcher = async () => {
     return await getCareerPage();
@@ -31,11 +32,7 @@ export default function Careers() {
 
     if (isLoading) {
         return (
-            <div className="flex justify-center items-center h-screen">
-                <p className="text-slate-500 font-semibold text-lg">
-                    Loading Career Page...
-                </p>
-            </div>
+            <Loading />
         );
     }
 
@@ -115,7 +112,7 @@ export default function Careers() {
                     {/* Right Section: Vacancies */}
                     <div className="lg:col-span-8">
                         <div className={`space-y-8 transition-all duration-1000 delay-300`}>
-                            <div className="flex items-end justify-between mb-12">
+                            <div className="flex items-end justify-between flex-wrap mb-12">
                                 <h3 className="text-5xl font-serif font-bold text-slate-950">Active Vacancies</h3>
                                 <span className="text-slate-400 font-bold text-sm uppercase tracking-widest">{career?.length} Opportunities</span>
                             </div>

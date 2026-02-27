@@ -21,10 +21,10 @@ export default function Footer({ data }) {
             </Link>
             <p className="text-slate-400">Leading the way in global ship management with a commitment to safety and innovation.</p>
             <div className="flex space-x-4 pt-2">
-              <a href={data?.linkedin || "#"} className="hover:text-blue-400"><Linkedin className="w-5 h-5" /></a>
-              <a href={data?.instagram || "#"} className="hover:text-blue-400"><Instagram className="w-5 h-5" /></a>
-              <a href={data?.facebook || "#"} className="hover:text-blue-400"><Facebook className="w-5 h-5" /></a>
-              <a href={data?.tiktok || "#"} className="hover:text-blue-400"><Music2 className="w-5 h-5" /></a>
+              <Link href={data?.linkedin || "#"} className="hover:text-blue-400"><Linkedin className="w-5 h-5" /></Link>
+              <Link href={data?.instagram || "#"} className="hover:text-blue-400"><Instagram className="w-5 h-5" /></Link>
+              <Link href={data?.facebook || "#"} className="hover:text-blue-400"><Facebook className="w-5 h-5" /></Link>
+              <Link href={data?.tiktok || "#"} className="hover:text-blue-400"><Music2 className="w-5 h-5" /></Link>
             </div>
           </div>
 
@@ -53,7 +53,7 @@ export default function Footer({ data }) {
             <ul className="space-y-4">
               <li className="flex items-start gap-3">
                 <MapPin className="w-5 h-5 text-blue-400 flex-shrink-0" />
-                <span>{data?.address || "123 Maritime Plaza, Singapore 012345"}</span>
+                <span><Link href={data?.gmapsUrl}>{data?.address}</Link></span>
               </li>
               <li className="flex items-center gap-3">
                 <Phone className="w-5 h-5 text-blue-400" />

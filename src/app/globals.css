@@ -25,3 +25,7 @@ html {
 ::-webkit-scrollbar-thumb:hover {
   background: #94a3b8;
 }
+
+@theme {
+  --font-poppins: "Poppins", sans-serif;
+}

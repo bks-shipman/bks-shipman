@@ -16,7 +16,9 @@ export default function Users() {
             <header className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-8 lg:mb-12">
                 <div>
                     <h1 className="text-3xl md:text-4xl font-serif font-bold text-slate-900 mb-2">Company Vision & Mission</h1>
-                    <p className="text-slate-500 text-sm md:text-base">Manage internal staff accounts and access levels.</p>
+                    <p className="text-slate-500 text-sm md:text-base">
+                        Define the company's core purpose, aspirations, and guiding principles.
+                    </p>
                 </div>
 
                 {/* Navigation Buttons */}

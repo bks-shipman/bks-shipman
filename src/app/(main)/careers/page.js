@@ -29,7 +29,11 @@ export default function Careers() {
 
     if (isLoading) {
         return (
-            <Loading />
+            <div className="flex justify-center items-center h-screen">
+                <p className="text-slate-500 font-semibold text-lg">
+                    Loading Page...
+                </p>
+            </div>
         );
     }
 

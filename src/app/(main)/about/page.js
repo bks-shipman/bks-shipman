@@ -26,7 +26,11 @@ export default function About() {
 
     if (isLoading) {
         return (
-            <Loading />
+            <div className="flex justify-center items-center h-screen">
+                <p className="text-slate-500 font-semibold text-lg">
+                    Loading About Page...
+                </p>
+            </div>
         );
     }
 

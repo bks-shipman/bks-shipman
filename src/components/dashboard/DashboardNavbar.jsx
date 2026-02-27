@@ -64,6 +64,7 @@ export default function DashboardNavbar({
         onClose={toggle}
         overlayProps={{ backgroundOpacity: 0.3, blur: 2 }}
         padding="md"
+        lockScroll={false}
       >
         <Sidebar />
       </Drawer>

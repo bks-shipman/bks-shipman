@@ -12,7 +12,7 @@ import { useAuthGuard } from '@/hooks/useAuthGuard'
 export default function Dashboard({ children, title }) {
     const authorized = useAuthGuard();
 
-    const [opened, { toggle }] = useDisclosure();
+    const [opened, { toggle }] = useDisclosure(true);
     const pathname = usePathname();
 
     if (!authorized) return null;
@@ -25,6 +25,9 @@ export default function Dashboard({ children, title }) {
     //         </div>
     //     );
     // }
+
+    console.log(opened);
+
 
     const pageTitle = {
         "/dashboard": "Dashboard",
@@ -55,12 +58,12 @@ export default function Dashboard({ children, title }) {
                 <Sidebar />
             </AppShell.Navbar>
 
-            <AppShell.Main className="bg-slate-100 p-6 h-full">
+            <AppShell.Main className="bg-slate-100 p-6">
                 <Head title={pageTitle} />
                 <div className="w-full h-16 bg-white rounded-xl !shadow-normal flex justify-between items-center mb-5 transition duration-200 py-4">
                     <DashboardNavbar
                         toggle={toggle}
-                    // opened={opened}
+                        opened={opened}
                     />
                 </div>
                 {/* <h1 className="text-xl font-medium mb-5">{pageTitle}</h1> */}

@@ -4,6 +4,7 @@ import Hero from '@/components/Hero';
 import Image from 'next/image';
 import { getAboutPage } from '@/utils/api/aboutPage';
 import useSWR from 'swr';
+import Loading from '@/components/Loading';
 
 const fetcher = async () => {
     return await getAboutPage();
@@ -25,11 +26,7 @@ export default function About() {
 
     if (isLoading) {
         return (
-            <div className="flex justify-center items-center h-screen">
-                <p className="text-slate-500 font-semibold text-lg">
-                    Loading About Page...
-                </p>
-            </div>
+            <Loading />
         );
     }
 

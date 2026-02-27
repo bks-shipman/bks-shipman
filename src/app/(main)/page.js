@@ -13,6 +13,7 @@ import Image from 'next/image';
 import { getLandingPage } from '@/utils/api/landingPage';
 import useSWR from 'swr';
 import Counter from '@/components/Counter';
+import Loading from '@/components/Loading';
 
 const fetcher = async () => {
   return await getLandingPage();
@@ -47,11 +48,7 @@ export default function Home() {
 
   if (isLoading) {
     return (
-      <div className="flex justify-center items-center h-screen">
-        <p className="text-slate-500 font-semibold text-lg">
-          Loading About Page...
-        </p>
-      </div>
+      <Loading />
     );
   }
 

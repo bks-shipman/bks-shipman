@@ -9,6 +9,7 @@ import useSWR from 'swr';
 import { getExhibitionPage } from '@/utils/api/exhibitionPage';
 import dayjs from 'dayjs';
 import Image from 'next/image';
+import Loading from '@/components/Loading';
 
 const fetcher = async () => {
     return await getExhibitionPage();
@@ -36,11 +37,7 @@ export default function Exhibitions() {
 
     if (isLoading) {
         return (
-            <div className="flex justify-center items-center h-screen">
-                <p className="text-slate-500 font-semibold text-lg">
-                    Loading About Page...
-                </p>
-            </div>
+            <Loading />
         );
     }
 

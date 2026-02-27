@@ -7,6 +7,7 @@ import { Search, Filter, X, ArrowRight, Anchor, Activity, Info, Users, Box, Ship
 import { getVesselPage } from '@/utils/api/vesselPage';
 import useSWR from 'swr';
 import Image from 'next/image';
+import Loading from '@/components/Loading';
 
 const fetcher = async () => {
     return await getVesselPage();
@@ -42,23 +43,10 @@ export default function Vessels() {
         return ["All", ...uniqueTypes];
     }, [vessels]);
 
-    const filteredVessels = useMemo(() => {
-        return vessels?.filter(v => {
-            const matchesType = filter === 'All' || v?.vesselType?.name === filter;
-            const matchesSearch = v?.name.toLowerCase().includes(searchTerm.toLowerCase());
-            return matchesType && matchesSearch;
-        });
-    }, [filter, searchTerm, vessels]);
-
-    console.log(filter);
 
     if (isLoading) {
         return (
-            <div className="flex justify-center items-center h-screen">
-                <p className="text-slate-500 font-semibold text-lg">
-                    Loading About Page...
-                </p>
-            </div>
+            <Loading />
         );
     }
 
@@ -73,6 +61,15 @@ export default function Vessels() {
     }
 
 
+    const filteredVessels = useMemo(() => {
+        return vessels?.filter(v => {
+            const matchesType = filter === 'All' || v?.vesselType?.name === filter;
+            const matchesSearch = v?.name.toLowerCase().includes(searchTerm.toLowerCase());
+            return matchesType && matchesSearch;
+        });
+    }, [filter, searchTerm, vessels]);
+
+    console.log(filter);
 
 
     return (

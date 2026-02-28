@@ -89,7 +89,20 @@ export default function Sidebar() {
       ],
     },
     { label: "Exhibitions", icon: CalendarCheck2, path: "/dashboard/exhibitions" },
-    { label: "Careers", icon: FileUser, path: "/dashboard/careers" },
+    { label: "Careers", 
+      icon: FileUser,
+      children: [
+        {
+          label: "Crewing",
+          icon: User,
+          path: "/dashboard/careers/crewing"
+        },
+        {
+          label: "Job Vacancies",
+          icon: Eye,
+          path: "/dashboard/careers" }
+        ] 
+      },
     { label: "Titles", icon: Captions, path: "/dashboard/titles" },
     {label: "Users", icon: UsersRound, path: "/dashboard/users"}
   ];

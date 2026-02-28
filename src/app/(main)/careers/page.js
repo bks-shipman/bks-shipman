@@ -7,6 +7,7 @@ import useSWR from 'swr';
 import { getCareerPage } from '@/utils/api/careerPage';
 import Loading from '@/components/Loading';
 import { MotionWrapper } from '@/components/MotionWrapper';
+import Link from 'next/link';
 
 const fetcher = async () => {
     return await getCareerPage();
@@ -26,7 +27,6 @@ export default function Careers() {
     const phone = data?.phone;
     const phoneCode = data?.phoneCode;
     const email = data?.email;
-    const address = data?.address;
 
     if (isLoading) {
         return (
@@ -78,17 +78,17 @@ export default function Careers() {
                                         </div>
                                     </a>
 
-                                    <a href="mailto:careers@oceanicblue.com" className="group flex items-center gap-6 p-6 bg-white border border-slate-100 rounded-3xl hover:border-blue-200 hover:shadow-xl transition-all">
+                                    <Link href={`mailto:${email}`} className="group flex items-center gap-6 p-6 bg-white border border-slate-100 rounded-3xl hover:border-blue-200 hover:shadow-xl transition-all">
                                         <div className="w-14 h-14 rounded-2xl bg-slate-50 flex items-center justify-center text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-all">
                                             <Mail className="w-6 h-6" />
                                         </div>
                                         <div>
                                             <span className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Email Inquiry</span>
-                                            <span className="text-slate-900 font-bold text-lg">{email}</span>
+                                            <span className="block text-slate-900 font-bold text-lg break-all">{email}</span>
                                         </div>
-                                    </a>
+                                    </Link>
 
-                                    <div className="flex items-center gap-6 p-6 bg-slate-900 text-white rounded-3xl">
+                                    {/* <div className="flex items-center gap-6 p-6 bg-slate-900 text-white rounded-3xl">
                                         <div className="p-2 rounded-2xl bg-white/10 flex items-center justify-center">
                                             <MapPin className="w-6 h-6 text-blue-400" />
                                         </div>
@@ -96,7 +96,7 @@ export default function Careers() {
                                             <span className="block text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1">Location</span>
                                             <span className="font-bold text-sm">{address}</span>
                                         </div>
-                                    </div>
+                                    </div> */}
                                 </div>
 
                                 <div className="pt-10 border-t border-slate-200">

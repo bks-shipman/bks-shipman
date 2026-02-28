@@ -45,7 +45,7 @@ export default function Careers() {
     }
 
     return (
-        <div className="pb-24">
+        <div className="pb-24 bg-white">
             <Hero
                 title={titleCareer?.title}
                 subtitle={titleCareer?.subtitle}

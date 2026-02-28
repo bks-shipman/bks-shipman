@@ -194,7 +194,7 @@ export default function Vessels() {
                                     <div className="space-y-4">
                                         <button
                                             onClick={() => setSelectedVessel(vessel)}
-                                            className="flex items-center gap-2 px-4 py-2 bg-slate-50 hover:bg-blue-600 hover:text-white rounded-xl text-xs font-bold uppercase tracking-widest transition-all duration-300 group/btn cursor-pointer"
+                                            className="flex items-center gap-2 px-4 py-2 bg-slate-50 hover:bg-blue-600 hover:text-white rounded-xl text-xs font-bold uppercase tracking-widest transition-all duration-300 group/btn cursor-pointer text-black"
                                         >
                                             <Info className="w-4 h-4 group-hover/btn:rotate-12 transition-transform" /> View Specifications
                                         </button>

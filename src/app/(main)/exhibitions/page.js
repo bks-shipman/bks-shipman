@@ -85,12 +85,12 @@ export default function Exhibitions() {
                         // className="md:w-1/2 relative overflow-hidden bg-slate-200 dark:bg-slate-900"
                         >
                             <div
-                                className={`group relative flex flex-col md:flex-row min-h-150 overflow-hidden border-b border-slate-100 dark:border-slate-800 ${isReversed ? 'md:flex-row-reverse' : ''
+                                className={`group relative flex flex-col md:flex-row min-h-150 overflow-hidden border-b border-slate-100 ${isReversed ? 'md:flex-row-reverse' : ''
                                     }`}
                             >
                                 {/* --- BAGIAN GAMBAR --- */}
                                 <div
-                                    className="md:w-1/2 relative overflow-hidden bg-slate-200 dark:bg-slate-900"
+                                    className="md:w-1/2 relative overflow-hidden bg-slate-200"
                                 >
                                     <Image
                                         src={ex?.photo}
@@ -109,7 +109,7 @@ export default function Exhibitions() {
                                         delay={0.5}
                                         className={`absolute top-6 md:top-12 ${isReversed ? 'left-6 md:left-12' : 'right-6 md:right-12'}`}
                                     >
-                                        <div className="p-6 bg-white/10 dark:bg-slate-900/40 backdrop-blur-2xl border border-white/20 dark:border-slate-700/50 rounded-3xl text-white shadow-2xl">
+                                        <div className="p-6 bg-white/10 backdrop-blur-2xl border border-white/20 rounded-3xl text-white shadow-2xl">
                                             <div className="flex items-center gap-3 mb-1">
                                                 <Calendar className="w-4 h-4 text-blue-400" />
                                                 <span className="text-[10px] font-bold uppercase tracking-[0.2em]">
@@ -122,26 +122,26 @@ export default function Exhibitions() {
                                 </div>
 
                                 {/* --- BAGIAN KONTEN --- */}
-                                <div className="md:w-1/2 flex items-center p-12 lg:p-24 bg-white dark:bg-[#0b0f1a] relative z-10 transition-colors duration-500">
+                                <div className="md:w-1/2 flex items-center p-12 lg:p-24 bg-white relative z-10 transition-colors duration-500">
                                     <div
                                         className="max-w-lg"
                                     >
                                         <div className="flex items-center gap-3 mb-8">
                                             <span className="w-8 h-px bg-blue-600"></span>
-                                            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-blue-600 dark:text-blue-400">
+                                            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-blue-600">
                                                 Event Profile {String(idx + 1).padStart(2, '0')}
                                             </span>
                                         </div>
 
-                                        <h4 className="text-4xl lg:text-5xl font-serif font-bold text-slate-950 dark:text-white mb-8 leading-tight group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-500">
+                                        <h4 className="text-4xl lg:text-5xl font-serif font-bold text-slate-950 mb-8 leading-tight group-hover:text-blue-600 transition-colors duration-500">
                                             {ex?.name}
                                         </h4>
 
                                         <ReadMore
                                             text={ex?.description}
                                             wordLimit={20}
-                                            className='text-slate-500 dark:text-slate-400 text-lg leading-relaxed mb-12 font-light opacity-80 group-hover:opacity-100 transition-all'
-                                            buttonColor="text-blue-500 hover:text-blue-700 dark:text-blue-400"
+                                            className='text-slate-500 text-lg leading-relaxed mb-12 font-light opacity-80 group-hover:opacity-100 transition-all'
+                                            buttonColor="text-blue-500 hover:text-blue-700"
                                         />
 
                                         {/* Optional CTA */}

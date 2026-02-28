@@ -42,7 +42,7 @@ export default function About() {
     }
 
     return (
-        <div className="pb-20">
+        <div className="pb-20 bg-white">
             <Hero
                 title={titleAboutUs?.title}
                 subtitle={titleAboutUs?.subtitle}

@@ -163,7 +163,7 @@ export default function Vessels() {
                                 />
 
                                 {/* Modern Glass Label */}
-                                <div className="absolute top-6 left-6 px-5 py-2.5 bg-white/20 backdrop-blur-xl border border-white/30 text-white text-[10px] font-black rounded-2xl uppercase tracking-[0.15em] shadow-xl">
+                                <div className="absolute top-6 left-6 px-5 py-2.5 bg-white/80 backdrop-blur-xl border border-white/30 text-blue-600 text-[10px] font-black rounded-2xl font-poppins uppercase tracking-[0.15em] shadow-xl">
                                     {vessel?.vesselType?.name}
                                 </div>
 

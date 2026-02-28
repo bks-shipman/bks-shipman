@@ -3,15 +3,15 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { getFooterPage } from '@/utils/api/footer';
 
-export const metadata = {
-  title: "BKS SHIPMAN",
-  description: "TOTAL SHIP MANAGEMENT SOLUTIONS",
-  manifest: "/manifest.json",
-  icons: {
-    icon: "/icon-192x192.png",
-    apple: "/icon-512x512.png",
-  },
-};
+// export const metadata = {
+//   title: "BKS SHIPMAN",
+//   description: "TOTAL SHIP MANAGEMENT SOLUTIONS",
+//   manifest: "/manifest.json",
+//   icons: {
+//     icon: "/favicon-32x32.png",
+//     apple: "/apple-touch-icon.png",
+//   },
+// };
 
 export default async function LayoutLanding({ children }) {
   const footerData = await getFooterPage()

@@ -127,7 +127,7 @@ export default function Exhibitions() {
                                         className="max-w-lg"
                                     >
                                         <div className="flex items-center gap-3 mb-8">
-                                            <span className="w-8 h-[1px] bg-blue-600"></span>
+                                            <span className="w-8 h-px bg-blue-600"></span>
                                             <span className="text-[10px] font-black uppercase tracking-[0.3em] text-blue-600 dark:text-blue-400">
                                                 Event Profile {String(idx + 1).padStart(2, '0')}
                                             </span>

@@ -60,7 +60,7 @@ export default function Dashboard({ children, title }) {
 
             <AppShell.Main className="bg-slate-100 dark:bg-[#0b0f1a] p-6">
                 <Head title={pageTitle} />
-                <div className="w-full h-16 bg-white dark:bg-[#161b2b] dark:border-amber-50 rounded-xl !shadow-normal flex justify-between items-center mb-5 transition duration-200 py-4">
+                <div className="w-full h-16 bg-white dark:bg-[#161b2b] dark:border-amber-50 rounded-xl shadow-normal! flex justify-between items-center mb-5 transition duration-200 py-4">
                     <DashboardNavbar
                         toggle={toggle}
                         opened={opened}

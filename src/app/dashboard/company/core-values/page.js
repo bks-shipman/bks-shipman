@@ -190,7 +190,7 @@ export default function VesselTypes() {
                 </p>
             </header>
 
-            <div className="bg-white dark:bg-[#161b2b] p-6 md:p-10 rounded-[2rem] border border-slate-100 dark:border-slate-800/50 shadow-xl mx-auto max-w-4xl w-full mb-12">
+            <div className="bg-white dark:bg-[#161b2b] p-6 md:p-10 rounded-4xl border border-slate-100 dark:border-slate-800/50 shadow-xl mx-auto max-w-4xl w-full mb-12">
 
                 {/* ================= CREATE FORM ================= */}
                 <Box
@@ -237,7 +237,7 @@ export default function VesselTypes() {
                                             setEditError("");
                                         }}
                                         error={editError}
-                                        className="flex-grow"
+                                        className="grow"
                                         size="xs"
                                     />
                                     <Button

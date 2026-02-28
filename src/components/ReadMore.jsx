@@ -21,7 +21,7 @@ export default function ReadMore({
     <div>
       <p
         className={` ${className} ${
-          expanded ? 'max-h-[1000px]' : 'max-h-[120px] overflow-hidden'
+          expanded ? 'max-h-250' : 'max-h-30 overflow-hidden'
         }`}
       >
         {displayedText}

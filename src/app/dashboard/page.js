@@ -50,7 +50,7 @@ export default function Dashboard() {
                 ].map((stat, i) => {
                     const Icon = stat.icon;
                     return (
-                        <div key={i} className="bg-white dark:bg-[#161b2b] p-8 rounded-[2rem] border border-slate-100 dark:border-slate-800/50 dark:shadow-slate-300 shadow-sm hover:shadow-xl dark:hover:shadow-md transition-all">
+                        <div key={i} className="bg-white dark:bg-[#161b2b] p-8 rounded-4xl border border-slate-100 dark:border-slate-800/50 dark:shadow-slate-300 shadow-sm hover:shadow-xl dark:hover:shadow-md transition-all">
                             <Icon className={`w-8 h-8 ${stat.color} mb-6`} />
                             <span className="block text-[10px] font-black text-slate-700 dark:text-slate-100 uppercase tracking-widest mb-2">{stat.label}</span>
                             <span className="text-4xl font-bold text-slate-900 dark:text-slate-300 tracking-tight">{stat.value}</span>

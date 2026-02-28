@@ -22,8 +22,8 @@ export default function Loading() {
 
   return (
     <div
-      className={`fixed inset-0 z-[9999] flex flex-col items-center justify-center 
-        bg-gradient-to-br from-indigo-50 via-teal-50 to-white transition-all duration-500 
+      className={`fixed inset-0 z-9999 flex flex-col items-center justify-center 
+        bg-linear-to-br from-indigo-50 via-teal-50 to-white transition-all duration-500 
         ease-out pointer-events-none
         ${fadeOut ? "opacity-0" : "opacity-100"}
         ${!loading ? "hidden" : ""}

@@ -53,7 +53,7 @@ export default function TableView({ careers, onDeleteMany, onEdit, isAdmin }) {
   return (
     <>
     <div className="bg-white dark:bg-[#161b2b]
-dark:border-slate-800/50 rounded-[2rem] md:rounded-[2.5rem] border border-slate-200 shadow-xl mb-12">
+dark:border-slate-800/50 rounded-4xl md:rounded-[2.5rem] border border-slate-200 shadow-xl mb-12">
       
       {/* DELETE SELECTED BUTTON */}
       {selectedIds.length > 0 && (
@@ -73,7 +73,7 @@ dark:border-slate-800/50 rounded-[2rem] md:rounded-[2.5rem] border border-slate-
       )}
 
       <div className="overflow-x-auto">
-        <table className="w-full text-left min-w-[600px]">
+        <table className="w-full text-left min-w-150">
           <thead className="">
             <tr>
               {isAdmin == "ADMIN" && (  
@@ -106,7 +106,7 @@ dark:border-slate-800/50 rounded-[2rem] md:rounded-[2.5rem] border border-slate-
               return (
                 <tr
                   key={career.id}
-                  className={`hover:bg-slate-50/80 hover:dark:bg-[#222a42] rounded-[2rem] transition-colors group ${
+                  className={`hover:bg-slate-50/80 hover:dark:bg-[#222a42] rounded-4xl transition-colors group ${
                     isSelected ? "bg-blue-50/50" : ""
                   }`}
                 >

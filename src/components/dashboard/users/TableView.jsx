@@ -52,7 +52,7 @@ export default function TableView({ users, onSuspend, onDeleteMany, isAdmin }) {
 
   return (
     <>
-    <div className="bg-white dark:bg-[#161b2b] rounded-[2rem] md:rounded-[2.5rem] border border-slate-200 dark:border-slate-800/50 shadow-xl mb-12">
+    <div className="bg-white dark:bg-[#161b2b] rounded-4xl md:rounded-[2.5rem] border border-slate-200 dark:border-slate-800/50 shadow-xl mb-12">
       
       {/* DELETE SELECTED BUTTON */}
       {selectedIds.length > 0 && (
@@ -72,7 +72,7 @@ export default function TableView({ users, onSuspend, onDeleteMany, isAdmin }) {
       )}
 
       <div className="overflow-x-auto">
-        <table className="w-full text-left min-w-[600px]">
+        <table className="w-full text-left min-w-150">
           <thead className="">
             <tr>
               {isAdmin == "ADMIN" && (

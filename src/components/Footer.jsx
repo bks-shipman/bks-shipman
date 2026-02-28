@@ -52,7 +52,7 @@ export default function Footer({ data }) {
             <h4 className="text-lg font-bold text-white mb-6">Contact Us</h4>
             <ul className="space-y-4">
               <li className="flex items-start gap-3">
-                <MapPin className="w-5 h-5 text-blue-400 flex-shrink-0" />
+                <MapPin className="w-5 h-5 text-blue-400 shrink-0" />
                 <span><Link href={data?.gmapsUrl}>{data?.address}</Link></span>
               </li>
               <li className="flex items-center gap-3">

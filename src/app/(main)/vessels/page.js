@@ -106,7 +106,7 @@ export default function Vessels() {
                         </div>
 
                         {/* Type Filters */}
-                        <div className="flex flex-wrap gap-2 items-center flex-grow justify-center lg:justify-start">
+                        <div className="flex flex-wrap gap-2 items-center grow justify-center lg:justify-start">
                             <div className="hidden sm:flex items-center gap-2 text-slate-400 mr-2 font-bold text-[10px] uppercase tracking-[0.2em]">
                                 <Filter className="w-3 h-3" /> Filter By
                             </div>
@@ -168,7 +168,7 @@ export default function Vessels() {
                                 </div>
 
                                 {/* Hover Overlay */}
-                                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-10">
+                                <div className="absolute inset-0 bg-linear-to-t from-slate-950/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-10">
                                     <div className="flex items-center gap-3 text-white/80 text-xs font-medium translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
                                         <Anchor className="w-4 h-4 text-blue-400" /> IMO Registered
                                     </div>
@@ -214,17 +214,17 @@ export default function Vessels() {
 
                 {/* Vessel Details Modal */}
                 {selectedVessel && (
-                    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-950/90 backdrop-blur-md p-4 animate-in fade-in duration-300">
+                    <div className="fixed inset-0 z-100 flex items-center justify-center bg-slate-950/90 backdrop-blur-md p-4 animate-in fade-in duration-300">
                         <div className="bg-white rounded-[3rem] animate-in zoom-in-95 duration-500 relative max-w-5xl w-full shadow-2xl overflow-hidden border border-slate-100 flex flex-col md:flex-row h-auto max-h-[90vh]">
 
                             {/* Photo Section */}
-                            <div className="md:w-1/2 relative min-h-[300px] md:h-auto">
+                            <div className="md:w-1/2 relative min-h-75 md:h-auto">
                                 <img
                                     src={selectedVessel.photo}
                                     alt={selectedVessel.name}
                                     className="absolute inset-0 w-full h-full object-cover"
                                 />
-                                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent"></div>
+                                <div className="absolute inset-0 bg-linear-to-t from-slate-950/60 via-transparent to-transparent"></div>
                                 <div className="absolute bottom-10 left-10">
                                     <div className="px-4 py-2 bg-blue-600/90 backdrop-blur-md text-white text-[10px] font-black uppercase tracking-widest rounded-xl inline-block">
                                         {selectedVessel.vesselType.name}

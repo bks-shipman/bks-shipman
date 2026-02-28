@@ -187,7 +187,7 @@ const [loading, setLoading] = useState(false);
                 setPreview(URL.createObjectURL(file));
               }
             }}
-            className="w-full h-[200px] border-2 border-dashed border-gray-300 rounded-xl flex justify-center items-center overflow-hidden cursor-pointer hover:bg-gray-50 transition relative"
+            className="w-full h-50 border-2 border-dashed border-gray-300 rounded-xl flex justify-center items-center overflow-hidden cursor-pointer hover:bg-gray-50 transition relative"
           >
             {!preview ? (
               <div className="flex flex-col items-center text-center text-gray-600">

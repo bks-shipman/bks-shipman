@@ -60,7 +60,7 @@ export default function DashboardNavbar({
         onClick={toggle}
         opened={opened}
         size="md"
-        className="ml-4 duration-[400ms]"
+        className="ml-4 duration-400"
       />
 
       {/* Drawer for mobile sidebar */}
@@ -107,7 +107,7 @@ export default function DashboardNavbar({
         </Menu.Target>
 
         <Menu.Dropdown
-          className="!bg-white/95 dark:bg-[#161b2b]! backdrop-blur-xl !border !border-slate-100 dark:border-slate-800/50! !rounded-3xl shadow-2xl shadow-slate-900/10 p-3"
+          className="bg-white/95! dark:bg-[#161b2b]! backdrop-blur-xl border! border-slate-100! dark:border-slate-800/50! rounded-3xl! shadow-2xl shadow-slate-900/10 p-3"
         >
           {/* Signed in section */}
           <div className="px-4 py-3 border-b border-slate-50 dark:border-slate-800/50 mb-2">
@@ -123,7 +123,7 @@ export default function DashboardNavbar({
           <Menu.Item
             // component={Link}
             onClick={openChangePassword}
-            className="!rounded-2xl !text-slate-600 dark:text-slate-100! hover:!bg-blue-50 hover:!text-blue-600 font-medium text-sm"
+            className="rounded-2xl! text-slate-600! dark:text-slate-100! hover:bg-blue-50! hover:text-blue-600! font-medium text-sm"
           >
             <Flex align="center" gap={8}>
               <KeyRound size={16} />
@@ -131,12 +131,12 @@ export default function DashboardNavbar({
             </Flex>
           </Menu.Item>
 
-          <div className="h-[1px] bg-slate-50 dark:bg-slate-800/50 my-2"></div>
+          <div className="h-px bg-slate-50 dark:bg-slate-800/50 my-2"></div>
 
           {/* Logout */}
           <Menu.Item
             onClick={handleLogout}
-            className="!rounded-2xl !text-red-500 hover:!bg-red-50 font-bold text-sm"
+            className="rounded-2xl! text-red-500! hover:bg-red-50! font-bold text-sm"
           >
             <Flex align="center" gap={8}>
               <LogOut size={16} />

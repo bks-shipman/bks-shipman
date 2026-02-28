@@ -180,7 +180,7 @@ export default function AboutUs() {
                                                 setPreview(URL.createObjectURL(file));
                                             }
                                         }}
-                                        className="relative w-full h-[200px] rounded-full border-4 border-blue-500 flex justify-center items-center overflow-hidden cursor-pointer hover:scale-105 transition-all duration-300 shadow-lg"
+                                        className="relative w-full h-50 rounded-full border-4 border-blue-500 flex justify-center items-center overflow-hidden cursor-pointer hover:scale-105 transition-all duration-300 shadow-lg"
                                     >
                                         {!preview ? (
                                             <div className="flex flex-col items-center text-center text-gray-600">

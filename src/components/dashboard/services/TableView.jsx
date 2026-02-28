@@ -53,7 +53,8 @@ export default function TableView({ services, onDeleteMany, onEdit }) {
 
   return (
     <>
-    <div className="bg-white rounded-[2rem] md:rounded-[2.5rem] border border-slate-200 shadow-xl mb-12">
+    <div className="bg-white rounded-[2rem] dark:bg-[#161b2b]
+dark:border-slate-800/50 md:rounded-[2.5rem] border border-slate-200 shadow-xl mb-12">
       
       {/* DELETE SELECTED BUTTON */}
       {selectedIds.length > 0 && (
@@ -74,7 +75,7 @@ export default function TableView({ services, onDeleteMany, onEdit }) {
 
       <div className="overflow-x-auto">
         <table className="w-full text-left min-w-[600px]">
-          <thead className="bg-slate-50/50">
+          <thead className="">
             <tr>
               <th className="px-6 md:px-10 py-5">
                <Checkbox
@@ -83,13 +84,13 @@ export default function TableView({ services, onDeleteMany, onEdit }) {
                   onChange={toggleSelectAll}
                 />
               </th>
-              <th className="px-6 md:px-10 py-5 text-[10px] font-black text-slate-400 uppercase tracking-widest">
+              <th className="px-6 md:px-10 py-5 text-[10px] font-black text-slate-400 dark:text-slate-100 uppercase tracking-widest">
                 Title
               </th>
-              <th className="px-6 md:px-10 py-5 text-[10px] font-black text-slate-400 uppercase tracking-widest">
+              <th className="px-6 md:px-10 py-5 text-[10px] font-black text-slate-400 dark:text-slate-100 uppercase tracking-widest">
                 Description
               </th>
-              <th className="px-6 md:px-10 py-5 text-[10px] font-black text-slate-400 uppercase tracking-widest text-right">
+              <th className="px-6 md:px-10 py-5 text-[10px] font-black text-slate-400 dark:text-slate-100 uppercase tracking-widest text-right">
                 Action
               </th>
             </tr>
@@ -102,7 +103,7 @@ export default function TableView({ services, onDeleteMany, onEdit }) {
               return (
                 <tr
                   key={service.id}
-                  className={`hover:bg-slate-50/80 rounded-[2rem] transition-colors group ${
+                  className={`hover:bg-slate-50/80 hover:dark:bg-[#222a42] rounded-[2rem] transition-colors group ${
                     isSelected ? "bg-blue-50/50" : ""
                   }`}
                 >
@@ -113,11 +114,11 @@ export default function TableView({ services, onDeleteMany, onEdit }) {
                     />
                   </td>
 
-                  <td className="px-6 md:px-10 py-6 font-bold text-slate-900">
+                  <td className="px-6 md:px-10 py-6 font-bold text-slate-900 dark:text-slate-100">
                     {service.title}
                   </td>
 
-                  <td className="px-6 md:px-10 py-6 text-slate-500">
+                  <td className="px-6 md:px-10 py-6 text-slate-500 dark:text-slate-400">
                    <ReadMore
                       text={service.description}
                       wordLimit={12}

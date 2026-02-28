@@ -134,7 +134,7 @@ export default function Company() {
     return (
         <div className="space-y-12 animate-in fade-in duration-500">
             <header>
-                <h1 className="text-4xl font-serif font-bold text-slate-900 mb-2">
+                <h1 className="text-4xl font-serif font-bold text-slate-900 mb-2 dark:text-slate-100">
                     Company Info
                 </h1>
                 <p className="text-slate-500">
@@ -149,7 +149,7 @@ export default function Company() {
             >
                 <div className="space-y-10 w-full flex flex-col justify-center">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-2">
-                        <div className="bg-white p-12 rounded-[2.5rem] border border-slate-100 shadow-xl space-y-8">
+                        <div className="bg-white dark:bg-[#161b2b] p-12 rounded-[2.5rem] border border-slate-100 dark:border-slate-800/50 shadow-xl space-y-8">
                             <h3 className="text-xl font-bold flex items-center gap-3">
                                 <Share2 className="w-5 h-5 text-blue-600" /> Connections
                             </h3>
@@ -209,7 +209,7 @@ export default function Company() {
                         </div>
 
                         {/* ================= ADDRESS BOX ================= */}
-                        <div className="bg-white p-12 rounded-[2.5rem] border border-slate-100 shadow-xl space-y-8">
+                        <div className="bg-white dark:bg-[#161b2b] p-12 rounded-[2.5rem] border border-slate-100 dark:border-slate-800/50 shadow-xl space-y-8">
                             <h3 className="text-xl font-bold flex items-center gap-3">
                                 <Building2 className="w-5 h-5 text-blue-600" /> Address
                             </h3>

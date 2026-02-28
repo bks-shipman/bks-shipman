@@ -43,7 +43,7 @@ export default function TableView({ titles, onDeleteMany, onEdit }) {
   };
 
   return (
-    <div className="bg-white rounded-[2rem] md:rounded-[2.5rem] border border-slate-200 shadow-xl mb-12">
+    <div className="bg-white dark:bg-[#161b2b] rounded-[2rem] md:rounded-[2.5rem] border border-slate-200 dark:border-slate-800/50 shadow-xl mb-12">
       
       {/* DELETE SELECTED BUTTON */}
       {selectedIds.length > 0 && (
@@ -64,7 +64,7 @@ export default function TableView({ titles, onDeleteMany, onEdit }) {
 
       <div className="overflow-x-auto">
         <table className="w-full text-left min-w-[600px]">
-          <thead className="bg-slate-50/50">
+          <thead className="">
             <tr>
               <th className="px-6 md:px-10 py-5">
                <Checkbox
@@ -73,22 +73,22 @@ export default function TableView({ titles, onDeleteMany, onEdit }) {
                   onChange={toggleSelectAll}
                 />
               </th>
-              <th className="px-6 md:px-10 py-5 text-[10px] font-black text-slate-400 uppercase tracking-widest">
+              <th className="px-6 md:px-10 py-5 text-[10px] font-black text-slate-400 dark:text-slate-100 uppercase tracking-widest">
                 Section
               </th>
-              <th className="px-6 md:px-10 py-5 text-[10px] font-black text-slate-400 uppercase tracking-widest">
+              <th className="px-6 md:px-10 py-5 text-[10px] font-black text-slate-400 dark:text-slate-100 uppercase tracking-widest">
                 First Title
               </th>
-              <th className="px-6 md:px-10 py-5 text-[10px] font-black text-slate-400 uppercase tracking-widest">
+              <th className="px-6 md:px-10 py-5 text-[10px] font-black text-slate-400 dark:text-slate-100 uppercase tracking-widest">
                 Second Title
               </th>
-              <th className="px-6 md:px-10 py-5 text-[10px] font-black text-slate-400 uppercase tracking-widest">
+              <th className="px-6 md:px-10 py-5 text-[10px] font-black text-slate-400 dark:text-slate-100 uppercase tracking-widest">
                 Subtitle
               </th>
-              <th className="px-6 md:px-10 py-5 text-[10px] font-black text-slate-400 uppercase tracking-widest">
+              <th className="px-6 md:px-10 py-5 text-[10px] font-black text-slate-400 dark:text-slate-100 uppercase tracking-widest">
                 Tag
               </th>
-              <th className="px-6 md:px-10 py-5 text-[10px] font-black text-slate-400 uppercase tracking-widest text-right">
+              <th className="px-6 md:px-10 py-5 text-[10px] font-black text-slate-400 dark:text-slate-100 uppercase tracking-widest text-right">
                 Action
               </th>
             </tr>
@@ -101,7 +101,7 @@ export default function TableView({ titles, onDeleteMany, onEdit }) {
               return (
                 <tr
                   key={career.id}
-                  className={`hover:bg-slate-50/80 rounded-[2rem] transition-colors group ${
+                  className={`hover:bg-slate-50/80 dark:hover:bg-[#222a42] rounded-[2rem] transition-colors group ${
                     isSelected ? "bg-blue-50/50" : ""
                   }`}
                 >
@@ -112,19 +112,19 @@ export default function TableView({ titles, onDeleteMany, onEdit }) {
                     />
                   </td>
 
-                  <td className="px-6 md:px-10 py-6 font-bold text-slate-900">
+                  <td className="px-6 md:px-10 py-6 font-bold text-slate-900 dark:text-slate-100">
                     {career.type}
                   </td>
-                  <td className="px-6 md:px-10 py-6 font-bold text-slate-900">
+                  <td className="px-6 md:px-10 py-6 font-bold text-slate-900 dark:text-slate-100">
                     {career.title}
                   </td>
-                  <td className="px-6 md:px-10 py-6 font-bold text-slate-900">
+                  <td className="px-6 md:px-10 py-6 font-bold text-slate-900 dark:text-slate-100">
                     {career.title2}
                   </td>
-                  <td className="px-6 md:px-10 py-6 font-bold text-slate-900">
+                  <td className="px-6 md:px-10 py-6 font-bold text-slate-900 dark:text-slate-100">
                     {career.subtitle}
                   </td>
-                  <td className="px-6 md:px-10 py-6 font-bold text-slate-900">
+                  <td className="px-6 md:px-10 py-6 font-bold text-slate-900 dark:text-slate-100">
                     {career.tag}
                   </td>
 

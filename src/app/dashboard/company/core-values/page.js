@@ -180,7 +180,7 @@ export default function VesselTypes() {
     return (
         <div className="w-full space-y-8 md:space-y-10">
             <header>
-                <h1 className="text-3xl md:text-4xl font-serif font-bold text-slate-900 mb-2">
+                <h1 className="text-3xl md:text-4xl font-serif font-bold text-slate-900 mb-2 dark:text-slate-100">
                     Company Core Values
                 </h1>
                 <p className="text-slate-500 text-sm md:text-base">
@@ -188,7 +188,7 @@ export default function VesselTypes() {
                 </p>
             </header>
 
-            <div className="bg-white p-6 md:p-10 rounded-[2rem] border border-slate-100 shadow-xl mx-auto max-w-4xl w-full mb-12">
+            <div className="bg-white dark:bg-[#161b2b] p-6 md:p-10 rounded-[2rem] border border-slate-100 dark:border-slate-800/50 shadow-xl mx-auto max-w-4xl w-full mb-12">
 
                 {/* ================= CREATE FORM ================= */}
                 <Box
@@ -220,7 +220,7 @@ export default function VesselTypes() {
                     {data?.map((t) => (
                         <div
                             key={t.id}
-                            className="flex items-center justify-between p-4 bg-slate-50 rounded-2xl group transition-all"
+                            className="flex items-center justify-between p-4 bg-slate-50 dark:bg-[#222a42] rounded-2xl group transition-all"
                         >
                             {editingId === t.id ? (
                                 <div className="flex items-center gap-3 w-full">
@@ -256,7 +256,7 @@ export default function VesselTypes() {
                                 </div>
                             ) : (
                                 <>
-                                    <span className="font-bold text-slate-900 flex items-center gap-3 text-sm">
+                                    <span className="font-bold text-slate-900 dark:text-slate-100 flex items-center gap-3 text-sm">
                                         <Anchor className="w-4 h-4 text-blue-500" />
                                         {t.title}
                                     </span>

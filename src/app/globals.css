@@ -29,3 +29,5 @@ html {
 @theme {
   --font-poppins: "Poppins", sans-serif;
 }
+
+@custom-variant dark (&:where([data-mantine-color-scheme="dark"], [data-mantine-color-scheme="dark"] *));

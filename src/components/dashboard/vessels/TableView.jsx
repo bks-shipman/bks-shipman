@@ -51,7 +51,8 @@ const [page, setPage] = useState(1);
     );
   return (
     <>
-    <div className="bg-white rounded-[2rem] md:rounded-[2.5rem] border border-slate-200 shadow-xl mb-12">
+    <div className="bg-white dark:bg-[#161b2b]
+dark:border-slate-800/50 rounded-[2rem] md:rounded-[2.5rem] border border-slate-200 shadow-xl mb-12">
       
       {/* DELETE SELECTED BUTTON */}
       {selectedIds.length > 0 && (
@@ -72,7 +73,7 @@ const [page, setPage] = useState(1);
 
       <div className="overflow-x-auto">
         <table className="w-full text-left min-w-[600px]">
-          <thead className="bg-slate-50/50">
+          <thead className="">
             <tr>
               <th className="px-6 md:px-10 py-5">
                <Checkbox
@@ -81,19 +82,19 @@ const [page, setPage] = useState(1);
                   onChange={toggleSelectAll}
                 />
               </th>
-              <th className="px-6 md:px-10 py-5 text-[10px] font-black text-slate-400 uppercase tracking-widest">
+              <th className="px-6 md:px-10 py-5 text-[10px] font-black text-slate-400 dark:text-slate-100 uppercase tracking-widest">
                 Name
               </th>
-              <th className="px-6 md:px-10 py-5 text-[10px] font-black text-slate-400 uppercase tracking-widest">
+              <th className="px-6 md:px-10 py-5 text-[10px] font-black text-slate-400 dark:text-slate-100 uppercase tracking-widest">
                 Country
               </th>
-              <th className="px-6 md:px-10 py-5 text-[10px] font-black text-slate-400 uppercase tracking-widest">
+              <th className="px-6 md:px-10 py-5 text-[10px] font-black text-slate-400 dark:text-slate-100 uppercase tracking-widest">
                 Imo
               </th>
-              <th className="px-6 md:px-10 py-5 text-[10px] font-black text-slate-400 uppercase tracking-widest">
+              <th className="px-6 md:px-10 py-5 text-[10px] font-black text-slate-400 dark:text-slate-100 uppercase tracking-widest">
                 Year
               </th>
-              <th className="px-6 md:px-10 py-5 text-[10px] font-black text-slate-400 uppercase tracking-widest text-right">
+              <th className="px-6 md:px-10 py-5 text-[10px] font-black text-slate-400 dark:text-slate-100 uppercase tracking-widest text-right">
                 Action
               </th>
             </tr>
@@ -106,7 +107,7 @@ const [page, setPage] = useState(1);
               return (
                 <tr
                   key={vessel.id}
-                  className={`hover:bg-slate-50/80 rounded-[2rem] transition-colors group ${
+                  className={`hover:bg-slate-50/80 hover:dark:bg-[#222a42] rounded-[2rem] transition-colors group ${
                     isSelected ? "bg-blue-50/50" : ""
                   }`}
                 >
@@ -117,19 +118,19 @@ const [page, setPage] = useState(1);
                     />
                   </td>
 
-                  <td className="px-6 md:px-10 py-6 font-bold text-slate-900">
+                  <td className="px-6 md:px-10 py-6 font-bold text-slate-900 dark:text-slate-100">
                     {vessel.name}
                   </td>
 
-                  <td className="px-6 md:px-10 py-6 text-slate-500">
+                  <td className="px-6 md:px-10 py-6 dark:text-slate-100">
                     {vessel.country}
                   </td>
 
-                  <td className="px-6 md:px-10 py-6 text-slate-500">
+                  <td className="px-6 md:px-10 py-6 dark:text-slate-100">
                     {vessel.imo}
                   </td>
 
-                  <td className="px-6 md:px-10 py-6 text-slate-500">
+                  <td className="px-6 md:px-10 py-6 dark:text-slate-100">
                     {vessel.year}
                   </td>
 

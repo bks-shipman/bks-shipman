@@ -52,7 +52,7 @@ export default function TableView({ users, onSuspend, onDeleteMany }) {
 
   return (
     <>
-    <div className="bg-white rounded-[2rem] md:rounded-[2.5rem] border border-slate-200 shadow-xl mb-12">
+    <div className="bg-white dark:bg-[#161b2b] rounded-[2rem] md:rounded-[2.5rem] border border-slate-200 dark:border-slate-800/50 shadow-xl mb-12">
       
       {/* DELETE SELECTED BUTTON */}
       {selectedIds.length > 0 && (
@@ -73,7 +73,7 @@ export default function TableView({ users, onSuspend, onDeleteMany }) {
 
       <div className="overflow-x-auto">
         <table className="w-full text-left min-w-[600px]">
-          <thead className="bg-slate-50/50">
+          <thead className="">
             <tr>
               <th className="px-6 md:px-10 py-5">
                <Checkbox
@@ -82,19 +82,19 @@ export default function TableView({ users, onSuspend, onDeleteMany }) {
                   onChange={toggleSelectAll}
                 />
               </th>
-              <th className="px-6 md:px-10 py-5 text-[10px] font-black text-slate-400 uppercase tracking-widest">
+              <th className="px-6 md:px-10 py-5 text-[10px] font-black text-slate-400 dark:text-slate-100 uppercase tracking-widest">
                 Full Name
               </th>
-              <th className="px-6 md:px-10 py-5 text-[10px] font-black text-slate-400 uppercase tracking-widest">
+              <th className="px-6 md:px-10 py-5 text-[10px] font-black text-slate-400 dark:text-slate-100 uppercase tracking-widest">
                 Email Address
               </th>
-              <th className="px-6 md:px-10 py-5 text-[10px] font-black text-slate-400 uppercase tracking-widest">
+              <th className="px-6 md:px-10 py-5 text-[10px] font-black text-slate-400 dark:text-slate-100 uppercase tracking-widest">
                 Role
               </th>
-              <th className="px-6 md:px-10 py-5 text-[10px] font-black text-slate-400 uppercase tracking-widest">
+              <th className="px-6 md:px-10 py-5 text-[10px] font-black text-slate-400 dark:text-slate-100 uppercase tracking-widest">
                 Status
               </th>
-              <th className="px-6 md:px-10 py-5 text-[10px] font-black text-slate-400 uppercase tracking-widest text-right">
+              <th className="px-6 md:px-10 py-5 text-[10px] font-black text-slate-400 dark:text-slate-100 uppercase tracking-widest text-right">
                 Action
               </th>
             </tr>
@@ -107,7 +107,7 @@ export default function TableView({ users, onSuspend, onDeleteMany }) {
               return (
                 <tr
                   key={user.id}
-                  className={`hover:bg-slate-50/80 transition-colors group ${
+                  className={`hover:bg-slate-50/80 hover:dark:bg-[#222a42] transition-colors group ${
                     isSelected ? "bg-blue-50/50" : ""
                   }`}
                 >
@@ -118,11 +118,11 @@ export default function TableView({ users, onSuspend, onDeleteMany }) {
                     />
                   </td>
 
-                  <td className="px-6 md:px-10 py-6 font-bold text-slate-900">
+                  <td className="px-6 md:px-10 py-6 font-bold text-slate-900 dark:text-slate-100">
                     {user.name}
                   </td>
 
-                  <td className="px-6 md:px-10 py-6 text-slate-500">
+                  <td className="px-6 md:px-10 py-6 text-slate-500 dark:text-slate-100">
                     {user.email}
                   </td>
 

@@ -104,7 +104,7 @@ export default function Sidebar() {
   }, [pathname]);
 
   return (
-    <aside className="min-w-64 h-screen bg-white flex flex-col">
+    <aside className="min-w-64 h-screen bg-white dark:bg-[#161b2b] flex flex-col">
       {/* Logo */}
       <div className="flex flex-col justify-center py-4">
         <div className="bg-white p-2 rounded-full mx-auto mb-4">
@@ -120,11 +120,11 @@ export default function Sidebar() {
         <div className="mx-auto">
           <div className="flex items-center gap-2 mb-2">
             <div className="w-8 h-1 bg-blue-500 rounded-full"></div>
-            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-500">
+            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-500 dark:text-slate-100">
               Backoffice
             </span>
           </div>
-          <h2 className="font-serif text-2xl font-bold italic tracking-tight text-nowrap">
+          <h2 className="font-serif text-2xl dark:text-slate-100 font-bold italic tracking-tight text-nowrap">
             Command Center
           </h2>
         </div>
@@ -154,7 +154,7 @@ export default function Sidebar() {
                     className={`w-full flex items-center justify-between px-4 py-2 text-sm font-medium transition-all cursor-pointer ${
                       active
                         ? "bg-blue-100 text-blue-600"
-                        : "text-slate-700 hover:text-slate-900 hover:bg-slate-100"
+                        : "text-slate-700 dark:text-slate-100 hover:text-slate-900! hover:bg-slate-100"
                     }`}
                   >
                     <div className="flex items-center gap-3 text-sm font-medium">
@@ -177,7 +177,7 @@ export default function Sidebar() {
                     className={`flex items-center gap-3 relative px-4 py-2 text-sm font-medium transition-all ${
                       active
                         ? "bg-blue-100 text-blue-600 shadow-lg shadow-blue-600/20"
-                        : "text-slate-700 hover:text-slate-900 hover:bg-slate-100"
+                        : "text-slate-700 dark:text-slate-100 hover:text-slate-900! hover:bg-slate-100"
                     }`}
                   >
                     {active && (
@@ -203,10 +203,10 @@ export default function Sidebar() {
                         <li key={child.label}>
                           <Link
                             href={child.path}
-                            className={`flex items-center gap-3 px-4 py-2 text-sm rounded-xl transition ${
+                            className={`flex items-center gap-3 dark:text-slate-100 px-4 py-2 text-sm rounded-xl transition ${
                               childActive
                                 ? "bg-blue-600 text-white"
-                                : "text-slate-700 hover:text-slate-900 hover:bg-slate-100"
+                                : "text-slate-700 hover:text-slate-900! hover:bg-slate-100"
                             }`}
                           >
                             <ChildIcon className="w-4 h-4" />

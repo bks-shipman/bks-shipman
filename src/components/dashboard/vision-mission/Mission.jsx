@@ -121,7 +121,8 @@ export default function Mission() {
                 className=""
             >
                 <div className="space-y-10 w-full flex flex-col justify-center max-w-4xl mx-auto pb-12">
-                    <div className="bg-white p-12 rounded-[2.5rem] border border-slate-100 shadow-xl space-y-4">
+                    <div className="bg-white dark:bg-[#161b2b]
+dark:border-slate-800/50 p-12 rounded-[2.5rem] border border-slate-100 shadow-xl space-y-4">
                         <h3 className="text-xl font-bold flex items-center gap-3">
                             <Target className="w-5 h-5 text-blue-600" /> Mission
                         </h3>

@@ -99,9 +99,9 @@ export default function CreateView({ onSuccess }) {
       <Box
         component="form"
         onSubmit={form.onSubmit(handleSubmit)}
-        className="bg-white p-8 md:p-12 rounded-[2rem] border border-slate-100 shadow-xl space-y-6"
+        className="bg-white dark:bg-[#161b2b] p-8 md:p-12 rounded-[2rem] border border-slate-100 dark:border-slate-800/50 shadow-xl space-y-6"
       >
-        <h3 className="text-xl font-bold text-slate-900">
+        <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100">
           Create New User
         </h3>
 

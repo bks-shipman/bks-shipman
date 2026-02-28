@@ -141,7 +141,7 @@ export default function Users() {
             {/* Header */}
             <header className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-8 lg:mb-12">
                 <div>
-                    <h1 className="text-3xl md:text-4xl font-serif font-bold text-slate-900 mb-2">User Access Control</h1>
+                    <h1 className="text-3xl md:text-4xl font-serif font-bold text-slate-900 mb-2 dark:text-slate-100">User Access Control</h1>
                     <p className="text-slate-500 text-sm md:text-base">Manage internal staff accounts and access levels.</p>
                 </div>
 

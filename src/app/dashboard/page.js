@@ -36,7 +36,7 @@ export default function Dashboard() {
         <div className="space-y-10 animate-in fade-in duration-500">
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
                 <div>
-                    <h1 className="text-4xl font-serif font-bold text-slate-900 mb-2">Operational Command</h1>
+                    <h1 className="text-4xl font-serif font-bold text-slate-900 mb-2 dark:text-slate-100">Operational Command</h1>
                     <p className="text-slate-500">Global fleet and enterprise status summary.</p>
                 </div>
             </div>
@@ -50,10 +50,10 @@ export default function Dashboard() {
                 ].map((stat, i) => {
                     const Icon = stat.icon;
                     return (
-                        <div key={i} className="bg-white p-8 rounded-[2rem] border border-slate-100 shadow-sm hover:shadow-xl transition-all">
+                        <div key={i} className="bg-white dark:bg-[#161b2b] p-8 rounded-[2rem] border border-slate-100 dark:border-slate-800/50 dark:shadow-slate-300 shadow-sm hover:shadow-xl dark:hover:shadow-md transition-all">
                             <Icon className={`w-8 h-8 ${stat.color} mb-6`} />
-                            <span className="block text-[10px] font-black text-slate-700 uppercase tracking-widest mb-2">{stat.label}</span>
-                            <span className="text-4xl font-bold text-slate-900 tracking-tight">{stat.value}</span>
+                            <span className="block text-[10px] font-black text-slate-700 dark:text-slate-100 uppercase tracking-widest mb-2">{stat.label}</span>
+                            <span className="text-4xl font-bold text-slate-900 dark:text-slate-300 tracking-tight">{stat.value}</span>
                         </div>
                     );
                 })}

@@ -4,7 +4,7 @@ import "@mantine/core/styles.css";
 import "@mantine/dates/styles.css";
 import '@mantine/dropzone/styles.css';
 import '@mantine/notifications/styles.css';
-import { MantineProvider } from "@mantine/core";
+import { ColorSchemeScript, MantineProvider } from "@mantine/core";
 import { Notifications } from "@mantine/notifications";
 import Script from "next/script";
 import { ModalsProvider } from "@mantine/modals";
@@ -27,12 +27,15 @@ export default async function RootLayout({ children }) {
 
   return (
     <html lang="en">
+      {/* <head>
+        <ColorSchemeScript defaultColorScheme="auto" />
+      </head> */}
       <body
         className={`${poppins.variable} antialiased`}
       >
         <main className="min-h-screen w-full">
           <MantineProvider
-            defaultColorScheme="light"
+            defaultColorScheme="auto"
             withGlobalStyles
             withNormalizeCSS
           >

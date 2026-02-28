@@ -6,6 +6,11 @@ import { getFooterPage } from '@/utils/api/footer';
 export const metadata = {
   title: "BKS SHIPMAN",
   description: "TOTAL SHIP MANAGEMENT SOLUTIONS",
+  manifest: "/manifest.json",
+  icons: {
+    icon: "/icon-192x192.png",
+    apple: "/icon-512x512.png",
+  },
 };
 
 export default async function LayoutLanding({ children }) {

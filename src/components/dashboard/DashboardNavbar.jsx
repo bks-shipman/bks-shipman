@@ -98,7 +98,7 @@ export default function DashboardNavbar({
       >
         <Menu.Target>
           <button className="flex items-center gap-3 px-3 py-2 bg-slate-50 dark:bg-[#161b2b] border border-slate-100 dark:border-slate-800/50 rounded-full hover:bg-white dark:hover:bg-[#1b1f2c] hover:shadow-lg transition-all cursor-pointer">
-            <div className="w-8 h-8 rounded-full bg-blue-600 dark:bg-blue-950 flex items-center justify-center text-white dark:text-slate-100 text-xs font-bold">
+            <div className="w-8 h-8 rounded-full bg-blue-600 dark:bg-[#222a42] flex items-center justify-center text-white dark:text-slate-100 text-xs font-bold">
               {user?.name?.slice(0, 1)}
             </div>
               <span className="text-sm font-bold text-slate-900 hidden sm:block dark:text-slate-100">{user?.name}</span>

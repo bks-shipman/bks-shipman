@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { getAboutPage } from '@/utils/api/aboutPage';
 import useSWR from 'swr';
 import Loading from '@/components/Loading';
+import { MotionWrapper } from '@/components/MotionWrapper';
 
 const fetcher = async () => {
     return await getAboutPage();
@@ -51,19 +52,23 @@ export default function About() {
             <section className="py-24 max-w-7xl mx-auto px-4">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 font-poppins">
                     <div>
-                        <h2 className="text-blue-600 text-2xl font-bold uppercase mb-4">
-                            About BKS SHIPMAN
-                        </h2>
+                        <MotionWrapper animation="slideInUp" duration={1} delay={0.3}>
+                            <h2 className="text-blue-600 text-2xl font-bold uppercase mb-4">
+                                About BKS SHIPMAN
+                            </h2>
+                        </MotionWrapper>
 
                         <div className="space-y-6 text-slate-600">
-                            <p className='text-lg'>{aboutUs?.description}</p>
+                            <MotionWrapper animation="slideInUp" duration={1} delay={0.3}>
+                                <p className='text-lg'>{aboutUs?.description}</p>
+                            </MotionWrapper>
                         </div>
                     </div>
 
                     <div className="relative">
                         <Image
                             src="/logo.png"
-                            width={1000}
+                            width={800}
                             height={500}
                             className="rounded-2xl shadow-2xl object-cover"
                             alt="about us"

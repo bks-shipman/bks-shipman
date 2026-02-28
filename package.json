@@ -23,10 +23,12 @@
     "js-cookie": "^3.0.5",
     "jwt-decode": "^4.0.0",
     "lucide-react": "^0.563.0",
+    "motion": "^12.34.3",
     "next": "16.1.6",
     "react": "19.2.3",
     "react-countup": "^6.5.3",
     "react-dom": "19.2.3",
+    "react-intersection-observer": "^10.0.3",
     "swr": "^2.4.0"
   },
   "devDependencies": {

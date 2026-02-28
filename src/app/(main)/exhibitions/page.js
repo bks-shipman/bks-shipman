@@ -10,6 +10,7 @@ import { getExhibitionPage } from '@/utils/api/exhibitionPage';
 import dayjs from 'dayjs';
 import Image from 'next/image';
 import Loading from '@/components/Loading';
+import { MotionWrapper } from '@/components/MotionWrapper';
 
 const fetcher = async () => {
     return await getExhibitionPage();
@@ -71,62 +72,88 @@ export default function Exhibitions() {
             </section> */}
 
             {/* Alternating Immersive Layout (By Turns) */}
-            <section className="space-y-0">
-                {exhibitions?.map((ex, idx) => (
-                    <div
-                        key={ex.id}
-                        className={`group relative flex flex-col md:flex-row min-h-150 overflow-hidden border-b border-slate-100 ${idx % 2 !== 0 ? 'md:flex-row-reverse' : ''}`}
-                    >
-                        {/* Image Section */}
-                        <div className="md:w-1/2 relative overflow-hidden bg-slate-200">
-                            <Image
-                                src={ex?.photo || null}
-                                alt={ex?.name}
-                                className="w-full h-full min-h-60 object-cover transition-transform duration-[2s] ease-out group-hover:scale-110 grayscale-[0.2] group-hover:grayscale-0"
-                                width={600}
-                                height={400}
-                            />
-                            <div className="absolute inset-0 bg-slate-950/20 group-hover:bg-transparent transition-all duration-700" />
+            <section className="space-y-0 overflow-hidden">
+                {exhibitions?.map((ex, idx) => {
+                    // Tentukan baris ganjil atau genap
+                    const isReversed = idx % 2 !== 0;
 
-                            {/* Floating Date Plate */}
-                            <div className={`absolute top-2 md:top-12 ${idx % 2 !== 0 ? 'left-2 md:left-12' : 'right-2 md:right-12'} p-6 bg-white/10 backdrop-blur-2xl border border-white/20 rounded-3xl text-white shadow-2xl animate-in zoom-in duration-700`}>
-                                <div className="flex items-center gap-3 mb-1">
-                                    <Calendar className="w-4 h-4 text-blue-400" />
-                                    <span className="text-[10px] font-medium font-poppins uppercase tracking-[0.2em]">{formattedDate(ex?.date)}</span>
-                                </div>
-                                <div className="h-0.5 w-12 bg-blue-600 rounded-full" />
-                            </div>
-                        </div>
-
-                        {/* Content Section */}
-                        <div className="md:w-1/2 flex items-center p-12 lg:p-24 bg-white relative z-10">
-                            <div className="max-w-lg">
-                                <div className="flex items-center gap-3 mb-8">
-                                    <span className="w-8 h-[1px] bg-blue-600"></span>
-                                    <span className="text-[10px] font-black uppercase tracking-[0.3em] text-blue-600">Event Profile {String(idx + 1).padStart(2, '0')}</span>
-                                </div>
-
-                                <h4 className="text-4xl lg:text-5xl font-serif font-bold text-slate-950 mb-8 leading-tight group-hover:text-blue-600 transition-colors duration-500">
-                                    {ex?.name}
-                                </h4>
-
-                                <ReadMore
-                                    text={ex?.description}
-                                    wordLimit={12}
-                                    className='text-slate-500 text-lg leading-relaxed mb-12 font-light opacity-80 group-hover:opacity-100 transition-all'
-                                    buttonColor="text-blue-400 hover:text-blue-600"
-                                />
-
-                                {/* <button
-                                    onClick={() => setSelectedExhibition(ex)}
-                                    className="inline-flex items-center gap-4 text-slate-900 font-bold uppercase tracking-[0.2em] text-[10px] group/link pb-2 border-b-2 border-slate-900/10 hover:border-blue-600 transition-all duration-500"
+                    return (
+                        <MotionWrapper
+                            key={ex.id || idx}
+                            animation={isReversed ? "slideInRight" : "slideInLeft"}
+                            duration={0.8}
+                        // className="md:w-1/2 relative overflow-hidden bg-slate-200 dark:bg-slate-900"
+                        >
+                            <div
+                                className={`group relative flex flex-col md:flex-row min-h-150 overflow-hidden border-b border-slate-100 dark:border-slate-800 ${isReversed ? 'md:flex-row-reverse' : ''
+                                    }`}
+                            >
+                                {/* --- BAGIAN GAMBAR --- */}
+                                <div
+                                    className="md:w-1/2 relative overflow-hidden bg-slate-200 dark:bg-slate-900"
                                 >
-                                    View Full Dossier <ArrowRight className="w-4 h-4 group-hover/link:translate-x-2 transition-transform" />
-                                </button> */}
+                                    <Image
+                                        src={ex?.photo}
+                                        alt={ex?.name}
+                                        className="w-full h-full min-h-60 object-cover transition-transform duration-[2s] ease-out group-hover:scale-110 grayscale-[0.2] group-hover:grayscale-0"
+                                        width={800}
+                                        height={600}
+                                    />
+
+                                    {/* Overlay Overlay */}
+                                    <div className="absolute inset-0 bg-slate-950/20 group-hover:bg-transparent transition-all duration-700" />
+
+                                    {/* Floating Date Plate - Muncul dengan Pop In & Delay */}
+                                    <MotionWrapper
+                                        animation="popIn"
+                                        delay={0.5}
+                                        className={`absolute top-6 md:top-12 ${isReversed ? 'left-6 md:left-12' : 'right-6 md:right-12'}`}
+                                    >
+                                        <div className="p-6 bg-white/10 dark:bg-slate-900/40 backdrop-blur-2xl border border-white/20 dark:border-slate-700/50 rounded-3xl text-white shadow-2xl">
+                                            <div className="flex items-center gap-3 mb-1">
+                                                <Calendar className="w-4 h-4 text-blue-400" />
+                                                <span className="text-[10px] font-bold uppercase tracking-[0.2em]">
+                                                    {formattedDate(ex?.date)}
+                                                </span>
+                                            </div>
+                                            <div className="h-0.5 w-12 bg-blue-600 rounded-full" />
+                                        </div>
+                                    </MotionWrapper>
+                                </div>
+
+                                {/* --- BAGIAN KONTEN --- */}
+                                <div className="md:w-1/2 flex items-center p-12 lg:p-24 bg-white dark:bg-[#0b0f1a] relative z-10 transition-colors duration-500">
+                                    <div
+                                        className="max-w-lg"
+                                    >
+                                        <div className="flex items-center gap-3 mb-8">
+                                            <span className="w-8 h-[1px] bg-blue-600"></span>
+                                            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-blue-600 dark:text-blue-400">
+                                                Event Profile {String(idx + 1).padStart(2, '0')}
+                                            </span>
+                                        </div>
+
+                                        <h4 className="text-4xl lg:text-5xl font-serif font-bold text-slate-950 dark:text-white mb-8 leading-tight group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-500">
+                                            {ex?.name}
+                                        </h4>
+
+                                        <ReadMore
+                                            text={ex?.description}
+                                            wordLimit={20}
+                                            className='text-slate-500 dark:text-slate-400 text-lg leading-relaxed mb-12 font-light opacity-80 group-hover:opacity-100 transition-all'
+                                            buttonColor="text-blue-500 hover:text-blue-700 dark:text-blue-400"
+                                        />
+
+                                        {/* Optional CTA */}
+                                        {/* <button className="inline-flex items-center gap-4 text-slate-900 dark:text-slate-200 font-bold uppercase tracking-[0.2em] text-[10px] group/link pb-2 border-b-2 border-slate-900/10 dark:border-white/10 hover:border-blue-600 dark:hover:border-blue-400 transition-all duration-500">
+                                            Explore Dossier <ArrowRight className="w-4 h-4 group-hover/link:translate-x-2 transition-transform" />
+                                        </button> */}
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                ))}
+                        </MotionWrapper>
+                    );
+                })}
             </section>
 
             {/* Detailed Dossier Modal */}

@@ -7,7 +7,7 @@ import ReadMore from "@/components/ReadMore";
 import dayjs from "dayjs";
 import { Pagination } from "@mantine/core";
 
-export default function TableView({ exhibitions, onDeleteMany, onEdit }) {
+export default function TableView({ exhibitions, onDeleteMany, onEdit, isAdmin }) {
   const [selectedIds, setSelectedIds] = useState([]);
   const [page, setPage] = useState(1);
   const itemsPerPage = 5; // mau berapa data per halaman
@@ -81,22 +81,27 @@ dark:border-slate-800/50 rounded-[2rem] md:rounded-[2.5rem] border border-slate-
         <table className="w-full text-left min-w-[600px]">
           <thead className="">
             <tr>
-              <th className="px-6 md:px-10 py-5">
+              {isAdmin == "ADMIN" && (
+
+                <th className="px-6 md:px-10 py-5">
                <Checkbox
                   checked={isAllSelected}
                   indeterminate={isIndeterminate}
                   onChange={toggleSelectAll}
-                />
+                  />
               </th>
+                )}
               <th className="px-6 md:px-10 py-5 text-[10px] font-black text-slate-400 dark:text-slate-100 uppercase tracking-widest">
                 Name
               </th>
               <th className="px-6 md:px-10 py-5 text-[10px] font-black text-slate-400 dark:text-slate-100 uppercase tracking-widest">
                 Date
               </th>
-              <th className="px-6 md:px-10 py-5 text-[10px] font-black text-slate-400 dark:text-slate-100 uppercase tracking-widest text-right">
+              {isAdmin == "ADMIN" && (
+                <th className="px-6 md:px-10 py-5 text-[10px] font-black text-slate-400 dark:text-slate-100 uppercase tracking-widest text-right">
                 Action
               </th>
+              )}
             </tr>
           </thead>
 
@@ -111,12 +116,14 @@ dark:border-slate-800/50 rounded-[2rem] md:rounded-[2.5rem] border border-slate-
                     isSelected ? "bg-blue-50/50" : ""
                   }`}
                 >
+                  {isAdmin == "ADMIN" && (
                   <td className="px-6 md:px-10 py-6">
                    <Checkbox
                       checked={isSelected}
                       onChange={() => toggleSelectOne(exhibition.id)}
                     />
                   </td>
+                    )}
 
                   <td className="px-6 md:px-10 py-6 font-bold text-slate-900dark:text-slate-100">
                     {exhibition.name}
@@ -126,6 +133,7 @@ dark:border-slate-800/50 rounded-[2rem] md:rounded-[2.5rem] border border-slate-
                    {formattedDate(exhibition.date)}                          
                   </td>
 
+                    {isAdmin == "ADMIN" && (
                  <td className="px-6 md:px-10 py-6 text-right flex flex-wrap justify-end gap-2">
                     <button
                         onClick={() => onEdit(exhibition)}
@@ -141,6 +149,7 @@ dark:border-slate-800/50 rounded-[2rem] md:rounded-[2.5rem] border border-slate-
                         <Trash2 className="w-4 h-4" />
                     </button>
                     </td>
+                    )}
                 </tr>
               );
             })}

@@ -6,7 +6,7 @@ import { Checkbox } from "@mantine/core";
 import ReadMore from "@/components/ReadMore";
 import { Pagination } from "@mantine/core";
 
-export default function TableView({ careers, onDeleteMany, onEdit }) {
+export default function TableView({ careers, onDeleteMany, onEdit, isAdmin }) {
   const [selectedIds, setSelectedIds] = useState([]);
  const [page, setPage] = useState(1);
   const itemsPerPage = 5; // mau berapa data per halaman
@@ -76,22 +76,26 @@ dark:border-slate-800/50 rounded-[2rem] md:rounded-[2.5rem] border border-slate-
         <table className="w-full text-left min-w-[600px]">
           <thead className="">
             <tr>
-              <th className="px-6 md:px-10 py-5">
+              {isAdmin == "ADMIN" && (  
+                <th className="px-6 md:px-10 py-5">
                <Checkbox
                   checked={isAllSelected}
                   indeterminate={isIndeterminate}
                   onChange={toggleSelectAll}
                 />
               </th>
+                )}
               <th className="px-6 md:px-10 py-5 text-[10px] font-black text-slate-800 dark:text-slate-100 uppercase tracking-widest">
                 Title
               </th>
               <th className="px-6 md:px-10 py-5 text-[10px] font-black text-slate-800 dark:text-slate-100 uppercase tracking-widest">
                 Description
               </th>
-              <th className="px-6 md:px-10 py-5 text-[10px] font-black text-slate-800 dark:text-slate-100 uppercase tracking-widest text-right">
+              {isAdmin == "ADMIN" && (
+                <th className="px-6 md:px-10 py-5 text-[10px] font-black text-slate-800 dark:text-slate-100 uppercase tracking-widest text-right">
                 Action
               </th>
+              )}
             </tr>
           </thead>
 
@@ -106,12 +110,14 @@ dark:border-slate-800/50 rounded-[2rem] md:rounded-[2.5rem] border border-slate-
                     isSelected ? "bg-blue-50/50" : ""
                   }`}
                 >
+                  {isAdmin == "ADMIN" && (
                   <td className="px-6 md:px-10 py-6">
                    <Checkbox
                       checked={isSelected}
                       onChange={() => toggleSelectOne(career.id)}
                     />
                   </td>
+                  )}
 
                   <td className="px-6 md:px-10 py-6 font-bold text-slate-900 dark:text-slate-100">
                     {career.title}
@@ -124,7 +130,7 @@ dark:border-slate-800/50 rounded-[2rem] md:rounded-[2.5rem] border border-slate-
                       buttonColor="text-blue-400 hover:text-blue-600"
                     />                                 
                   </td>
-
+              {isAdmin == "ADMIN" && (
                  <td className="px-6 md:px-10 py-6 text-right flex flex-wrap justify-end gap-2">
                     <button
                         onClick={() => onEdit(career)}
@@ -140,6 +146,7 @@ dark:border-slate-800/50 rounded-[2rem] md:rounded-[2.5rem] border border-slate-
                         <Trash2 className="w-4 h-4" />
                     </button>
                     </td>
+                  )}
                 </tr>
               );
             })}

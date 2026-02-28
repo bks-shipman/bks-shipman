@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { use, useState } from "react";
 import useSWR from "swr";
 import { Edit2, Trash2, Check, X, Anchor, Plus } from "lucide-react";
 import { useForm } from "@mantine/form";
@@ -10,12 +10,14 @@ import { nprogress } from "@mantine/nprogress";
 import { notifications } from "@mantine/notifications";
 import { modals } from "@mantine/modals";
 import { createCoreValue, deleteCoreValue, getCoreValueData, updateCoreValue } from "@/utils/api/dashboard/coreValues";
+import { getUser } from "@/utils/auth";
 
 const fetcher = async () => {
     return await getCoreValueData();
 };
 
 export default function VesselTypes() {
+    const user = getUser();
     const { data, error, isLoading, mutate } = useSWR(
         "core-values",
         fetcher,
@@ -196,23 +198,27 @@ export default function VesselTypes() {
                     onSubmit={form.onSubmit(handleAddType)}
                     className="flex flex-col sm:flex-row gap-4 mb-8"
                 >
-                    <TextInput
-                        placeholder="New Core Value"
-                        {...form.getInputProps("title")}
-                        disabled={isEditing}
-                        className="grow"
-                    />
+                    {user?.role === "ADMIN" && (
+                        <>
+                            <TextInput
+                                placeholder="New Core Value"
+                                {...form.getInputProps("title")}
+                                disabled={isEditing}
+                                className="grow"
+                            />
 
-                    <Button
-                        type="submit"
-                        radius="xl"
-                        size="md"
-                        leftSection={<Plus />}
-                        loading={actionLoading}
-                        disabled={isEditing}
-                    >
-                        Add Value
-                    </Button>
+                            <Button
+                                type="submit"
+                                radius="xl"
+                                size="md"
+                                leftSection={<Plus />}
+                                loading={actionLoading}
+                                disabled={isEditing}
+                            >
+                                Add Value
+                            </Button>
+                        </>
+                    )}
                 </Box>
 
                 {/* ================= LIST ================= */}
@@ -234,7 +240,6 @@ export default function VesselTypes() {
                                         className="flex-grow"
                                         size="xs"
                                     />
-
                                     <Button
                                         size="xs"
                                         color="green"
@@ -260,27 +265,29 @@ export default function VesselTypes() {
                                         <Anchor className="w-4 h-4 text-blue-500" />
                                         {t.title}
                                     </span>
+                                    {user?.role === "ADMIN" && (
 
-                                    <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-all">
-                                        <Button
-                                            size="xs"
-                                            variant="subtle"
-                                            disabled={isEditing}
-                                            onClick={() => startEditing(t)}
-                                        >
-                                            <Edit2 size={14} />
-                                        </Button>
+                                        <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-all">
+                                            <Button
+                                                size="xs"
+                                                variant="subtle"
+                                                disabled={isEditing}
+                                                onClick={() => startEditing(t)}
+                                            >
+                                                <Edit2 size={14} />
+                                            </Button>
 
-                                        <Button
-                                            size="xs"
-                                            color="red"
-                                            variant="subtle"
-                                            disabled={isEditing}
-                                            onClick={() => openDeleteConfirm(t.id, t.title)}
-                                        >
-                                            <Trash2 size={14} />
-                                        </Button>
-                                    </div>
+                                            <Button
+                                                size="xs"
+                                                color="red"
+                                                variant="subtle"
+                                                disabled={isEditing}
+                                                onClick={() => openDeleteConfirm(t.id, t.title)}
+                                            >
+                                                <Trash2 size={14} />
+                                            </Button>
+                                        </div>
+                                    )}
                                 </>
                             )}
                         </div>

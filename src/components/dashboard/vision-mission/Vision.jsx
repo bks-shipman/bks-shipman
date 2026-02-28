@@ -36,7 +36,7 @@ const fetcher = async () => {
     return await getVision();
 };
 
-export default function Vision() {
+export default function Vision({role}) {
     const { data, error, isLoading, mutate } = useSWR(
         "vision",
         fetcher,
@@ -127,16 +127,21 @@ dark:border-slate-800/50 p-12 rounded-[2.5rem] border border-slate-100 shadow-xl
                         <h3 className="text-xl font-bold flex items-center gap-3">
                             <Eye className="w-5 h-5 text-blue-600" /> Vision
                         </h3>
-
-                        <Textarea
+                        {role === "ADMIN" ? (
+                            <Textarea
                             label="Company Vision"
                             autosize
                             minRows={4}
                             {...form.getInputProps("description")}
-                        />
+                            />
+                        ) : (
+                            <p>
+                                {data?.description}
+                            </p>
+                        )}
                     </div>
                     {/* ================= CONNECTIONS ================= */}
-
+                    {role === "ADMIN" && (
                     <Button
                         type="submit"
                         size="lg"
@@ -148,6 +153,7 @@ dark:border-slate-800/50 p-12 rounded-[2.5rem] border border-slate-100 shadow-xl
                     >
                         Save Vision Data
                     </Button>
+                    )}
                 </div>
             </Box>
         </div>

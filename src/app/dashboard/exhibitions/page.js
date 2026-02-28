@@ -12,12 +12,14 @@ import { CalendarCheck2, UserPlus } from 'lucide-react';
 import { deleteExhibition, getExhibition } from '@/utils/api/dashboard/exhibitions';
 import TableView from '@/components/dashboard/exhibitions/TableView';
 import ExhibModal from '@/components/dashboard/exhibitions/ExhibModal';
+import { getUser } from '@/utils/auth';
 
 const fetcher = async () => {
     return await getExhibition();
 };
 export default function Exhibitions() {
     const [opened, setOpened] = useState(false);
+    const user = getUser();
     const [selectedExhibition, setSelectedExhibition] = useState(null);
     const { data, error, isLoading, mutate } = useSWR(
         'exhibitions',
@@ -122,18 +124,22 @@ export default function Exhibitions() {
                     </h1>
                     <p className="text-slate-500 text-sm md:text-base">Manage past exhibitions data.</p>
                 </div>
-                <button
-                    onClick={handleCreate}
-                    className={`flex-1 md:flex-none flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all  bg-blue-600 hover:bg-blue-700 text-white shadow-lg shadow-blue-200 cursor-pointer`}
-                >
-                    <CalendarCheck2 className="w-4 h-4" /> Add Exhibition
-                </button>
+                {user?.role === "ADMIN" && (
+
+                    <button
+                        onClick={handleCreate}
+                        className={`flex-1 md:flex-none flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all  bg-blue-600 hover:bg-blue-700 text-white shadow-lg shadow-blue-200 cursor-pointer`}
+                    >
+                        <CalendarCheck2 className="w-4 h-4" /> Add Exhibition
+                    </button>
+                )}
             </header>
             <div className="max-w-6xl mx-auto pb-12">
                 <TableView
                     exhibitions={data}
                     onDeleteMany={openDeleteConfirm}
                     onEdit={handleEdit}
+                    isAdmin={user?.role}
                 />
             </div>
             <ExhibModal

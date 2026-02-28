@@ -7,6 +7,7 @@ import {
     Button,
     Box,
     Textarea,
+    Text,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { notifications } from "@mantine/notifications";
@@ -38,6 +39,7 @@ import { getAboutUs, updateAboutUs } from "@/utils/api/dashboard/aboutUs";
 import { getCaptain, updateCaptain } from "@/utils/api/dashboard/captain";
 import Image from "next/image";
 import { Dropzone, IMAGE_MIME_TYPE } from "@mantine/dropzone";
+import { getUser } from "@/utils/auth";
 
 // ================= FETCHER =================
 const fetcher = async () => {
@@ -46,6 +48,7 @@ const fetcher = async () => {
 
 export default function AboutUs() {
     const [preview, setPreview] = useState(null);
+    const user = getUser();
     const { data, error, isLoading, mutate } = useSWR(
         "captain",
         fetcher,
@@ -164,77 +167,88 @@ export default function AboutUs() {
                         <h3 className="text-xl font-bold flex items-center gap-3">
                             <HardHat className="w-5 h-5 text-blue-600" /> Captain Data
                         </h3>
-                        <div className="flex flex-col items-center justify-center gap-4 ">
-                            <Dropzone
-                                accept={IMAGE_MIME_TYPE}
-                                multiple={false}
-                                onDrop={(files) => {
-                                    const file = files[0];
-                                    if (file) {
-                                        form.setFieldValue("photo", file);
-                                        setPreview(URL.createObjectURL(file));
-                                    }
-                                }}
-                                className="relative w-full h-[200px] rounded-full border-4 border-blue-500 flex justify-center items-center overflow-hidden cursor-pointer hover:scale-105 transition-all duration-300 shadow-lg"
-                            >
-                                {!preview ? (
-                                    <div className="flex flex-col items-center text-center text-gray-600">
-                                        <ImageUp width={60} height={60} color="#1c7ed6" />
-                                        <p className="mt-2 text-xs font-medium">
-                                            Upload Foto
-                                        </p>
-                                    </div>
-                                ) : (
-                                    <Image
-                                        src={preview}
-                                        alt="Preview"
-                                        fill
-                                        className="object-cover"
-                                    />
-                                )}
-                            </Dropzone>
+                        {user?.role === "ADMIN" ? (
+                            <>
+                                <div className="flex flex-col items-center justify-center gap-4 ">
+                                    <Dropzone
+                                        accept={IMAGE_MIME_TYPE}
+                                        multiple={false}
+                                        onDrop={(files) => {
+                                            const file = files[0];
+                                            if (file) {
+                                                form.setFieldValue("photo", file);
+                                                setPreview(URL.createObjectURL(file));
+                                            }
+                                        }}
+                                        className="relative w-full h-[200px] rounded-full border-4 border-blue-500 flex justify-center items-center overflow-hidden cursor-pointer hover:scale-105 transition-all duration-300 shadow-lg"
+                                    >
+                                        {!preview ? (
+                                            <div className="flex flex-col items-center text-center text-gray-600">
+                                                <ImageUp width={60} height={60} color="#1c7ed6" />
+                                                <p className="mt-2 text-xs font-medium">
+                                                    Upload Foto
+                                                </p>
+                                            </div>
+                                        ) : (
+                                            <Image
+                                                src={preview}
+                                                alt="Preview"
+                                                fill
+                                                className="object-cover"
+                                            />
+                                        )}
+                                    </Dropzone>
 
-                            {preview && (
-                                <Button
-                                    size="xs"
-                                    variant="light"
-                                    color="red"
-                                    onClick={() => {
-                                        setPreview(null);
-                                        form.setFieldValue("photo", null);
-                                    }}
-                                >
-                                    Hapus Foto
-                                </Button>
-                            )}
-                        </div>
-                        <TextInput
-                            label="Captain Name"
-                            {...form.getInputProps("name")}
-                        />
-                        <Textarea
-                            label="Captain Quote"
-                            autosize
-                            minRows={4}
-                            {...form.getInputProps("quote")}
-                        />
+                                    {preview && (
+                                        <Button
+                                            size="xs"
+                                            variant="light"
+                                            color="red"
+                                            onClick={() => {
+                                                setPreview(null);
+                                                form.setFieldValue("photo", null);
+                                            }}
+                                        >
+                                            Hapus Foto
+                                        </Button>
+                                    )}
+                                </div>
+                                <TextInput
+                                    label="Captain Name"
+                                    {...form.getInputProps("name")}
+                                />
+                                <Textarea
+                                    label="Captain Quote"
+                                    autosize
+                                    minRows={4}
+                                    {...form.getInputProps("quote")}
+                                />
+                            </>
+                        ) : (
+                            <div className="space-y-6 flex flex-col items-center justify-center gap-4 ">
+                                <Image src={data?.photo} alt="Captains" width={400} height={600} />
+                                <Text className="text-lg font-bold">{data?.name}</Text>
+                                <Text className="text-center italic text-slate-600">{`"${data?.quote}"`}</Text>
+                            </div>
+                        )}
 
                     </div>
                     {/* ================= CONNECTIONS ================= */}
-
-                    <Button
-                        type="submit"
-                        size="lg"
-                        radius="xl"
-                        loading={actionLoading}
-                        disabled={!form.isValid()}
-                        leftSection={<CheckCircle2 size={18} />}
-                        className="w-fit! mx-auto"
-                    >
-                        Save Captain Data
-                    </Button>
+                    {user?.role === "ADMIN" && (
+                        <Button
+                            type="submit"
+                            size="lg"
+                            radius="xl"
+                            loading={actionLoading}
+                            disabled={!form.isValid()}
+                            leftSection={<CheckCircle2 size={18} />}
+                            className="w-fit! mx-auto"
+                        >
+                            Save Captain Data
+                        </Button>
+                    )}
                 </div>
-            </Box>
-        </div>
+            </Box >
+        </div >
     );
 }

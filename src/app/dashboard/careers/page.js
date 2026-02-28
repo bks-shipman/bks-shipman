@@ -12,6 +12,7 @@ import { FileUser, UserPlus } from 'lucide-react';
 import { deleteCareer, getCareer } from '@/utils/api/dashboard/careers';
 import TableView from '@/components/dashboard/careers/TableView';
 import CareerModal from '@/components/dashboard/careers/CareerModal';
+import { getUser } from '@/utils/auth';
 
 const fetcher = async () => {
     return await getCareer();
@@ -19,6 +20,7 @@ const fetcher = async () => {
 export default function Careers() {
     const [opened, setOpened] = useState(false);
     const [selectedCareer, setSelectedCareer] = useState(null);
+    const user = getUser();
     const { data, error, isLoading, mutate } = useSWR(
         'careers',
         fetcher,
@@ -120,18 +122,21 @@ export default function Careers() {
                     <h1 className="text-3xl md:text-4xl font-serif font-bold text-slate-900 mb-2 dark:text-slate-100">Job Applications</h1>
                     <p className="text-slate-500 text-sm md:text-base">Manage job applications and career opportunities.</p>
                 </div>
-                <button
-                    onClick={handleCreate}
-                    className={`flex-1 md:flex-none flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all  bg-blue-600 hover:bg-blue-700 text-white shadow-lg shadow-blue-200 cursor-pointer`}
-                >
-                    <FileUser className="w-4 h-4" /> Add Career
-                </button>
+                {user?.role === "ADMIN" && (
+                    <button
+                        onClick={handleCreate}
+                        className={`flex-1 md:flex-none flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all  bg-blue-600 hover:bg-blue-700 text-white shadow-lg shadow-blue-200 cursor-pointer`}
+                    >
+                        <FileUser className="w-4 h-4" /> Add Career
+                    </button>
+                )}
             </header>
             <div className="max-w-6xl mx-auto pb-12">
                 <TableView
                     careers={data}
                     onDeleteMany={openDeleteConfirm}
                     onEdit={handleEdit}
+                    isAdmin={user?.role}
                 />
             </div>
             <CareerModal

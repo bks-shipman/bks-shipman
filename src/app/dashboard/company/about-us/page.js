@@ -33,6 +33,8 @@ import {
     Info,
 } from "lucide-react";
 import { getAboutUs, updateAboutUs } from "@/utils/api/dashboard/aboutUs";
+import { getUser } from "@/utils/auth";
+import { u } from "motion/react-client";
 
 // ================= FETCHER =================
 const fetcher = async () => {
@@ -40,6 +42,7 @@ const fetcher = async () => {
 };
 
 export default function AboutUs() {
+    const user = getUser();
     const { data, error, isLoading, mutate } = useSWR(
         "about-us",
         fetcher,
@@ -139,26 +142,33 @@ export default function AboutUs() {
                             <Info className="w-5 h-5 text-blue-600" /> About Us
                         </h3>
 
-                        <Textarea
-                            label="Company Description"
-                            autosize
-                            minRows={4}
-                            {...form.getInputProps("description")}
-                        />
+                        {user?.role === "ADMIN" ? (
+                            <Textarea
+                                label="Company Description"
+                                autosize
+                                minRows={4}
+                                {...form.getInputProps("description")}
+                            />
+                        ) : (
+                            <p>
+                                {data?.description}
+                            </p>
+                        )}
                     </div>
                     {/* ================= CONNECTIONS ================= */}
-
-                    <Button
-                        type="submit"
-                        size="lg"
-                        radius="xl"
-                        loading={actionLoading}
-                        disabled={!form.isValid()}
-                        leftSection={<CheckCircle2 size={18} />}
-                        className="w-fit! mx-auto"
-                    >
-                        Save About Us Data
-                    </Button>
+                    {user?.role === "ADMIN" && (
+                        <Button
+                            type="submit"
+                            size="lg"
+                            radius="xl"
+                            loading={actionLoading}
+                            disabled={!form.isValid()}
+                            leftSection={<CheckCircle2 size={18} />}
+                            className="w-fit! mx-auto"
+                        >
+                            Save About Us Data
+                        </Button>
+                    )}
                 </div>
             </Box>
         </div>

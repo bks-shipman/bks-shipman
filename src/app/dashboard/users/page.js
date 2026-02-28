@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react'
+import React, { use, useState } from 'react'
 import { deleteUser, getUsersData, suspendUsers } from '@/utils/api/dashboard/users';
 import useSWR from 'swr';
 import CreateView from '@/components/dashboard/users/CreateView';
@@ -13,11 +13,13 @@ import { modals } from '@mantine/modals';
 import UserModal from '@/components/dashboard/users/UserModal';
 import SuspendModal from '@/components/dashboard/users/SuspendModal';
 import Loading from '@/components/Loading';
+import { getUser } from '@/utils/auth';
 
 const fetcher = async () => {
     return await getUsersData();
 };
 export default function Users() {
+    const user = getUser();
     const [view, setView] = useState("add");
     const [modalOpened, setModalOpened] = useState(false);
     const [selectedUser, setSelectedUser] = useState(null);
@@ -146,37 +148,45 @@ export default function Users() {
                 </div>
 
                 {/* Navigation Buttons */}
-                <div className="flex bg-white p-1.5 rounded-2xl border border-slate-100 shadow-sm w-full md:w-fit">
-                    <button
-                        onClick={() => setView('add')}
-                        className={`cursor-pointer flex-1 md:flex-none flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${view === 'add' ? 'bg-blue-600 text-white shadow-lg shadow-blue-200' : 'text-slate-400 hover:text-slate-900'
-                            }`}
-                    >
-                        <UserPlus className="w-4 h-4" /> Add User
-                    </button>
-                    <button
-                        onClick={() => setView('list')}
-                        className={`cursor-pointer flex-1 md:flex-none flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${view === 'list' ? 'bg-blue-600 text-white shadow-lg shadow-blue-200' : 'text-slate-400 hover:text-slate-900'
-                            }`}
-                    >
-                        <List className="w-4 h-4" /> View List
-                    </button>
-                </div>
+                {user?.role === "ADMIN" && (
+                    <div className="flex bg-white p-1.5 rounded-2xl border border-slate-100 shadow-sm w-full md:w-fit">
+                        <button
+                            onClick={() => setView('add')}
+                            className={`cursor-pointer flex-1 md:flex-none flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${view === 'add' ? 'bg-blue-600 text-white shadow-lg shadow-blue-200' : 'text-slate-400 hover:text-slate-900'
+                                }`}
+                        >
+                            <UserPlus className="w-4 h-4" /> Add User
+                        </button>
+                        <button
+                            onClick={() => setView('list')}
+                            className={`cursor-pointer flex-1 md:flex-none flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${view === 'list' ? 'bg-blue-600 text-white shadow-lg shadow-blue-200' : 'text-slate-400 hover:text-slate-900'
+                                }`}
+                        >
+                            <List className="w-4 h-4" /> View List
+                        </button>
+                    </div>
+                )}
             </header>
 
             {/* Dynamic Content */}
-            {view === "list" &&
-                <div className="max-w-6xl mx-auto pb-12">
-                    <TableView users={data} onSuspend={openSuspendConfirm} onDeleteMany={openDeleteConfirm} />
-                </div>
-            }
-            {view === "add" && (
-                <div className="max-w-4xl mx-auto pb-12">
-                    <CreateView onSuccess={async () => {
-                        await mutate();
-                        setView("list");
-                    }} />
-                </div>
+            {user?.role === "ADMIN" ? (
+                <>
+                    {view === "list" &&
+                        <div className="max-w-6xl mx-auto pb-12">
+                            <TableView users={data} onSuspend={openSuspendConfirm} onDeleteMany={openDeleteConfirm} isAdmin={user?.role === "ADMIN"} />
+                        </div>
+                    }
+                    {view === "add" && (
+                        <div className="max-w-4xl mx-auto pb-12">
+                            <CreateView onSuccess={async () => {
+                                await mutate();
+                                setView("list");
+                            }} />
+                        </div>
+                    )}
+                </>
+            ) : (
+                <TableView users={data} onSuspend={openSuspendConfirm} onDeleteMany={openDeleteConfirm} isAdmin={user?.role === "ADMIN"} />
             )}
             <UserModal
                 opened={modalOpened}
@@ -189,6 +199,7 @@ export default function Users() {
                     await mutate();
                 }}
             />
+
             <SuspendModal
                 opened={suspendModalOpen}
                 onClose={() => {

@@ -5,7 +5,7 @@ import { Ban, Pencil, Trash2 } from "lucide-react";
 import { Checkbox } from "@mantine/core";
 import { Pagination } from "@mantine/core";
 
-export default function TableView({ vessels, onDeleteMany, onEdit }) {
+export default function TableView({ vessels, onDeleteMany, onEdit, isAdmin }) {
   const [selectedIds, setSelectedIds] = useState([]);
 const [page, setPage] = useState(1);
   const itemsPerPage = 5;
@@ -75,6 +75,7 @@ dark:border-slate-800/50 rounded-[2rem] md:rounded-[2.5rem] border border-slate-
         <table className="w-full text-left min-w-[600px]">
           <thead className="">
             <tr>
+              {isAdmin == "ADMIN" && (
               <th className="px-6 md:px-10 py-5">
                <Checkbox
                   checked={isAllSelected}
@@ -82,6 +83,7 @@ dark:border-slate-800/50 rounded-[2rem] md:rounded-[2.5rem] border border-slate-
                   onChange={toggleSelectAll}
                 />
               </th>
+              )}
               <th className="px-6 md:px-10 py-5 text-[10px] font-black text-slate-400 dark:text-slate-100 uppercase tracking-widest">
                 Name
               </th>
@@ -94,9 +96,11 @@ dark:border-slate-800/50 rounded-[2rem] md:rounded-[2.5rem] border border-slate-
               <th className="px-6 md:px-10 py-5 text-[10px] font-black text-slate-400 dark:text-slate-100 uppercase tracking-widest">
                 Year
               </th>
+              {isAdmin == "ADMIN" && (
               <th className="px-6 md:px-10 py-5 text-[10px] font-black text-slate-400 dark:text-slate-100 uppercase tracking-widest text-right">
                 Action
               </th>
+              )}
             </tr>
           </thead>
 
@@ -111,12 +115,14 @@ dark:border-slate-800/50 rounded-[2rem] md:rounded-[2.5rem] border border-slate-
                     isSelected ? "bg-blue-50/50" : ""
                   }`}
                 >
-                  <td className="px-6 md:px-10 py-6">
+                  {isAdmin == "ADMIN" && (
+                    <td className="px-6 md:px-10 py-6">
                    <Checkbox
                       checked={isSelected}
                       onChange={() => toggleSelectOne(vessel.id)}
-                    />
+                      />
                   </td>
+                    )}
 
                   <td className="px-6 md:px-10 py-6 font-bold text-slate-900 dark:text-slate-100">
                     {vessel.name}
@@ -134,7 +140,8 @@ dark:border-slate-800/50 rounded-[2rem] md:rounded-[2.5rem] border border-slate-
                     {vessel.year}
                   </td>
 
-                 <td className="px-6 md:px-10 py-6 text-right flex flex-wrap justify-end gap-2">
+                  {isAdmin == "ADMIN" && (
+                    <td className="px-6 md:px-10 py-6 text-right flex flex-wrap justify-end gap-2">
                     <button
                         onClick={() => onEdit(vessel)}
                         className="p-2 text-slate-300 hover:text-blue-600 cursor-pointer transition-colors"
@@ -145,10 +152,11 @@ dark:border-slate-800/50 rounded-[2rem] md:rounded-[2.5rem] border border-slate-
                     <button
                         onClick={() => onDeleteMany(vessel.id)}
                         className="p-2 text-slate-300 hover:text-red-600 cursor-pointer transition-colors"
-                    >
+                        >
                         <Trash2 className="w-4 h-4" />
                     </button>
                     </td>
+            )}
                 </tr>
               );
             })}

@@ -17,6 +17,8 @@ export default function Login() {
 
     useEffect(() => {
         setYear(new Date().getFullYear());
+        setEmail("");
+        setPassword("");
     }, []);
     const router = useRouter();
     const handleSubmit = async (e) => {

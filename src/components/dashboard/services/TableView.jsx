@@ -6,7 +6,7 @@ import { Checkbox } from "@mantine/core";
 import ReadMore from "@/components/ReadMore";
 import { Pagination } from "@mantine/core";
 
-export default function TableView({ services, onDeleteMany, onEdit }) {
+export default function TableView({ services, onDeleteMany, onEdit, isAdmin }) {
   const [selectedIds, setSelectedIds] = useState([]);
   const [page, setPage] = useState(1);
   const itemsPerPage = 5;
@@ -77,22 +77,26 @@ dark:border-slate-800/50 md:rounded-[2.5rem] border border-slate-200 shadow-xl m
         <table className="w-full text-left min-w-[600px]">
           <thead className="">
             <tr>
-              <th className="px-6 md:px-10 py-5">
+              {isAdmin == "ADMIN" && (
+                <th className="px-6 md:px-10 py-5">
                <Checkbox
                   checked={isAllSelected}
                   indeterminate={isIndeterminate}
                   onChange={toggleSelectAll}
-                />
+                  />
               </th>
+                )}
               <th className="px-6 md:px-10 py-5 text-[10px] font-black text-slate-400 dark:text-slate-100 uppercase tracking-widest">
                 Title
               </th>
               <th className="px-6 md:px-10 py-5 text-[10px] font-black text-slate-400 dark:text-slate-100 uppercase tracking-widest">
                 Description
               </th>
+              {isAdmin == "ADMIN" && (
               <th className="px-6 md:px-10 py-5 text-[10px] font-black text-slate-400 dark:text-slate-100 uppercase tracking-widest text-right">
                 Action
               </th>
+              )}
             </tr>
           </thead>
 
@@ -107,12 +111,14 @@ dark:border-slate-800/50 md:rounded-[2.5rem] border border-slate-200 shadow-xl m
                     isSelected ? "bg-blue-50/50" : ""
                   }`}
                 >
+                  {isAdmin == "ADMIN" && (
                   <td className="px-6 md:px-10 py-6">
                    <Checkbox
                       checked={isSelected}
                       onChange={() => toggleSelectOne(service.id)}
                     />
                   </td>
+                  )}
 
                   <td className="px-6 md:px-10 py-6 font-bold text-slate-900 dark:text-slate-100">
                     {service.title}
@@ -126,6 +132,7 @@ dark:border-slate-800/50 md:rounded-[2.5rem] border border-slate-200 shadow-xl m
                     />                                 
                   </td>
 
+                  {isAdmin == "ADMIN" && (
                  <td className="px-6 md:px-10 py-6 text-right flex flex-wrap justify-end gap-2">
                     <button
                         onClick={() => onEdit(service)}
@@ -141,6 +148,7 @@ dark:border-slate-800/50 md:rounded-[2.5rem] border border-slate-200 shadow-xl m
                         <Trash2 className="w-4 h-4" />
                     </button>
                     </td>
+                  )}
                 </tr>
               );
             })}

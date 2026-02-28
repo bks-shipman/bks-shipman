@@ -35,7 +35,7 @@ const fetcher = async () => {
     return await getMission();
 };
 
-export default function Mission() {
+export default function Mission({role}) {
     const { data, error, isLoading, mutate } = useSWR(
         "mission",
         fetcher,
@@ -126,17 +126,23 @@ dark:border-slate-800/50 p-12 rounded-[2.5rem] border border-slate-100 shadow-xl
                         <h3 className="text-xl font-bold flex items-center gap-3">
                             <Target className="w-5 h-5 text-blue-600" /> Mission
                         </h3>
-
-                        <Textarea
+                        {role === "ADMIN" ? (
+                            <Textarea
                             label="Company Mission"
                             autosize
                             minRows={4}
                             {...form.getInputProps("description")}
-                        />
+                            />
+                        ) : (
+                            <p>
+                                {data?.description}
+                            </p>
+                        )}
                     </div>
                     {/* ================= CONNECTIONS ================= */}
 
-                    <Button
+                    {role === "ADMIN" && (
+                        <Button
                         type="submit"
                         size="lg"
                         radius="xl"
@@ -144,9 +150,10 @@ dark:border-slate-800/50 p-12 rounded-[2.5rem] border border-slate-100 shadow-xl
                         disabled={!form.isValid()}
                         leftSection={<CheckCircle2 size={18} />}
                         className="w-fit! mx-auto"
-                    >
+                        >
                         Save Mission Data
                     </Button>
+                    )}
                 </div>
             </Box>
         </div>

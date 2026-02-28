@@ -12,12 +12,14 @@ import { UserPlus } from 'lucide-react';
 import { deleteService, getService } from '@/utils/api/dashboard/services';
 import TableView from '@/components/dashboard/services/TableView';
 import ServiceModal from '@/components/dashboard/services/ServiceModal';
+import { getUser } from '@/utils/auth';
 
 const fetcher = async () => {
     return await getService();
 };
 export default function Services() {
     const [opened, setOpened] = useState(false);
+    const user = getUser();
     const [selectedService, setSelectedService] = useState(null);
     const { data, error, isLoading, mutate } = useSWR(
         'services',
@@ -122,18 +124,21 @@ export default function Services() {
                     </h1>
                     <p className="text-slate-500 text-sm md:text-base">Manage the services offered by the company.</p>
                 </div>
-                <button
-                    onClick={handleCreate}
-                    className={`flex-1 md:flex-none flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all  bg-blue-600 hover:bg-blue-700 text-white shadow-lg shadow-blue-200 cursor-pointer`}
-                >
-                    <UserPlus className="w-4 h-4" /> Add Service
-                </button>
+                {user?.role === "ADMIN" && (
+                    <button
+                        onClick={handleCreate}
+                        className={`flex-1 md:flex-none flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all  bg-blue-600 hover:bg-blue-700 text-white shadow-lg shadow-blue-200 cursor-pointer`}
+                    >
+                        <UserPlus className="w-4 h-4" /> Add Service
+                    </button>
+                )}
             </header>
             <div className="max-w-6xl mx-auto pb-12">
                 <TableView
                     services={data}
                     onDeleteMany={openDeleteConfirm}
                     onEdit={handleEdit}
+                    isAdmin={user?.role}
                 />
             </div>
             <ServiceModal

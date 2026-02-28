@@ -31,6 +31,7 @@ import {
     Share2,
     Building2,
 } from "lucide-react";
+import { getUser } from "@/utils/auth";
 
 // ================= FETCHER =================
 const fetcher = async () => {
@@ -38,6 +39,16 @@ const fetcher = async () => {
 };
 
 export default function Company() {
+    const user = getUser();
+    const [isAdmin, setIsAdmin] = useState(true);
+
+    useEffect(() => {
+        if (user?.role === "ADMIN") {
+            setIsAdmin(true);
+        } else {
+            setIsAdmin(false);
+        }
+    }, [user]);
     const { data, error, isLoading, mutate } = useSWR(
         "company",
         fetcher,
@@ -159,18 +170,21 @@ export default function Company() {
                                     label="Phone Code"
                                     leftSection={<Phone size={14} />}
                                     placeholder="+62"
+                                    readOnly={!isAdmin}
                                     {...form.getInputProps("phone_code")}
                                 />
 
                                 <TextInput
                                     label="Phone Number"
                                     leftSection={<Phone size={14} />}
+                                    readOnly={!isAdmin}
                                     {...form.getInputProps("phone")}
                                 />
 
                                 <TextInput
                                     label="Public Email"
                                     leftSection={<Mail size={14} />}
+                                    readOnly={!isAdmin}
                                     {...form.getInputProps("email")}
                                 />
                             </div>
@@ -184,24 +198,28 @@ export default function Company() {
                                     <TextInput
                                         placeholder="Linkedin Link"
                                         leftSection={<Linkedin size={14} />}
+                                        readOnly={!isAdmin}
                                         {...form.getInputProps("linkedin")}
                                     />
 
                                     <TextInput
                                         placeholder="TikTok Link"
                                         leftSection={<Music2 size={14} />}
+                                        readOnly={!isAdmin}
                                         {...form.getInputProps("tiktok")}
                                     />
 
                                     <TextInput
                                         placeholder="Facebook Link"
                                         leftSection={<Facebook size={14} />}
+                                        readOnly={!isAdmin}
                                         {...form.getInputProps("facebook")}
                                     />
 
                                     <TextInput
                                         placeholder="Instagram Link"
                                         leftSection={<Instagram size={14} />}
+                                        readOnly={!isAdmin}
                                         {...form.getInputProps("instagram")}
                                     />
                                 </div>
@@ -219,6 +237,7 @@ export default function Company() {
                                 placeholder="Enter full company address"
                                 leftSection={<MapPin size={14} />}
                                 autosize
+                                readOnly={!isAdmin}
                                 {...form.getInputProps("address")}
                             />
 
@@ -226,22 +245,24 @@ export default function Company() {
                                 label="Google Maps URL"
                                 placeholder="https://maps.google.com/..."
                                 leftSection={<LinkIcon size={14} />}
+                                readOnly={!isAdmin}
                                 {...form.getInputProps("gmapsUrl")}
                             />
                         </div>
                     </div>
                     {/* ================= CONNECTIONS ================= */}
-
-                    <Button
-                        type="submit"
-                        size="lg"
-                        radius="xl"
-                        loading={actionLoading}
-                        leftSection={<CheckCircle2 size={18} />}
-                        className="w-fit! mx-auto"
-                    >
-                        Save Company Data
-                    </Button>
+                    {user?.role === "ADMIN" && (
+                        <Button
+                            type="submit"
+                            size="lg"
+                            radius="xl"
+                            loading={actionLoading}
+                            leftSection={<CheckCircle2 size={18} />}
+                            className="w-fit! mx-auto"
+                        >
+                            Save Company Data
+                        </Button>
+                    )}
                 </div>
             </Box>
         </div>

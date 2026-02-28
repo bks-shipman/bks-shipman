@@ -5,7 +5,7 @@ import { Ban, Pencil, Trash2 } from "lucide-react";
 import { Checkbox } from "@mantine/core";
 import ReadMore from "@/components/ReadMore";
 
-export default function TableView({ titles, onDeleteMany, onEdit }) {
+export default function TableView({ titles, onDeleteMany, onEdit, isAdmin }) {
   const [selectedIds, setSelectedIds] = useState([]);
 
   const isAllSelected =
@@ -66,13 +66,16 @@ export default function TableView({ titles, onDeleteMany, onEdit }) {
         <table className="w-full text-left min-w-[600px]">
           <thead className="">
             <tr>
-              <th className="px-6 md:px-10 py-5">
+              {isAdmin == "ADMIN" && (
+
+                <th className="px-6 md:px-10 py-5">
                <Checkbox
                   checked={isAllSelected}
                   indeterminate={isIndeterminate}
                   onChange={toggleSelectAll}
-                />
+                  />
               </th>
+                )}
               <th className="px-6 md:px-10 py-5 text-[10px] font-black text-slate-400 dark:text-slate-100 uppercase tracking-widest">
                 Section
               </th>
@@ -88,9 +91,12 @@ export default function TableView({ titles, onDeleteMany, onEdit }) {
               <th className="px-6 md:px-10 py-5 text-[10px] font-black text-slate-400 dark:text-slate-100 uppercase tracking-widest">
                 Tag
               </th>
-              <th className="px-6 md:px-10 py-5 text-[10px] font-black text-slate-400 dark:text-slate-100 uppercase tracking-widest text-right">
+              {isAdmin == "ADMIN" && (
+
+                <th className="px-6 md:px-10 py-5 text-[10px] font-black text-slate-400 dark:text-slate-100 uppercase tracking-widest text-right">
                 Action
               </th>
+              )}
             </tr>
           </thead>
 
@@ -105,12 +111,14 @@ export default function TableView({ titles, onDeleteMany, onEdit }) {
                     isSelected ? "bg-blue-50/50" : ""
                   }`}
                 >
-                  <td className="px-6 md:px-10 py-6">
+                  {isAdmin == "ADMIN" && (
+                    <td className="px-6 md:px-10 py-6">
                    <Checkbox
                       checked={isSelected}
                       onChange={() => toggleSelectOne(career.id)}
-                    />
+                      />
                   </td>
+                    )}
 
                   <td className="px-6 md:px-10 py-6 font-bold text-slate-900 dark:text-slate-100">
                     {career.type}
@@ -128,21 +136,23 @@ export default function TableView({ titles, onDeleteMany, onEdit }) {
                     {career.tag}
                   </td>
 
-                 <td className="px-6 md:px-10 py-6 text-right flex flex-wrap justify-end gap-2">
+                  {isAdmin == "ADMIN" && (
+                    <td className="px-6 md:px-10 py-6 text-right flex flex-wrap justify-end gap-2">
                     <button
                         onClick={() => onEdit(career)}
                         className="p-2 text-slate-300 hover:text-blue-600 cursor-pointer transition-colors"
-                    >
+                        >
                         <Pencil className="w-4 h-4" />
                     </button>
 
                     <button
                         onClick={() => onDeleteMany(career.id)}
                         className="p-2 text-slate-300 hover:text-red-600 cursor-pointer transition-colors"
-                    >
+                        >
                         <Trash2 className="w-4 h-4" />
                     </button>
                     </td>
+                    )}
                 </tr>
               );
             })}

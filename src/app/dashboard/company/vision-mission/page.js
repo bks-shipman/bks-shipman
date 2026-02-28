@@ -6,9 +6,11 @@ import { Eye, List, Target, UserPlus } from 'lucide-react';
 
 import Vision from '@/components/dashboard/vision-mission/Vision';
 import Mission from '@/components/dashboard/vision-mission/Mission';
+import { getUser } from '@/utils/auth';
 
 export default function Users() {
     const [view, setView] = useState("vision");
+    const user = getUser();
 
     return (
         <div className="w-full space-y-8 md:space-y-10">
@@ -42,10 +44,10 @@ export default function Users() {
 
             {/* Dynamic Content */}
             {view === "vision" &&
-                <Vision />
+                <Vision role={user?.role} />
             }
             {view === "mission" && (
-                <Mission />
+                <Mission role={user?.role} />
             )}
         </div>
     );

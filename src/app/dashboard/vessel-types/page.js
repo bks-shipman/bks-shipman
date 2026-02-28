@@ -15,12 +15,14 @@ import Loading from "@/components/Loading";
 import { nprogress } from "@mantine/nprogress";
 import { notifications } from "@mantine/notifications";
 import { modals } from "@mantine/modals";
+import { getUser } from "@/utils/auth";
 
 const fetcher = async () => {
     return await getVesselTypeData();
 };
 
 export default function VesselTypes() {
+    const user = getUser();
     const { data, error, isLoading, mutate } = useSWR(
         "vessel-types",
         fetcher,
@@ -201,23 +203,27 @@ export default function VesselTypes() {
                     onSubmit={form.onSubmit(handleAddType)}
                     className="flex flex-col sm:flex-row gap-4 mb-8"
                 >
-                    <TextInput
-                        placeholder="New vessel type name"
-                        {...form.getInputProps("name")}
-                        disabled={isEditing}
-                        className="grow"
-                    />
+                    {user?.role === "ADMIN" && (
+                        <>
+                            <TextInput
+                                placeholder="New vessel type name"
+                                {...form.getInputProps("name")}
+                                disabled={isEditing}
+                                className="grow"
+                            />
 
-                    <Button
-                        type="submit"
-                        radius="xl"
-                        size="md"
-                        leftSection={<Plus />}
-                        loading={actionLoading}
-                        disabled={isEditing}
-                    >
-                        Add Type
-                    </Button>
+                            <Button
+                                type="submit"
+                                radius="xl"
+                                size="md"
+                                leftSection={<Plus />}
+                                loading={actionLoading}
+                                disabled={isEditing}
+                            >
+                                Add Type
+                            </Button>
+                        </>
+                    )}
                 </Box>
 
                 {/* ================= LIST ================= */}
@@ -265,27 +271,28 @@ export default function VesselTypes() {
                                         <Anchor className="w-4 h-4 text-blue-500" />
                                         {t.name}
                                     </span>
+                                    {user?.role === "ADMIN" && (
+                                        <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-all">
+                                            <Button
+                                                size="xs"
+                                                variant="subtle"
+                                                disabled={isEditing}
+                                                onClick={() => startEditing(t)}
+                                            >
+                                                <Edit2 size={14} />
+                                            </Button>
 
-                                    <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-all">
-                                        <Button
-                                            size="xs"
-                                            variant="subtle"
-                                            disabled={isEditing}
-                                            onClick={() => startEditing(t)}
-                                        >
-                                            <Edit2 size={14} />
-                                        </Button>
-
-                                        <Button
-                                            size="xs"
-                                            color="red"
-                                            variant="subtle"
-                                            disabled={isEditing}
-                                            onClick={() => openDeleteConfirm(t.id, t.name)}
-                                        >
-                                            <Trash2 size={14} />
-                                        </Button>
-                                    </div>
+                                            <Button
+                                                size="xs"
+                                                color="red"
+                                                variant="subtle"
+                                                disabled={isEditing}
+                                                onClick={() => openDeleteConfirm(t.id, t.name)}
+                                            >
+                                                <Trash2 size={14} />
+                                            </Button>
+                                        </div>
+                                    )}
                                 </>
                             )}
                         </div>

@@ -105,9 +105,6 @@ export default function AboutUs() {
             formData.append("name", values.name);
             formData.append("quote", values.quote);
 
-            console.log(formData);
-
-
             if (values.photo) {
                 formData.append("photo", values.photo);
             }

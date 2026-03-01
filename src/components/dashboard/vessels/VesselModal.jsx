@@ -85,9 +85,6 @@ const [loading, setLoading] = useState(false);
       formData.append("country", values.country);
       formData.append("vesselTypeId", values.vesselTypeId);
 
-      console.log(formData);
-      
-
       if (values.photo) {
         formData.append("photo", values.photo);
       }

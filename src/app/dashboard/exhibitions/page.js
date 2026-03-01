@@ -8,7 +8,7 @@ import { notifications } from '@mantine/notifications';
 import { nprogress } from '@mantine/nprogress';
 import useSWR from 'swr';
 import { useState } from "react";
-import { CalendarCheck2, UserPlus } from 'lucide-react';
+import { CalendarCheck2 } from 'lucide-react';
 import { deleteExhibition, getExhibition } from '@/utils/api/dashboard/exhibitions';
 import TableView from '@/components/dashboard/exhibitions/TableView';
 import ExhibModal from '@/components/dashboard/exhibitions/ExhibModal';
@@ -54,8 +54,6 @@ export default function Exhibitions() {
         setSelectedExhibition(exhibition);
         setOpened(true);
     };
-    console.log(data);
-
 
     const openDeleteConfirm = (ids) => {
         modals.openConfirmModal({
@@ -89,8 +87,6 @@ export default function Exhibitions() {
             });
 
         } catch (err) {
-            console.log(err);
-
             notifications.show({
                 title: "Gagal",
                 message:

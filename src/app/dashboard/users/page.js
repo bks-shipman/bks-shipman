@@ -114,8 +114,6 @@ export default function Users() {
             });
 
         } catch (err) {
-            console.log(err);
-
             notifications.show({
                 title: "Gagal",
                 message:
@@ -128,9 +126,6 @@ export default function Users() {
             await mutate();
         }
     };
-    console.log(selectedUser);
-
-
 
     const handleEdit = (user) => {
         setSelectedUser(user);

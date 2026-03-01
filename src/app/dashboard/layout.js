@@ -16,27 +16,7 @@ export default function Dashboard({ children, title }) {
     const pathname = usePathname();
 
     if (!authorized) return null;
-    // const { user, loading } = useAuth("admin");
 
-    // if (loading) {
-    //     return (
-    //         <div className="flex items-center justify-center min-h-screen">
-    //             <Loader color="red" />
-    //         </div>
-    //     );
-    // }
-
-    console.log(opened);
-
-
-    const pageTitle = {
-        "/dashboard": "Dashboard",
-        "/dashboard/company": "Company",
-        "/dashboard/users": "User",
-        // "/admin/driver": "Driver",
-        // "/admin/sij": "Surat Izin Jalan",
-        // "/admin/order": "Riwayat Ritase",
-    }[pathname] || "BKS SHIPMAN";
     return (
         <AppShell
             padding="md"
@@ -59,7 +39,6 @@ export default function Dashboard({ children, title }) {
             </AppShell.Navbar>
 
             <AppShell.Main className="bg-slate-100 dark:bg-[#0b0f1a] p-6">
-                <Head title={pageTitle} />
                 <div className="w-full h-16 bg-white dark:bg-[#161b2b] dark:border-amber-50 rounded-xl shadow-normal! flex justify-between items-center mb-5 transition duration-200 py-4">
                     <DashboardNavbar
                         toggle={toggle}

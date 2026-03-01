@@ -53,8 +53,6 @@ export default function Vessels() {
         setSelectedVessel(vessel);
         setOpened(true);
     };
-    console.log(data);
-
 
     const openDeleteConfirm = (ids) => {
         modals.openConfirmModal({
@@ -88,8 +86,6 @@ export default function Vessels() {
             });
 
         } catch (err) {
-            console.log(err);
-
             notifications.show({
                 title: "Gagal",
                 message:

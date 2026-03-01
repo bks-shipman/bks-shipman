@@ -44,9 +44,6 @@ export default function Home() {
   const vesselsCount = data?.vesselsCount || 0;
   const exhibitionsCount = data?.exhibitionsCount || 0;
 
-  console.log(data);
-
-
   if (isLoading) {
     return (
       <Loading />
@@ -363,7 +360,7 @@ export default function Home() {
 
           <button
             onClick={prevImage}
-            className="absolute left-8 top-1/2 -translate-y-1/2 p-4 bg-white/5 hover:bg-white/10 rounded-full text-white transition-colors z-110"
+            className="absolute left-8 top-1/2 -translate-y-1/2 p-4 bg-black/60 hover:bg-black/70 cursor-pointer rounded-full text-white transition-colors z-110"
           >
             <ChevronLeft className="w-8 h-8" />
           </button>
@@ -386,7 +383,7 @@ export default function Home() {
 
           <button
             onClick={nextImage}
-            className="absolute right-8 top-1/2 -translate-y-1/2 p-4 bg-white/5 hover:bg-white/10 rounded-full text-white transition-colors z-110"
+            className="absolute right-8 top-1/2 -translate-y-1/2 p-4 bg-black/60 hover:bg-black/70 cursor-pointer rounded-full text-white transition-colors z-110"
           >
             <ChevronRight className="w-8 h-8" />
           </button>

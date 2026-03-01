@@ -137,9 +137,6 @@ export default function Login() {
                                     <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest group-focus-within:text-blue-600 transition-colors">
                                         Password
                                     </label>
-                                    {/* <button type="button" className="text-[10px] font-bold text-blue-600 uppercase tracking-widest hover:text-slate-900 transition-colors">
-                                        Forgot Key?
-                                    </button> */}
                                 </div>
                                 <div className="relative">
                                     <Lock className="absolute left-0 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-300 group-focus-within:text-blue-600 transition-colors" />

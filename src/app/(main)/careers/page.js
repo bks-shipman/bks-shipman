@@ -87,16 +87,6 @@ export default function Careers() {
                                             <span className="block text-slate-900 font-bold text-lg break-all">{email}</span>
                                         </div>
                                     </Link>
-
-                                    {/* <div className="flex items-center gap-6 p-6 bg-slate-900 text-white rounded-3xl">
-                                        <div className="p-2 rounded-2xl bg-white/10 flex items-center justify-center">
-                                            <MapPin className="w-6 h-6 text-blue-400" />
-                                        </div>
-                                        <div>
-                                            <span className="block text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1">Location</span>
-                                            <span className="font-bold text-sm">{address}</span>
-                                        </div>
-                                    </div> */}
                                 </div>
 
                                 <div className="pt-10 border-t border-slate-200">

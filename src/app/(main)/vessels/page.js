@@ -28,9 +28,6 @@ export default function Vessels() {
         }
     );
 
-    console.log(data);
-
-
     const titleVessel = data?.titles;
     const vessels = data?.vessels;
     const vesselTypes = useMemo(() => {
@@ -68,9 +65,6 @@ export default function Vessels() {
             return matchesType && matchesSearch;
         });
     }, [filter, searchTerm, vessels]);
-
-    console.log(filter);
-
 
     return (
         <div className="pb-24 bg-slate-50/50">
@@ -181,9 +175,6 @@ export default function Vessels() {
                                     <h3 className="text-3xl font-serif font-bold text-slate-950 group-hover:text-blue-600 transition-colors duration-300">
                                         {vessel.name}
                                     </h3>
-                                    {/* <div className="flex items-center gap-1.5 px-3 py-1 bg-green-50 text-green-600 text-[10px] font-bold rounded-full border border-green-100 uppercase tracking-tighter">
-                                        <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" /> Live
-                                    </div> */}
                                 </div>
 
                                 <p className="text-slate-500 leading-relaxed mb-8 text-sm font-medium opacity-80 group-hover:opacity-100 transition-opacity">

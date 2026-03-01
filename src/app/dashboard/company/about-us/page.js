@@ -12,12 +12,6 @@ import { useForm } from "@mantine/form";
 import { notifications } from "@mantine/notifications";
 import { nprogress } from "@mantine/nprogress";
 import Loading from "@/components/Loading";
-
-import {
-    getCompanyData,
-    updateCompany,
-} from "@/utils/api/dashboard/company";
-
 import {
     Mail,
     Phone,

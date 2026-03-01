@@ -26,10 +26,6 @@ export default function Exhibitions() {
         }
     );
 
-    console.log(data);
-
-
-
     const titleExhibition = data?.titles;
     const exhibitions = data?.exhibitions;
     const formattedDate = (dateStr) => {
@@ -82,7 +78,6 @@ export default function Exhibitions() {
                             key={ex.id || idx}
                             animation={isReversed ? "slideInRight" : "slideInLeft"}
                             duration={0.8}
-                        // className="md:w-1/2 relative overflow-hidden bg-slate-200 dark:bg-slate-900"
                         >
                             <div
                                 className={`group relative flex flex-col md:flex-row min-h-150 overflow-hidden border-b border-slate-100 ${isReversed ? 'md:flex-row-reverse' : ''
@@ -143,11 +138,6 @@ export default function Exhibitions() {
                                             className='text-slate-500 text-lg leading-relaxed mb-12 font-light opacity-80 group-hover:opacity-100 transition-all'
                                             buttonColor="text-blue-500 hover:text-blue-700"
                                         />
-
-                                        {/* Optional CTA */}
-                                        {/* <button className="inline-flex items-center gap-4 text-slate-900 dark:text-slate-200 font-bold uppercase tracking-[0.2em] text-[10px] group/link pb-2 border-b-2 border-slate-900/10 dark:border-white/10 hover:border-blue-600 dark:hover:border-blue-400 transition-all duration-500">
-                                            Explore Dossier <ArrowRight className="w-4 h-4 group-hover/link:translate-x-2 transition-transform" />
-                                        </button> */}
                                     </div>
                                 </div>
                             </div>
@@ -155,28 +145,6 @@ export default function Exhibitions() {
                     );
                 })}
             </section>
-
-            {/* Detailed Dossier Modal */}
-
-
-            {/* Footer CTA */}
-            {/* <section className="py-32 bg-slate-950 text-white relative overflow-hidden">
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[1px] bg-gradient-to-r from-transparent via-blue-500/50 to-transparent" />
-                <div className="max-w-4xl mx-auto px-4 text-center relative z-10">
-                    <h2 className="text-4xl md:text-6xl font-serif font-bold mb-10 leading-tight">Ready to shape the future of maritime?</h2>
-                    <p className="text-slate-400 text-xl mb-12 font-light leading-relaxed">
-                        Our strategic partnerships are the backbone of our operational success. Join us at our next major engagement.
-                    </p>
-                    <div className="flex flex-wrap justify-center gap-8">
-                        <button className="px-12 py-5 bg-white text-slate-950 rounded-full font-bold hover:bg-blue-600 hover:text-white transition-all transform hover:scale-105 shadow-2xl">
-                            Request Partner Access
-                        </button>
-                        <button className="px-12 py-5 border border-white/20 hover:bg-white/5 rounded-full font-bold transition-all">
-                            View Past Engagements
-                        </button>
-                    </div>
-                </div>
-            </section> */}
         </div>
     );
 }

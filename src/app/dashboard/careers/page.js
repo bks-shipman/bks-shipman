@@ -54,8 +54,6 @@ export default function Careers() {
         setSelectedCareer(career);
         setOpened(true);
     };
-    console.log(data);
-
 
     const openDeleteConfirm = (ids) => {
         modals.openConfirmModal({
@@ -89,7 +87,6 @@ export default function Careers() {
             });
 
         } catch (err) {
-            console.log(err);
 
             notifications.show({
                 title: "Gagal",

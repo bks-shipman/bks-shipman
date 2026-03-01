@@ -14,9 +14,6 @@ export default function UserModal({
 }) {
   const isEdit = !!user;
 
-  console.log(user);
-  
-
   const form = useForm({
     initialValues: {
       name: user?.name || "",

@@ -54,9 +54,6 @@ export default function Services() {
         setSelectedService(service);
         setOpened(true);
     };
-    console.log(data);
-
-
     const openDeleteConfirm = (ids) => {
         modals.openConfirmModal({
             title: "Konfirmasi Hapus",
@@ -89,8 +86,6 @@ export default function Services() {
             });
 
         } catch (err) {
-            console.log(err);
-
             notifications.show({
                 title: "Gagal",
                 message:

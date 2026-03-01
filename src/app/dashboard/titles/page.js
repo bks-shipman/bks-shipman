@@ -71,9 +71,6 @@ export default function Titles() {
         setSelectedTitle(title);
         setOpened(true);
     };
-    console.log(data);
-
-
     const openDeleteConfirm = (ids) => {
         modals.openConfirmModal({
             title: "Konfirmasi Hapus",
@@ -106,8 +103,6 @@ export default function Titles() {
             });
 
         } catch (err) {
-            console.log(err);
-
             notifications.show({
                 title: "Gagal",
                 message:

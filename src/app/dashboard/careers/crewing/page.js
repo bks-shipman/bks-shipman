@@ -165,7 +165,6 @@ export default function Crewing() {
                             />
                         </div>
                     </div>
-                    {/* ================= CONNECTIONS ================= */}
                     {user?.role === "ADMIN" && (
                         <Button
                             type="submit"

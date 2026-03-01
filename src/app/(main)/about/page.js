@@ -73,57 +73,9 @@ export default function About() {
                             className="rounded-2xl shadow-2xl object-cover"
                             alt="about us"
                         />
-
-                        {/* <div className="absolute bottom-10 -left-10 bg-white p-8 rounded-2xl shadow-xl max-w-xs">
-                            <span className="block text-4xl font-bold text-blue-600 mb-1">
-                                25+
-                            </span>
-                            <span className="text-slate-600 font-medium">
-                                Years of Excellence
-                            </span>
-                        </div> */}
                     </div>
                 </div>
             </section>
-
-            {/* <section className="bg-slate-900 py-24 text-white">
-                <div className="max-w-7xl mx-auto px-4">
-                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
-                        <div>
-                            <div className="text-6xl font-serif font-bold text-blue-400 mb-2">
-                                200+
-                            </div>
-                            <div className="text-slate-400 uppercase text-sm">
-                                Vessels Managed
-                            </div>
-                        </div>
-                        <div>
-                            <div className="text-6xl font-serif font-bold text-blue-400 mb-2">
-                                4,500+
-                            </div>
-                            <div className="text-slate-400 uppercase text-sm">
-                                Seafarers
-                            </div>
-                        </div>
-                        <div>
-                            <div className="text-6xl font-serif font-bold text-blue-400 mb-2">
-                                45
-                            </div>
-                            <div className="text-slate-400 uppercase text-sm">
-                                Nationalities
-                            </div>
-                        </div>
-                        <div>
-                            <div className="text-6xl font-serif font-bold text-blue-400 mb-2">
-                                0
-                            </div>
-                            <div className="text-slate-400 uppercase text-sm">
-                                Major Incidents
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section> */}
         </div>
     );
 }

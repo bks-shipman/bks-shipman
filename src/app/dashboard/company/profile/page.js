@@ -171,6 +171,7 @@ export default function Company() {
                                     leftSection={<Phone size={14} />}
                                     placeholder="+62"
                                     readOnly={!isAdmin}
+                                    maxLength={4}
                                     {...form.getInputProps("phone_code")}
                                 />
 

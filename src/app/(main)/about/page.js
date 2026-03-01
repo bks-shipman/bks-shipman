@@ -60,7 +60,7 @@ export default function About() {
 
                         <div className="space-y-6 text-slate-600">
                             <MotionWrapper animation="slideInUp" duration={1} delay={0.3}>
-                                <p className='text-lg'>{aboutUs?.description}</p>
+                                <p className='text-lg whitespace-pre-line'>{aboutUs?.description}</p>
                             </MotionWrapper>
                         </div>
                     </div>

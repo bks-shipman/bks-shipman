@@ -103,8 +103,8 @@ export function MotionWrapper({
  */
 export function StaggerContainer({
   children,
-  staggerDelay = 0.1,
-  animation = "fadeInUp",
+  staggerDelay = 0.4,
+  animation = "slideInUp",
   className = "",
 }) {
   const { ref, inView } = useInView({

@@ -10,6 +10,7 @@ import Script from "next/script";
 import { ModalsProvider } from "@mantine/modals";
 import { NavigationProgress } from "@mantine/nprogress";
 import "@mantine/nprogress/styles.css";
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -57,6 +58,7 @@ export default async function RootLayout({ children }) {
         className={`${poppins.variable} antialiased`}
       >
         <main className="min-h-screen w-full">
+          <SpeedInsights />
           <MantineProvider
             defaultColorScheme="auto"
             withGlobalStyles

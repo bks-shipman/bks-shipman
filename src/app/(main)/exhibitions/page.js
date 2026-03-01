@@ -104,7 +104,7 @@ export default function Exhibitions() {
                                         delay={0.5}
                                         className={`absolute top-6 md:top-12 ${isReversed ? 'left-6 md:left-12' : 'right-6 md:right-12'}`}
                                     >
-                                        <div className="p-6 bg-white/10 backdrop-blur-2xl border border-white/20 rounded-3xl text-white shadow-2xl">
+                                        <div className="p-6 bg-black/40 backdrop-blur-2xl border border-black/20 rounded-3xl text-white shadow-2xl">
                                             <div className="flex items-center gap-3 mb-1">
                                                 <Calendar className="w-4 h-4 text-blue-400" />
                                                 <span className="text-[10px] font-bold uppercase tracking-[0.2em]">
@@ -135,7 +135,7 @@ export default function Exhibitions() {
                                         <ReadMore
                                             text={ex?.description}
                                             wordLimit={20}
-                                            className='text-slate-500 text-lg leading-relaxed mb-12 font-light opacity-80 group-hover:opacity-100 transition-all'
+                                            className='text-slate-500 text-lg leading-relaxed mb-12 font-light opacity-80 group-hover:opacity-100 transition-all whitespace-pre-line'
                                             buttonColor="text-blue-500 hover:text-blue-700"
                                         />
                                     </div>

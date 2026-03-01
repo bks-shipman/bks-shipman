@@ -15,12 +15,17 @@ import useSWR from 'swr';
 import Counter from '@/components/Counter';
 import Loading from '@/components/Loading';
 import { MotionWrapper, StaggerContainer } from '@/components/MotionWrapper';
+import { motion, AnimatePresence } from 'motion/react';
 
 const fetcher = async () => {
   return await getLandingPage();
 }
 export default function Home() {
   const [selectedImage, setSelectedImage] = useState(null);
+  const [touchStart, setTouchStart] = useState(null);
+  const [touchEnd, setTouchEnd] = useState(null);
+
+  const minSwipeDistance = 50;
   const { data, error, isLoading } = useSWR(
     'landing-page',
     fetcher,
@@ -63,6 +68,38 @@ export default function Home() {
   const openGallery = (idx) => setSelectedImage(idx);
   const nextImage = () => setSelectedImage(prev => prev !== null ? (prev + 1) % gallery.length : null);
   const prevImage = () => setSelectedImage(prev => prev !== null ? (prev - 1 + gallery.length) % gallery.length : null);
+  const onTouchStart = (e) => {
+    setTouchEnd(null); // Reset end position
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMove = (e) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+
+    if (isLeftSwipe) {
+      nextImage();
+    } else if (isRightSwipe) {
+      prevImage();
+    }
+  };
+
+  const handleDragEnd = (event, info) => {
+    const swipeThreshold = 50; // Jarak minimal swipe dalam pixel
+    if (info.offset.x < -swipeThreshold) {
+      nextImage(); // Swipe ke kiri -> Gambar selanjutnya
+    } else if (info.offset.x > swipeThreshold) {
+      prevImage(); // Swipe ke kanan -> Gambar sebelumnya
+    }
+  };
+
 
   return (
     <div className="bg-white selection:bg-blue-600 selection:text-white w-full">
@@ -348,9 +385,15 @@ export default function Home() {
         </section>
       )}
 
-      {/* Lightbox Modal - Updated with Black Blurred Background */}
       {selectedImage !== null && (
-        <div className="fixed inset-0 z-100 flex items-center justify-center bg-black/95 backdrop-blur-3xl p-4 md:p-12 animate-in fade-in duration-500">
+        <div
+          className="fixed inset-0 z-100 flex items-center justify-center bg-black/95 backdrop-blur-3xl p-4 md:p-12 animate-in fade-in duration-500"
+          // Tambahkan 3 baris di bawah ini
+          onTouchStart={onTouchStart}
+          onTouchMove={onTouchMove}
+          onTouchEnd={onTouchEnd}
+        >
+          {/* Tombol Close */}
           <button
             onClick={() => setSelectedImage(null)}
             className="cursor-pointer absolute top-8 right-8 text-white/50 hover:text-white transition-colors z-110"
@@ -358,32 +401,63 @@ export default function Home() {
             <X className="w-10 h-10" />
           </button>
 
+          {/* Tombol Prev (Sembunyikan di Mobile jika ingin clean, karena sudah ada swipe) */}
           <button
             onClick={prevImage}
-            className="absolute left-8 top-1/2 -translate-y-1/2 p-4 bg-black/60 hover:bg-black/70 cursor-pointer rounded-full text-white transition-colors z-110"
+            className="md:flex absolute left-8 top-1/2 -translate-y-1/2 p-4 bg-black/60 hover:bg-black/70 cursor-pointer rounded-full text-white transition-colors z-110"
           >
             <ChevronLeft className="w-8 h-8" />
           </button>
 
-          <div className="max-w-6xl w-full flex flex-col items-center relative">
-            <Image
-              width={600}
-              height={400}
-              src={gallery[selectedImage]?.photo}
-              alt={gallery[selectedImage]?.name}
-              className="max-w-full max-h-[75vh] object-contain rounded-3xl shadow-[0_0_100px_rgba(0,0,0,0.5)] animate-in zoom-in-95 duration-500"
-            />
-            <div className="mt-12 text-center max-w-2xl px-4">
-              <p className="text-white text-4xl font-serif font-bold mb-6 tracking-tight drop-shadow-sm leading-tight">
-                {gallery[selectedImage]?.name}
-              </p>
-              <div className="h-1 w-24 bg-blue-600 mx-auto rounded-full"></div>
-            </div>
+          <div className="max-w-5xl w-full relative flex flex-col items-center justify-center">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={selectedImage}
+                drag="x"
+                dragConstraints={{ left: 0, right: 0 }}
+                dragElastic={0.7}
+                onDragEnd={handleDragEnd}
+                initial={{ opacity: 0, scale: 0.95, x: 50 }}
+                animate={{ opacity: 1, scale: 1, x: 0 }}
+                exit={{ opacity: 0, scale: 0.95, x: -50 }}
+                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                className="w-full flex flex-col items-center cursor-grab active:cursor-grabbing touch-none"
+              >
+
+                {/* PERBAIKAN UTAMA DI SINI */}
+                {/* Kita hapus aspect-ratio dan gunakan tinggi maksimal berdasarkan layar (vh) */}
+                <div className="relative w-full h-[60vh] md:h-[70vh] flex items-center justify-center">
+                  <Image
+                    fill // Biarkan Next.js yang menghitung dimensinya
+                    src={gallery[selectedImage]?.photo}
+                    alt={gallery[selectedImage]?.name}
+                    // Gunakan object-contain agar gambar UTUH 100% tidak ada yang dipotong
+                    className="object-contain pointer-events-none drop-shadow-2xl rounded-xl"
+                    priority
+                  />
+
+                  {/* Indikator Angka */}
+                  <div className="absolute top-0 right-4 md:right-0 bg-black/60 backdrop-blur-md px-4 py-1.5 rounded-full text-white/80 text-[10px] font-black tracking-widest z-10">
+                    {selectedImage + 1} / {gallery.length}
+                  </div>
+                </div>
+
+                {/* Caption Teks */}
+                <div className="mt-8 text-center max-w-2xl px-4 pointer-events-none">
+                  <h2 className="text-white text-3xl md:text-4xl font-serif font-bold mb-4 tracking-tight leading-tight">
+                    {gallery[selectedImage]?.name}
+                  </h2>
+                  <div className="h-1.5 w-16 bg-blue-600 mx-auto rounded-full shadow-lg shadow-blue-600/50"></div>
+                </div>
+
+              </motion.div>
+            </AnimatePresence>
           </div>
 
+          {/* Tombol Next */}
           <button
             onClick={nextImage}
-            className="absolute right-8 top-1/2 -translate-y-1/2 p-4 bg-black/60 hover:bg-black/70 cursor-pointer rounded-full text-white transition-colors z-110"
+            className="md:flex absolute right-8 top-1/2 -translate-y-1/2 p-4 bg-black/60 hover:bg-black/70 cursor-pointer rounded-full text-white transition-colors z-110"
           >
             <ChevronRight className="w-8 h-8" />
           </button>

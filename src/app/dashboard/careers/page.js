@@ -79,6 +79,9 @@ export default function Careers() {
             nprogress.start()
             const idArray = Array.isArray(ids) ? ids : [ids];
 
+            console.log(idArray);
+
+
             const res = await deleteCareer(idArray); // simpan response
             notifications.show({
                 title: "Berhasil",

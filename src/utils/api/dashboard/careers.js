@@ -8,14 +8,14 @@ export async function getCareer() {
 
 export async function createCareer(formData) {
     const res = await axiosInstance.post("/careers", formData, {
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "multipart/form-data" },
     });
     return res.data;
 }
 
 export async function updateCareer(id, formData) {
     const res = await axiosInstance.put(`/careers/${id}`, formData, {
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "multipart/form-data" },
     });
     return res.data;
 }

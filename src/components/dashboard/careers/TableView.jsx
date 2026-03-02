@@ -89,7 +89,10 @@ dark:border-slate-800/50 rounded-4xl md:rounded-[2.5rem] border border-slate-200
                 Title
               </th>
               <th className="px-6 md:px-10 py-5 text-[10px] font-black text-slate-800 dark:text-slate-100 uppercase tracking-widest">
-                Description
+                Positions
+              </th>
+              <th className="px-6 md:px-10 py-5 text-[10px] font-black text-slate-800 dark:text-slate-100 uppercase tracking-widest">
+                Requirements
               </th>
               {isAdmin == "ADMIN" && (
                 <th className="px-6 md:px-10 py-5 text-[10px] font-black text-slate-800 dark:text-slate-100 uppercase tracking-widest text-right">
@@ -125,11 +128,20 @@ dark:border-slate-800/50 rounded-4xl md:rounded-[2.5rem] border border-slate-200
 
                   <td className="px-6 md:px-10 py-6 text-slate-900 dark:text-slate-100">
                    <ReadMore
-                      text={career.description}
+                      text={career.positions}
                       wordLimit={12}
                       buttonColor="text-blue-400 hover:text-blue-600"
                     />                                 
                   </td>
+                  
+                  <td className="px-6 md:px-10 py-6 text-slate-900 dark:text-slate-100">
+                   <ReadMore
+                      text={career.requirements}
+                      wordLimit={12}
+                      buttonColor="text-blue-400 hover:text-blue-600"
+                    />                                 
+                  </td>
+
               {isAdmin == "ADMIN" && (
                  <td className="px-6 md:px-10 py-6 text-right flex flex-wrap justify-end gap-2">
                     <button

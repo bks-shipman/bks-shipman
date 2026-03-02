@@ -26,19 +26,26 @@ export default function CareerModal({
   onSuccess,
 }) {
   const isEdit = !!career;
+  const [preview, setPreview] = useState(null);
 const [loading, setLoading] = useState(false);
   const form = useForm({
     initialValues: {
       title: "",
-      description: "",
+      positions: "",
+      requirements: "",
+      photo: null,
+
     },
 
     validate: {
       title: (value) =>
         !value ? "Title wajib diisi" : null,
 
-      description: (value) =>
-        !value ? "Description wajib diisi" : null,
+      positions: (value) =>
+        !value ? "Positions wajib diisi" : null,
+
+      requirements: (value) =>
+        !value ? "Requirements wajib diisi" : null,
     },
   });
 
@@ -47,12 +54,18 @@ const [loading, setLoading] = useState(false);
     if (opened && career) {
       form.setValues({
         title: career.title || "",
-        description: career.description || "",
+        positions: career.positions || "",
+        requirements: career.requirements || "",
+        photo: career.photo || "",
       });
+       if (career.photo) {
+        setPreview(career.photo);
+      }
     }
 
     if (opened && !career) {
       form.reset();
+      setPreview(null);
     }
   }, [career, opened]);
 
@@ -64,7 +77,12 @@ const [loading, setLoading] = useState(false);
 
       const formData = new FormData();
       formData.append("title", values.title);
-      formData.append("description", values.description);      
+      formData.append("positions", values.positions);
+      formData.append("requirements", values.requirements);
+
+      if (values.photo) {
+        formData.append("photo", values.photo);
+      }
 
       if (isEdit) {
         await updateCareer(career.id, formData);
@@ -116,11 +134,67 @@ const [loading, setLoading] = useState(false);
         />
 
         <Textarea
-          label="Description"
+          label="Positions"
           autosize
           minRows={3}
-          {...form.getInputProps("description")}
+          {...form.getInputProps("positions")}
         />
+
+        <Textarea
+          label="Requirements"
+          autosize
+          minRows={3}
+          {...form.getInputProps("requirements")}
+        />
+
+          <div className="flex flex-col gap-3">
+                  <Dropzone
+                    accept={IMAGE_MIME_TYPE}
+                    multiple={false}
+                    onDrop={(files) => {
+                      const file = files[0];
+                      if (file) {
+                        form.setFieldValue("photo", file);
+                        setPreview(URL.createObjectURL(file));
+                      }
+                    }}
+                    className="w-full h-50 border-2 border-dashed border-gray-300 rounded-xl flex justify-center items-center overflow-hidden cursor-pointer hover:bg-gray-50 transition relative"
+                  >
+                    {!preview ? (
+                      <div className="flex flex-col items-center text-center text-gray-600">
+                        <ImageUp
+                          width={50}
+                          height={50}
+                          color="#1c7ed6"
+                        />
+                        <p className="mt-2 text-sm font-medium">
+                          Klik atau tarik gambar
+                        </p>
+                      </div>
+                    ) : (
+                      <Image
+                        src={preview}
+                        alt="Preview"
+                        fill
+                        className="object-cover rounded-xl"
+                      />
+                    )}
+                  </Dropzone>
+        
+                  {preview && (
+                    <Button
+                      size="xs"
+                      variant="light"
+                      color="red"
+                      onClick={() => {
+                        setPreview(null);
+                        form.setFieldValue("photo", null);
+                      }}
+                    >
+                      Hapus Gambar
+                    </Button>
+                  )}
+                </div>
 
 
         <Button type="submit" disabled={!form.isValid()} loading={loading} fullWidth radius="xl">

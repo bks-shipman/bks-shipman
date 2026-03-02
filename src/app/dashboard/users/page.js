@@ -168,7 +168,7 @@ export default function Users() {
                 <>
                     {view === "list" &&
                         <div className="max-w-6xl mx-auto pb-12">
-                            <TableView users={data} onSuspend={openSuspendConfirm} onDeleteMany={openDeleteConfirm} isAdmin={user?.role === "ADMIN"} />
+                            <TableView users={data} onSuspend={openSuspendConfirm} onDeleteMany={openDeleteConfirm} isAdmin={user?.role} />
                         </div>
                     }
                     {view === "add" && (

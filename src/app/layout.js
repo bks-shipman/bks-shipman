@@ -26,7 +26,7 @@ export const metadata = {
     template: "%s | BKS SHIPMAN",
   },
   description: "BKS SHIPMAN menyediakan solusi manajemen kapal profesional termasuk manajemen teknis, kru, dan komersial.",
-  manifest: "/manifest.json",
+  manifest: "/site.webmanifest",
   icons: {
     icon: "/favicon-32x32.png",
     apple: "/apple-touch-icon.png",

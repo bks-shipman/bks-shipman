@@ -7,8 +7,12 @@ const axiosInstance = axios.create({
 
 // Tambahkan token dari cookie secara otomatis
 axiosInstance.interceptors.request.use((config) => {
-    const token = Cookies.get("token");
-    if (token) config.headers.Authorization = `Bearer ${token}`;
+    if (typeof window !== "undefined") {
+        const token = Cookies.get("token");
+        if (token) {
+            config.headers.Authorization = `Bearer ${token}`;
+        }
+    }
     return config;
 });
 

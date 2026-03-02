@@ -2,7 +2,13 @@ import axiosInstance from "../axios";
 
 // Ambil semua SIJ
 export async function getExhibitionPage() {
-    const res = await axiosInstance.get(`/exhibition-page`);
-    return res.data;
+    try {
+        const res = await axiosInstance.get(`/exhibition-page`);
+        console.log("EXHIBITION DATA:", res.data);
+        return res.data;
+    } catch (err) {
+        console.log("ERROR EXHIBITION:", err.response?.data);
+        return null;
+    }
 }
 

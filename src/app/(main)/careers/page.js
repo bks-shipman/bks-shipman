@@ -2,12 +2,13 @@
 
 import Hero from '@/components/Hero';
 import { JOBS } from '@/lib/constants';
-import { Mail, Phone, MapPin, ArrowRight, MessageSquare, Send } from 'lucide-react';
+import { Mail, Phone, MapPin, ArrowRight, MessageSquare, Send, CheckCircle2, CircleSmall } from 'lucide-react';
 import useSWR from 'swr';
 import { getCareerPage } from '@/utils/api/careerPage';
 import Loading from '@/components/Loading';
 import { MotionWrapper } from '@/components/MotionWrapper';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const fetcher = async () => {
     return await getCareerPage();
@@ -102,52 +103,90 @@ export default function Careers() {
                     {/* Right Section: Vacancies */}
                     <div className="lg:col-span-8">
                         <MotionWrapper animation="slideInRight" duration={1} delay={0.3}>
-                            <div className={`space-y-8 transition-all duration-1000 delay-300`}>
+                            <div className={`space-y-12 transition-all duration-1000 delay-300`}>
                                 <div className="flex items-end justify-between flex-wrap mb-12">
                                     <h3 className="text-5xl font-serif font-bold text-slate-950">Active Vacancies</h3>
                                     <span className="text-slate-400 font-bold text-sm uppercase tracking-widest">{career?.length} Opportunities</span>
                                 </div>
+
                                 <MotionWrapper animation="scaleIn" duration={1} delay={0.8}>
-                                    {career?.map((job, idx) => (
-                                        <div
-                                            key={job.id}
-                                            style={{ transitionDelay: `${idx * 150}ms` }}
-                                            className="group bg-white p-10 md:p-14 rounded-[3rem] border border-slate-100 shadow-sm hover:shadow-2xl hover:border-blue-600/10 transition-all duration-500"
-                                        >
-                                            <div className="flex flex-col gap-10">
-                                                <div>
-                                                    <h4 className="text-3xl font-serif font-bold text-slate-950 mb-6 group-hover:text-blue-600 transition-colors">
-                                                        {job.title}
-                                                    </h4>
-                                                    <div className="h-1 w-20 bg-blue-600 mb-8 rounded-full"></div>
-                                                    <p className="text-slate-500 text-lg leading-relaxed font-light italic">
-                                                        {job.description}
-                                                    </p>
+                                    {career?.map((job, idx) => {
+                                        // Membersihkan dan memecah string menjadi array berdasarkan koma
+                                        const positionsList = job.positions ? job.positions.split(',').map(item => item.trim()).filter(Boolean) : [];
+                                        const requirementsList = job.requirements ? job.requirements.split(',').map(item => item.trim()).filter(Boolean) : [];
+
+                                        return (
+                                            <div
+                                                key={job.id}
+                                                style={{ transitionDelay: `${idx * 150}ms` }}
+                                                className="group bg-white rounded-[3rem] border border-slate-100 shadow-sm hover:shadow-2xl hover:border-blue-600/20 transition-all duration-500 overflow-hidden mb-12 flex flex-col"
+                                            >
+                                                {/* Photo Section */}
+                                                {job.photo && (
+                                                    <div className="relative w-full h-64 md:h-80 overflow-hidden bg-slate-100">
+                                                        <Image
+                                                            src={job.photo}
+                                                            alt={job.title}
+                                                            fill
+                                                            className="object-cover group-hover:scale-105 transition-transform duration-700"
+                                                        />
+                                                        <div className="absolute inset-0 bg-linear-to-t from-slate-900/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                                                    </div>
+                                                )}
+
+                                                {/* Content Section */}
+                                                <div className="p-10 md:p-14 flex flex-col gap-10 relative bg-white">
+                                                    {/* Title */}
+                                                    <div>
+                                                        <h4 className="text-3xl md:text-4xl font-serif font-bold text-slate-950 mb-6 group-hover:text-blue-600 transition-colors">
+                                                            {job.title}
+                                                        </h4>
+                                                        <div className="h-1.5 w-20 bg-blue-600 mb-2 rounded-full"></div>
+                                                    </div>
+
+                                                    {/* Lists Grid */}
+                                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+                                                        {/* Positions */}
+                                                        {positionsList.length > 0 && (
+                                                            <div>
+                                                                <h5 className="text-sm font-semibold tracking-[0.2em] uppercase text-slate-600 mb-6 flex items-center gap-2">
+                                                                    <div className="w-2 h-2 rounded-full bg-blue-600"></div>
+                                                                    Available Positions
+                                                                </h5>
+                                                                <ul className="space-y-3">
+                                                                    {positionsList.map((pos, i) => (
+                                                                        <li key={i} className="flex items-start gap-3">
+                                                                            <CircleSmall className="w-5 h-5 text-blue-600 shrink-0 mt-0.5" />
+                                                                            <span className="text-slate-800 font-semibold leading-relaxed">{pos}</span>
+                                                                        </li>
+                                                                    ))}
+                                                                </ul>
+                                                            </div>
+                                                        )}
+
+                                                        {/* Requirements */}
+                                                        {requirementsList.length > 0 && (
+                                                            <div>
+                                                                <h5 className="text-sm font-semibold tracking-[0.2em] uppercase text-slate-600 mb-6 flex items-center gap-2">
+                                                                    <div className="w-2 h-2 rounded-full bg-green-500"></div>
+                                                                    Requirements
+                                                                </h5>
+                                                                <ul className="space-y-4">
+                                                                    {requirementsList.map((req, i) => (
+                                                                        <li key={i} className="flex items-start gap-3">
+                                                                            <CheckCircle2 className="w-5 h-5 text-green-500 shrink-0 mt-0.5" />
+                                                                            <span className="text-slate-600 leading-relaxed text-sm">{req}</span>
+                                                                        </li>
+                                                                    ))}
+                                                                </ul>
+                                                            </div>
+                                                        )}
+                                                    </div>
                                                 </div>
-
-                                                {/* <div className="flex flex-wrap items-center justify-between gap-8 pt-10 border-t border-slate-50">
-                                            <div className="flex items-center gap-2 text-blue-600 font-black text-[10px] uppercase tracking-widest">
-                                                <Send className="w-4 h-4" /> Ready to Apply?
                                             </div>
-                                            <button className="inline-flex items-center gap-4 px-10 py-5 bg-slate-950 hover:bg-blue-600 text-white rounded-full font-bold transition-all transform hover:scale-105 shadow-xl">
-                                                Apply Now <ArrowRight className="w-5 h-5" />
-                                            </button>
-                                        </div> */}
-                                            </div>
-                                        </div>
-                                    ))}
+                                        );
+                                    })}
                                 </MotionWrapper>
-
-                                {/* General Application CTA
-                            <div className="p-12 bg-blue-600 rounded-[3rem] text-white text-center shadow-2xl shadow-blue-600/20">
-                                <h4 className="text-3xl font-serif font-bold mb-6">Unsolicited Application</h4>
-                                <p className="text-blue-100 mb-10 max-w-xl mx-auto leading-relaxed">
-                                    Don't see a specific fit for your expertise? Our fleet is growing and we are always looking for visionary maritime professionals.
-                                </p>
-                                <button className="px-12 py-5 bg-white text-blue-600 rounded-full font-bold hover:bg-slate-900 hover:text-white transition-all transform hover:scale-105">
-                                    Submit General Interest
-                                </button>
-                            </div> */}
                             </div>
                         </MotionWrapper>
                     </div>

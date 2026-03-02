@@ -4,12 +4,45 @@ import Link from 'next/link';
 import { Ship, Mail, Phone, MapPin, Facebook, Linkedin, Instagram, Music2 } from 'lucide-react';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
+import { getFooterPage } from '@/utils/api/footer';
+import useSWR from 'swr';
+import Loading from './Loading';
 
-export default function Footer({ data }) {
+const fetcher = async () => {
+  return await getFooterPage();
+}
+export default function Footer() {
   const [year, setYear] = useState('')
   useEffect(() => {
   setYear(new Date().getFullYear());
 }, []);
+
+const { data, error, isLoading } = useSWR(
+    'footer-page',
+    fetcher,
+    {
+      revalidateOnFocus: false,
+      dedupingInterval: 60000,
+    }
+  );
+if (isLoading) {
+    return (
+      <Loading />
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <p className="text-red-500 font-bold">
+          Failed to load data.
+        </p>
+      </div>
+    );
+  }
+
+  console.log(data);
+  
   return (
     <footer className="bg-slate-900 text-slate-300 pt-16 pb-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -21,10 +54,10 @@ export default function Footer({ data }) {
             </Link>
             <p className="text-slate-400">Leading the way in global ship management with a commitment to safety and innovation.</p>
             <div className="flex space-x-4 pt-2">
-              <Link href={data?.linkedin || "#"} className="hover:text-blue-400"><Linkedin className="w-5 h-5" /></Link>
-              <Link href={data?.instagram || "#"} className="hover:text-blue-400"><Instagram className="w-5 h-5" /></Link>
-              <Link href={data?.facebook || "#"} className="hover:text-blue-400"><Facebook className="w-5 h-5" /></Link>
-              <Link href={data?.tiktok || "#"} className="hover:text-blue-400"><Music2 className="w-5 h-5" /></Link>
+              <Link href={data?.company?.linkedin || "#"} className="hover:text-blue-400"><Linkedin className="w-5 h-5" /></Link>
+              <Link href={data?.company?.instagram || "#"} className="hover:text-blue-400"><Instagram className="w-5 h-5" /></Link>
+              <Link href={data?.company?.facebook || "#"} className="hover:text-blue-400"><Facebook className="w-5 h-5" /></Link>
+              <Link href={data?.company?.tiktok || "#"} className="hover:text-blue-400"><Music2 className="w-5 h-5" /></Link>
             </div>
           </div>
 
@@ -53,15 +86,15 @@ export default function Footer({ data }) {
             <ul className="space-y-4">
               <li className="flex items-start gap-3">
                 <MapPin className="w-5 h-5 text-blue-400 shrink-0" />
-                <span><Link href={data?.gmapsUrl}>{data?.address}</Link></span>
+                <span><Link href={data?.company?.gmapsUrl || "#"}>{data?.company?.address}</Link></span>
               </li>
               <li className="flex items-center gap-3">
                 <Phone className="w-5 h-5 text-blue-400" />
-                <span>+{data?.phone_code} {data?.phone || "+65 6789 1234"}</span>
+                <span>+{data?.company?.phone_code} {data?.company?.phone || ""}</span>
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="w-5 h-5 text-blue-400" />
-                <span>{data?.email || "contact@oceanicblue.com"}</span>
+                <span>{data?.company?.email || "contact@oceanicblue.com"}</span>
               </li>
             </ul>
           </div>

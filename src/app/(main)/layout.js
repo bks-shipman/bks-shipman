@@ -4,14 +4,12 @@ import Footer from "@/components/Footer";
 import { getFooterPage } from '@/utils/api/footer';
 
 export default async function LayoutLanding({ children }) {
-  let footerData = null;
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/footer-page`,
+    { cache: "no-store" }
+  );
 
-  try {
-    // Membungkus fetch dalam try-catch untuk menangani kegagalan network/API
-    footerData = await getFooterPage();
-  } catch (error) {
-    console.error("Gagal mengambil data footer:", error);
-  }
+  const footerData = await res.json();
   return (
     <>
       <Navbar />

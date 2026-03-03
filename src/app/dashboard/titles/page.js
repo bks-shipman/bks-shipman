@@ -32,6 +32,7 @@ export default function Titles() {
         "VESSELS",
         "EXHIBITIONS",
         "CAREERS",
+        "CERTIFICATES"
     ];
     const { data, error, isLoading, mutate } = useSWR(
         'titles',

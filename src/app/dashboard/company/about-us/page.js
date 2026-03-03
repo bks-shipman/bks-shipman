@@ -1,170 +1,60 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import useSWR from "swr";
-import {
-    TextInput,
-    Button,
-    Box,
-    Textarea,
-} from "@mantine/core";
-import { useForm } from "@mantine/form";
-import { notifications } from "@mantine/notifications";
-import { nprogress } from "@mantine/nprogress";
-import Loading from "@/components/Loading";
-import {
-    Mail,
-    Phone,
-    MapPin,
-    Link as LinkIcon,
-    Linkedin,
-    Music2,
-    Facebook,
-    Instagram,
-    CheckCircle2,
-    Share2,
-    Building2,
-    Info,
-} from "lucide-react";
-import { getAboutUs, updateAboutUs } from "@/utils/api/dashboard/aboutUs";
-import { getUser } from "@/utils/auth";
-import { u } from "motion/react-client";
+import React, { use, useState } from 'react'
+import { deleteUser, getUsersData, suspendUsers } from '@/utils/api/dashboard/users';
+import useSWR from 'swr';
+import CreateView from '@/components/dashboard/users/CreateView';
+import { File, Info, List, UserPlus } from 'lucide-react';
+import { Button, Group, Text } from '@mantine/core';
+import { notifications } from '@mantine/notifications';
+import { nprogress } from '@mantine/nprogress';
+import { modals } from '@mantine/modals';
+import UserModal from '@/components/dashboard/users/UserModal';
+import SuspendModal from '@/components/dashboard/users/SuspendModal';
+import Loading from '@/components/Loading';
+import AboutUs from '@/components/dashboard/about-us/AboutUs';
+import TableView from '@/components/dashboard/certificates/TableView';
 
-// ================= FETCHER =================
-const fetcher = async () => {
-    return await getAboutUs();
-};
-
-export default function AboutUs() {
-    const user = getUser();
-    const { data, error, isLoading, mutate } = useSWR(
-        "about-us",
-        fetcher,
-        {
-            revalidateOnFocus: false,
-            dedupingInterval: 60000,
-        }
-    );
-
-    const [actionLoading, setActionLoading] = useState(false);
-
-    const form = useForm({
-        initialValues: {
-            description: ""
-        },
-        validateInputOnChange: true,
-        validateInputOnBlur: true,
-
-        validate: {
-            description: (value) =>
-                !value
-                    ? "Deskripsi harus diisi"
-                    : null,
-        }
-    });
-
-    // ================= SET DATA =================
-    useEffect(() => {
-        if (data) {
-            form.setValues({
-                description: data.description || ""
-            });
-        }
-    }, [data]);
-
-    // ================= SUBMIT =================
-    const handleSubmit = async (values) => {
-        try {
-            setActionLoading(true);
-            nprogress.start();
-
-            await updateAboutUs({
-                description: values.description,
-            });
-
-            notifications.show({
-                title: "Berhasil",
-                message: "About Us berhasil diperbarui.",
-                color: "green",
-            });
-
-            mutate();
-        } catch (err) {
-            notifications.show({
-                title: "Gagal Update",
-                message:
-                    err.response?.data?.message || "Terjadi kesalahan.",
-                color: "red",
-            });
-        } finally {
-            setActionLoading(false);
-            nprogress.complete();
-        }
-    };
-
-    if (isLoading) return <Loading />;
-
-    if (error) {
-        return (
-            <div className="flex justify-center items-center h-screen">
-                <p className="text-red-500 font-bold">
-                    Failed to load data.
-                </p>
-            </div>
-        );
-    }
+export default function About() {
+    const [view, setView] = useState("about");
 
     return (
-        <div className="space-y-12 animate-in fade-in duration-500">
-            <header>
-                <h1 className="text-4xl font-serif font-bold text-slate-900 mb-2 dark:text-slate-100">
-                    Company About
-                </h1>
-                <p className="text-slate-500">
-                    Define what's company about.
-                </p>
+        <div className="w-full space-y-8 md:space-y-10">
+            {/* Header */}
+            <header className="flex flex-col lg:flex-row lg:items-end justify-end gap-6 mb-8 lg:mb-12">
+
+                <div className="flex bg-white p-1.5 rounded-2xl border border-slate-100 shadow-sm w-full md:w-fit">
+                    <button
+                        onClick={() => setView('about')}
+                        className={`cursor-pointer flex-1 md:flex-none flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${view === 'about' ? 'bg-blue-600 text-white shadow-lg shadow-blue-200' : 'text-slate-400 hover:text-slate-900'
+                            }`}
+                    >
+                        <Info className="w-4 h-4" /> About Us
+                    </button>
+                    <button
+                        onClick={() => setView('certificate')}
+                        className={`cursor-pointer flex-1 md:flex-none flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${view === 'certificate' ? 'bg-blue-600 text-white shadow-lg shadow-blue-200' : 'text-slate-400 hover:text-slate-900'
+                            }`}
+                    >
+                        <File className="w-4 h-4" /> Certificates
+                    </button>
+                </div>
             </header>
 
-            <Box
-                component="form"
-                onSubmit={form.onSubmit(handleSubmit)}
-                className=""
-            >
-                <div className="space-y-10 w-full flex flex-col justify-center max-w-4xl mx-auto pb-12">
-                    <div className="bg-white dark:bg-[#161b2b] p-12 rounded-[2.5rem] border border-slate-100 dark:border-slate-800/50 shadow-xl space-y-4">
-                        <h3 className="text-xl font-bold flex items-center gap-3">
-                            <Info className="w-5 h-5 text-blue-600" /> About Us
-                        </h3>
-
-                        {user?.role === "ADMIN" ? (
-                            <Textarea
-                                label="Company Description"
-                                autosize
-                                minRows={4}
-                                {...form.getInputProps("description")}
-                            />
-                        ) : (
-                            <p>
-                                {data?.description}
-                            </p>
-                        )}
+            {/* Dynamic Content */}
+            <>
+                {view === "about" &&
+                    <div className="max-w-6xl mx-auto pb-12">
+                        <AboutUs />
                     </div>
-                    {/* ================= CONNECTIONS ================= */}
-                    {user?.role === "ADMIN" && (
-                        <Button
-                            type="submit"
-                            size="lg"
-                            radius="xl"
-                            loading={actionLoading}
-                            disabled={!form.isValid()}
-                            leftSection={<CheckCircle2 size={18} />}
-                            className="w-fit! mx-auto"
-                        >
-                            Save About Us Data
-                        </Button>
-                    )}
-                </div>
-            </Box>
+                }
+                {view === "certificate" && (
+                    <div className="max-w-6xl mx-auto pb-12">
+                        <TableView />
+                    </div>
+                )}
+            </>
+
         </div>
     );
 }

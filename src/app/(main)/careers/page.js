@@ -119,23 +119,42 @@ export default function Careers() {
                                             <div
                                                 key={job.id}
                                                 style={{ transitionDelay: `${idx * 150}ms` }}
-                                                className="group bg-white rounded-[3rem] border border-slate-100 shadow-sm hover:shadow-2xl hover:border-blue-600/20 transition-all duration-500 overflow-hidden mb-12 flex flex-col"
+                                                // 1. UBAH DI SINI: flex-col (HP) jadi md:flex-row (Desktop)
+                                                className="group bg-white rounded-[2.5rem] md:rounded-[3rem] border border-slate-100 shadow-sm hover:shadow-2xl hover:border-blue-600/20 transition-all duration-500 overflow-hidden mb-12 flex flex-col md:flex-row"
                                             >
-                                                {/* Photo Section */}
+                                                {/* Photo Section (Kiri pada Desktop) */}
                                                 {job.photo && (
-                                                    <div className="relative w-full h-64 md:h-80 overflow-hidden bg-slate-100">
-                                                        <Image
-                                                            src={job.photo}
-                                                            alt={job.title}
-                                                            fill
-                                                            className="object-cover group-hover:scale-105 transition-transform duration-700"
-                                                        />
-                                                        <div className="absolute inset-0 bg-linear-to-t from-slate-900/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                                                    </div>
+                                                    <>
+                                                        <div className="relative hidden w-full md:w-5/12 shrink-0 bg-slate-50 border-b md:border-b-0 md:border-r border-slate-100 p-8 md:p-4 md:flex items-center justify-center">
+                                                            <Image
+                                                                src={job.photo}
+                                                                alt={job.title}
+                                                                width={0}
+                                                                height={0}
+                                                                sizes="(max-width: 768px) 100vw, 40vw"
+                                                                style={{ width: '100%', height: 'auto' }}
+                                                                // Tambahkan rounded dan shadow agar poster terlihat menonjol
+                                                                className="rounded-2xl shadow-lg group-hover:scale-[1.02] transition-transform duration-700"
+                                                            />
+                                                        </div>
+                                                        <div className="relative w-full md:hidden overflow-hidden bg-slate-50 border-b border-slate-100">
+                                                            <Image
+                                                                src={job.photo}
+                                                                alt={job.title}
+                                                                width={0}
+                                                                height={0}
+                                                                sizes="100vw"
+                                                                style={{ width: '100%', height: 'auto' }} // Ini kunci agar rasionya utuh
+                                                                className="group-hover:scale-[1.02] transition-transform duration-700"
+                                                            />
+                                                            <div className="absolute inset-0 bg-linear-to-t from-slate-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                                                        </div>
+                                                    </>
                                                 )}
 
-                                                {/* Content Section */}
-                                                <div className="p-10 md:p-14 flex flex-col gap-10 relative bg-white">
+                                                {/* Content Section (Kanan pada Desktop) */}
+                                                {/* 3. UBAH DI SINI: Gunakan flex-1 agar teks mengisi sisa ruang yang ada */}
+                                                <div className="flex-1 p-10 md:p-12 lg:p-14 flex flex-col gap-10 relative bg-white justify-center">
                                                     {/* Title */}
                                                     <div>
                                                         <h4 className="text-3xl md:text-4xl font-serif font-bold text-slate-950 mb-6 group-hover:text-blue-600 transition-colors">
@@ -145,7 +164,8 @@ export default function Careers() {
                                                     </div>
 
                                                     {/* Lists Grid */}
-                                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+                                                    {/* 4. UBAH DI SINI: Jadi xl:grid-cols-2 agar teks tidak terlalu berdempetan saat bersanding dengan foto */}
+                                                    <div className="grid grid-cols-1 xl:grid-cols-2 gap-12">
                                                         {/* Positions */}
                                                         {positionsList.length > 0 && (
                                                             <div>
@@ -156,7 +176,7 @@ export default function Careers() {
                                                                 <ul className="space-y-3">
                                                                     {positionsList.map((pos, i) => (
                                                                         <li key={i} className="flex items-start gap-3">
-                                                                            <CircleSmall className="w-5 h-5 text-blue-600 shrink-0 mt-0.5" />
+                                                                            <CircleSmall className="w-6 h-6 text-blue-600 shrink-0 mt-0" />
                                                                             <span className="text-slate-800 font-semibold leading-relaxed">{pos}</span>
                                                                         </li>
                                                                     ))}

@@ -46,7 +46,7 @@ if (isLoading) {
   return (
     <footer className="bg-slate-900 text-slate-300 pt-16 pb-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 mb-12">
           <div className="space-y-4">
             <Link href="/" className="flex items-center gap-2">
               <Image src={"/logo.png"} alt='logo' width={40} height={40} />
@@ -71,7 +71,7 @@ if (isLoading) {
             </ul>
           </div>
 
-          <div>
+          {/* <div>
             <h4 className="text-lg font-bold text-white mb-6">Services</h4>
             <ul className="space-y-3">
               <li className="hover:text-white cursor-pointer">Technical Management</li>
@@ -79,7 +79,7 @@ if (isLoading) {
               <li className="hover:text-white cursor-pointer">Commercial Operations</li>
               <li className="hover:text-white cursor-pointer">HSEQ Services</li>
             </ul>
-          </div>
+          </div> */}
 
           <div>
             <h4 className="text-lg font-bold text-white mb-6">Contact Us</h4>

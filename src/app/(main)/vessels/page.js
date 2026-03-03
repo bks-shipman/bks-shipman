@@ -2,7 +2,6 @@
 
 import { useState, useMemo, useEffect } from 'react';
 import Hero from '@/components/Hero';
-import { VESSELS } from '@/lib/constants';
 import { Search, Filter, X, ArrowRight, Anchor, Activity, Info, Users, Box, Ship, Calendar } from 'lucide-react';
 import { getVesselPage } from '@/utils/api/vesselPage';
 import useSWR from 'swr';
@@ -210,43 +209,49 @@ export default function Vessels() {
 
                 {/* Vessel Details Modal */}
                 {selectedVessel && (
-                    <div className="fixed inset-0 z-100 flex items-center justify-center bg-slate-950/90 backdrop-blur-md p-4 animate-in fade-in duration-300">
-                        <div className="bg-white rounded-[3rem] animate-in zoom-in-95 duration-500 relative max-w-5xl w-full shadow-2xl overflow-hidden border border-slate-100 flex flex-col md:flex-row h-auto max-h-[90vh]">
+                    <div className="fixed inset-0 z-100 flex items-center justify-center bg-slate-950/90 backdrop-blur-md p-4 md:p-8 animate-in fade-in duration-300">
+                        {/* HAPUS md:flex-row di sini, biarkan default flex-col */}
+                        <div className="bg-white rounded-[3rem] animate-in zoom-in-95 duration-500 relative max-w-4xl w-full shadow-2xl overflow-hidden border border-slate-100 flex flex-col h-auto max-h-[90vh]">
 
-                            {/* Photo Section */}
-                            <div className="md:w-1/2 relative min-h-75 md:h-auto">
+                            {/* Tombol Close dipindah ke luar agar tetap di pojok kanan atas modal */}
+                            <button
+                                onClick={() => setSelectedVessel(null)}
+                                className="absolute top-6 right-6 p-3 bg-white/50 backdrop-blur-md hover:bg-red-500 hover:text-white rounded-full transition-all group z-20 cursor-pointer shadow-lg"
+                            >
+                                <X className="w-6 h-6 transition-transform group-hover:rotate-90" />
+                            </button>
+
+                            {/* Photo Section (Atas) */}
+                            {/* Ubah md:w-1/2 menjadi w-full, dan atur tinggi maksimalnya */}
+                            <div className="w-full relative h-64 sm:h-80 md:h-80 shrink-0">
                                 <img
                                     src={selectedVessel.photo}
                                     alt={selectedVessel.name}
                                     className="absolute inset-0 w-full h-full object-cover"
                                 />
-                                <div className="absolute inset-0 bg-linear-to-t from-slate-950/60 via-transparent to-transparent"></div>
-                                <div className="absolute bottom-10 left-10">
-                                    <div className="px-4 py-2 bg-blue-600/90 backdrop-blur-md text-white text-[10px] font-black uppercase tracking-widest rounded-xl inline-block">
+                                <div className="absolute inset-0 bg-linear-to-t from-slate-950/80 via-slate-950/20 to-transparent"></div>
+                                <div className="absolute bottom-6 left-8 md:bottom-8 md:left-10">
+                                    <div className="px-4 py-2 bg-blue-600 backdrop-blur-md text-white text-[10px] font-black uppercase tracking-widest rounded-xl inline-block shadow-lg shadow-blue-600/30">
                                         {selectedVessel.vesselType.name}
                                     </div>
                                 </div>
                             </div>
 
-                            {/* Info Section */}
-                            <div className="md:w-1/2 p-10 md:p-16 overflow-y-auto">
-                                <button
-                                    onClick={() => setSelectedVessel(null)}
-                                    className="absolute top-8 right-8 p-3 bg-slate-50 hover:bg-blue-600 hover:text-white rounded-full transition-all group z-10 cursor-pointer"
-                                >
-                                    <X className="w-6 h-6 transition-transform group-hover:rotate-90" />
-                                </button>
+                            {/* Info Section (Bawah) */}
+                            {/* Hapus md:w-1/2 agar memenuhi lebar penuh, dan biarkan bisa di-scroll (overflow-y-auto) */}
+                            <div className="w-full p-8 md:p-10 lg:p-12 overflow-y-auto bg-white rounded-t-3xl -mt-6 relative z-10">
 
-                                <div className="space-y-10">
+                                <div className="space-y-8">
                                     <div>
                                         <div className="flex items-center gap-3 mb-4">
                                             <div className="w-8 h-1 bg-blue-600 rounded-full"></div>
                                             <span className="text-[10px] font-black uppercase tracking-[0.3em] text-blue-600">Vessel Profile</span>
                                         </div>
-                                        <h2 className="text-4xl lg:text-5xl font-serif font-bold mb-6 text-slate-950 leading-tight">
+                                        <h2 className="text-3xl md:text-5xl font-serif font-bold mb-6 text-slate-950 leading-tight">
                                             {selectedVessel.name}
                                         </h2>
-                                        <div className="text-slate-500 text-lg leading-relaxed font-light whitespace-pre-line">
+                                        {/* Wrapper untuk Markdown */}
+                                        <div className="text-slate-600 text-base md:text-lg leading-relaxed font-light whitespace-pre-line prose prose-slate max-w-none">
                                             <ReactMarkdown
                                                 remarkPlugins={[remarkMath]}
                                                 rehypePlugins={[rehypeKatex]}
@@ -256,19 +261,19 @@ export default function Vessels() {
                                         </div>
                                     </div>
 
-                                    {/* The technical specs requested: Built, IMO, Country */}
-                                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 py-10 border-t border-b border-slate-100">
-                                        <div className="space-y-2">
+                                    {/* The technical specs */}
+                                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-6 py-8 border-t border-slate-100 mt-8">
+                                        <div className="space-y-2 bg-slate-50 p-4 rounded-2xl border border-slate-100">
                                             <span className="block text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Year Built</span>
-                                            <span className="text-xl font-bold text-slate-900">{selectedVessel.year}</span>
+                                            <span className="text-lg md:text-xl font-bold text-slate-900">{selectedVessel.year}</span>
                                         </div>
-                                        <div className="space-y-2">
+                                        <div className="space-y-2 bg-slate-50 p-4 rounded-2xl border border-slate-100">
                                             <span className="block text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">IMO Number</span>
-                                            <span className="text-xl font-bold text-slate-900">{selectedVessel.imo}</span>
+                                            <span className="text-lg md:text-xl font-bold text-slate-900">{selectedVessel.imo}</span>
                                         </div>
-                                        <div className="space-y-2">
+                                        <div className="space-y-2 bg-slate-50 p-4 rounded-2xl border border-slate-100 col-span-2 sm:col-span-1">
                                             <span className="block text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Country</span>
-                                            <span className="text-xl font-bold text-slate-900">{selectedVessel.country}</span>
+                                            <span className="text-lg md:text-xl font-bold text-slate-900">{selectedVessel.country}</span>
                                         </div>
                                     </div>
                                 </div>

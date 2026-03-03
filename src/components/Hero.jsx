@@ -6,7 +6,7 @@ import { MotionWrapper } from "./MotionWrapper";
 
 export default function Hero({ title, subtitle, imageUrl, overlay = true }) {
   return (
-    <section className="relative h-[60vh] md:h-[70vh] flex items-center justify-center overflow-hidden">
+    <section className="relative h-[60vh] md:h-[80vh] flex items-center justify-center overflow-hidden">
       <div 
         className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-700 hover:scale-105"
         style={{ backgroundImage: `url(${imageUrl})` }}

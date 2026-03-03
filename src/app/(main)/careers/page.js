@@ -9,12 +9,19 @@ import Loading from '@/components/Loading';
 import { MotionWrapper } from '@/components/MotionWrapper';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useState } from 'react';
+import { X, ChevronLeft, ChevronRight } from 'lucide-react';
+import { AnimatePresence, motion } from 'motion/react';
 
 const fetcher = async () => {
     return await getCareerPage();
 };
 
 export default function Careers() {
+    const [selectedImage, setSelectedImage] = useState(null);
+    const [touchStart, setTouchStart] = useState(null);
+    const [touchEnd, setTouchEnd] = useState(null);
+    const minSwipeDistance = 50; // Jarak minimal untuk dianggap sebagai swipe
     const { data, error, isLoading } = useSWR(
         'career-page',
         fetcher,
@@ -44,13 +51,46 @@ export default function Careers() {
             </div>
         );
     }
+    const openGallery = (idx) => setSelectedImage(idx);
+    const nextImage = () => setSelectedImage(prev => prev !== null ? (prev + 1) % career.length : null);
+    const prevImage = () => setSelectedImage(prev => prev !== null ? (prev - 1 + career.length) % career.length : null);
+    const onTouchStart = (e) => {
+        setTouchEnd(null); // Reset end position
+        setTouchStart(e.targetTouches[0].clientX);
+    };
 
+    const onTouchMove = (e) => {
+        setTouchEnd(e.targetTouches[0].clientX);
+    };
+
+    const onTouchEnd = () => {
+        if (!touchStart || !touchEnd) return;
+
+        const distance = touchStart - touchEnd;
+        const isLeftSwipe = distance > minSwipeDistance;
+        const isRightSwipe = distance < -minSwipeDistance;
+
+        if (isLeftSwipe) {
+            nextImage();
+        } else if (isRightSwipe) {
+            prevImage();
+        }
+    };
+
+    const handleDragEnd = (event, info) => {
+        const swipeThreshold = 50; // Jarak minimal swipe dalam pixel
+        if (info.offset.x < -swipeThreshold) {
+            nextImage(); // Swipe ke kiri -> Gambar selanjutnya
+        } else if (info.offset.x > swipeThreshold) {
+            prevImage(); // Swipe ke kanan -> Gambar sebelumnya
+        }
+    };
     return (
         <div className="pb-24 bg-white">
             <Hero
                 title={titleCareer?.title}
                 subtitle={titleCareer?.subtitle}
-                imageUrl="https://images.unsplash.com/photo-1524522173746-f628baad3644?auto=format&fit=crop&q=80&w=1920"
+                imageUrl="/career.jpeg"
             />
 
             <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-24">
@@ -131,10 +171,11 @@ export default function Careers() {
                                                                 alt={job.title}
                                                                 width={0}
                                                                 height={0}
+                                                                onClick={() => openGallery(idx)}
                                                                 sizes="(max-width: 768px) 100vw, 40vw"
                                                                 style={{ width: '100%', height: 'auto' }}
                                                                 // Tambahkan rounded dan shadow agar poster terlihat menonjol
-                                                                className="rounded-2xl shadow-lg group-hover:scale-[1.02] transition-transform duration-700"
+                                                                className="rounded-2xl shadow-lg group-hover:scale-[1.02] transition-transform duration-700 cursor-pointer"
                                                             />
                                                         </div>
                                                         <div className="relative w-full md:hidden overflow-hidden bg-slate-50 border-b border-slate-100">
@@ -143,9 +184,10 @@ export default function Careers() {
                                                                 alt={job.title}
                                                                 width={0}
                                                                 height={0}
+                                                                onClick={() => openGallery(idx)}
                                                                 sizes="100vw"
                                                                 style={{ width: '100%', height: 'auto' }} // Ini kunci agar rasionya utuh
-                                                                className="group-hover:scale-[1.02] transition-transform duration-700"
+                                                                className="group-hover:scale-[1.02] transition-transform duration-700 cursor-pointer"
                                                             />
                                                             <div className="absolute inset-0 bg-linear-to-t from-slate-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
                                                         </div>
@@ -209,6 +251,84 @@ export default function Careers() {
                                 </MotionWrapper>
                             </div>
                         </MotionWrapper>
+                        {selectedImage !== null && (
+                            <div
+                                className="fixed inset-0 z-100 flex items-center justify-center bg-black/95 backdrop-blur-3xl p-4 md:p-12 animate-in fade-in duration-500"
+                                // Tambahkan 3 baris di bawah ini
+                                onTouchStart={onTouchStart}
+                                onTouchMove={onTouchMove}
+                                onTouchEnd={onTouchEnd}
+                            >
+                                {/* Tombol Close */}
+                                <button
+                                    onClick={() => setSelectedImage(null)}
+                                    className="cursor-pointer absolute top-8 right-8 text-white/50 hover:text-white transition-colors z-110"
+                                >
+                                    <X className="w-10 h-10" />
+                                </button>
+
+                                {/* Tombol Prev (Sembunyikan di Mobile jika ingin clean, karena sudah ada swipe) */}
+                                <button
+                                    onClick={prevImage}
+                                    className="md:flex absolute left-8 top-1/2 -translate-y-1/2 p-4 bg-black/60 hover:bg-black/70 cursor-pointer rounded-full text-white transition-colors z-110"
+                                >
+                                    <ChevronLeft className="w-8 h-8" />
+                                </button>
+
+                                <div className="max-w-5xl w-full relative flex flex-col items-center justify-center">
+                                    <AnimatePresence mode="wait">
+                                        <motion.div
+                                            key={selectedImage}
+                                            drag="x"
+                                            dragConstraints={{ left: 0, right: 0 }}
+                                            dragElastic={0.7}
+                                            onDragEnd={handleDragEnd}
+                                            initial={{ opacity: 0, scale: 0.95, x: 50 }}
+                                            animate={{ opacity: 1, scale: 1, x: 0 }}
+                                            exit={{ opacity: 0, scale: 0.95, x: -50 }}
+                                            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                                            className="w-full flex flex-col items-center cursor-grab active:cursor-grabbing touch-none"
+                                        >
+
+                                            {/* PERBAIKAN UTAMA DI SINI */}
+                                            {/* Kita hapus aspect-ratio dan gunakan tinggi maksimal berdasarkan layar (vh) */}
+                                            <div className="relative w-full h-[60vh] md:h-[90vh] flex items-center justify-center">
+                                                <Image
+                                                    fill // Biarkan Next.js yang menghitung dimensinya
+                                                    src={career[selectedImage]?.photo}
+                                                    alt={career[selectedImage]?.title}
+                                                    // Gunakan object-contain agar gambar UTUH 100% tidak ada yang dipotong
+                                                    className="object-contain pointer-events-none drop-shadow-2xl rounded-xl"
+                                                    priority
+                                                />
+
+                                                {/* Indikator Angka */}
+                                                <div className="absolute top-0 right-4 md:right-0 bg-black/60 backdrop-blur-md px-4 py-1.5 rounded-full text-white/80 text-[10px] font-black tracking-widest z-10">
+                                                    {selectedImage + 1} / {career.length}
+                                                </div>
+                                            </div>
+
+                                            {/* Caption Teks */}
+                                            {/* <div className="mt-8 text-center max-w-2xl px-4 pointer-events-none">
+                                                <h2 className="text-white text-3xl md:text-4xl font-serif font-bold mb-4 tracking-tight leading-tight">
+                                                    {career[selectedImage]?.title}
+                                                </h2>
+                                                <div className="h-1.5 w-16 bg-blue-600 mx-auto rounded-full shadow-lg shadow-blue-600/50"></div>
+                                            </div> */}
+
+                                        </motion.div>
+                                    </AnimatePresence>
+                                </div>
+
+                                {/* Tombol Next */}
+                                <button
+                                    onClick={nextImage}
+                                    className="md:flex absolute right-8 top-1/2 -translate-y-1/2 p-4 bg-black/60 hover:bg-black/70 cursor-pointer rounded-full text-white transition-colors z-110"
+                                >
+                                    <ChevronRight className="w-8 h-8" />
+                                </button>
+                            </div>
+                        )}
                     </div>
 
                 </div >

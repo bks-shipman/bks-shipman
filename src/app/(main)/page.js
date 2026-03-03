@@ -48,6 +48,7 @@ export default function Home() {
   const gallery = data?.gallery || [];
   const vesselsCount = data?.vesselsCount || 0;
   const exhibitionsCount = data?.exhibitionsCount || 0;
+  const careersCount = data?.careersCount || 0;
 
   if (isLoading) {
     return (
@@ -99,6 +100,9 @@ export default function Home() {
       prevImage(); // Swipe ke kanan -> Gambar sebelumnya
     }
   };
+
+  // console.log(gallery);
+
 
 
   return (
@@ -163,8 +167,8 @@ export default function Home() {
                 <div className="text-slate-400 text-[10px] uppercase tracking-[0.2em] font-black">Exhibitions Managed</div>
               </div>
               <div>
-                <div className="text-5xl font-serif font-bold text-white mb-2"><Counter end={0} suffix="" /></div>
-                <div className="text-slate-400 text-[10px] uppercase tracking-[0.2em] font-black">HSEQ Deviations</div>
+                <div className="text-5xl font-serif font-bold text-white mb-2"><Counter end={careersCount} suffix="" /></div>
+                <div className="text-slate-400 text-[10px] uppercase tracking-[0.2em] font-black">Job Openings</div>
               </div>
             </div>
           </MotionWrapper>
@@ -445,7 +449,12 @@ export default function Home() {
                 {/* Caption Teks */}
                 <div className="mt-8 text-center max-w-2xl px-4 pointer-events-none">
                   <h2 className="text-white text-3xl md:text-4xl font-serif font-bold mb-4 tracking-tight leading-tight">
-                    {gallery[selectedImage]?.name}
+                    <Link
+                      href={`/${gallery[selectedImage]?.type}s`}
+                      className="hover:underline pointer-events-auto cursor-pointer"
+                    >
+                      {gallery[selectedImage]?.name}
+                    </Link>
                   </h2>
                   <div className="h-1.5 w-16 bg-blue-600 mx-auto rounded-full shadow-lg shadow-blue-600/50"></div>
                 </div>

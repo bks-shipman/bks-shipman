@@ -53,7 +53,7 @@ export default function Exhibitions() {
             <Hero
                 title={titleExhibition?.title}
                 subtitle={titleExhibition?.subtitle}
-                imageUrl="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=1920"
+                imageUrl="/exhibition.jpeg"
             />
 
             {/* Intro Context */}

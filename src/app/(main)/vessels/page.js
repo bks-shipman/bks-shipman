@@ -8,6 +8,11 @@ import { getVesselPage } from '@/utils/api/vesselPage';
 import useSWR from 'swr';
 import Image from 'next/image';
 import Loading from '@/components/Loading';
+import ReactMarkdown from 'react-markdown';
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
+import 'katex/dist/katex.min.css'; // WAJIB DIIMPORT: CSS agar pangkatnya rapi
+import MarkdownReadMore from '@/components/MarkdownReadMore';
 
 const fetcher = async () => {
     return await getVesselPage();
@@ -177,9 +182,9 @@ export default function Vessels() {
                                     </h3>
                                 </div>
 
-                                <p className="text-slate-500 leading-relaxed mb-8 text-sm font-medium opacity-80 group-hover:opacity-100 transition-opacity">
-                                    {vessel.description}
-                                </p>
+                                <div className="text-slate-500 leading-relaxed mb-8 text-sm font-medium opacity-80 group-hover:opacity-100 transition-opacity">
+                                    <MarkdownReadMore text={vessel.description} wordLimit={100} />
+                                </div>
 
                                 <div className="pt-8 border-t border-slate-100 flex justify-between items-end">
                                     <div className="space-y-4">
@@ -241,9 +246,14 @@ export default function Vessels() {
                                         <h2 className="text-4xl lg:text-5xl font-serif font-bold mb-6 text-slate-950 leading-tight">
                                             {selectedVessel.name}
                                         </h2>
-                                        <p className="text-slate-500 text-lg leading-relaxed font-light">
-                                            {selectedVessel.description}
-                                        </p>
+                                        <div className="text-slate-500 text-lg leading-relaxed font-light whitespace-pre-line">
+                                            <ReactMarkdown
+                                                remarkPlugins={[remarkMath]}
+                                                rehypePlugins={[rehypeKatex]}
+                                            >
+                                                {selectedVessel.description}
+                                            </ReactMarkdown>
+                                        </div>
                                     </div>
 
                                     {/* The technical specs requested: Built, IMO, Country */}

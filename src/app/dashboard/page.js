@@ -46,7 +46,7 @@ export default function Dashboard() {
                     { label: 'Total Vessels', value: data?.vesselsCount || 0, icon: Ship, color: 'text-blue-600' },
                     { label: 'Total Admins', value: data?.usersCount || 0, icon: Users, color: 'text-cyan-600' },
                     { label: 'Job Openings', value: data?.careersCount || 0, icon: Briefcase, color: 'text-green-600' },
-                    { label: 'Exhibitions', value: data?.exhibitionsCounts || 0, icon: Globe, color: 'text-purple-600' },
+                    { label: 'Exhibitions', value: data?.exhibitionsCount || 0, icon: Globe, color: 'text-purple-600' },
                 ].map((stat, i) => {
                     const Icon = stat.icon;
                     return (

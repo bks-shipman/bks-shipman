@@ -34,6 +34,7 @@ export default function Careers() {
     const career = data?.career;
     const phone = data?.phone;
     const phoneCode = data?.phoneCode;
+    const cleanPhone = phone ? phone.replace(/\D/g, '') : '';
     const email = data?.email;
 
     if (isLoading) {
@@ -109,7 +110,7 @@ export default function Careers() {
                                 </div>
 
                                 <div className="space-y-6">
-                                    <a href="tel:+6567891234" className="group flex items-center gap-6 p-6 bg-white border border-slate-100 rounded-3xl hover:border-blue-200 hover:shadow-xl transition-all">
+                                    <a href={`https://wa.me/${phoneCode}${cleanPhone}`} className="group flex items-center gap-6 p-6 bg-white border border-slate-100 rounded-3xl hover:border-blue-200 hover:shadow-xl transition-all">
                                         <div className="w-14 h-14 rounded-2xl bg-blue-50 flex items-center justify-center text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-all">
                                             <Phone className="w-6 h-6" />
                                         </div>

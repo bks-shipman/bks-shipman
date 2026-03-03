@@ -108,7 +108,7 @@ export default function Home() {
         <div className="absolute inset-0 z-0">
           <Image
             fill={true}
-            src="https://images.unsplash.com/photo-1524522173746-f628baad3644?auhref=format&fit=crop&q=80&w=2000"
+            src="/ship-home.jpeg"
             className="w-full h-full object-cover opacity-50 scale-105"
             alt="Hero Background"
           />

@@ -71,7 +71,7 @@ export default function Vessels() {
             <Hero
                 title={titleVessel?.title}
                 subtitle={titleVessel?.subtitle}
-                imageUrl="https://bks-SHIPMAN.com/images/960/22219804/FotoKapalRosaXVIII-2-NHgPrIzXBoxroGxGJTHupw.jpg"
+                imageUrl="/ship-vessel.jpeg"
             />
 
             <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12">

@@ -2,13 +2,16 @@
 
 import React, { useState } from "react";
 import { Ban, File, Pencil, Trash2 } from "lucide-react";
-import { Checkbox } from "@mantine/core";
+import { Checkbox, Text } from "@mantine/core";
 import { Pagination } from "@mantine/core";
 import { deleteCertificates, getCertificateData } from "@/utils/api/dashboard/certificates";
 import useSWR from "swr";
 import Loading from "@/components/Loading";
 import CertificateModal from "./CertificateModal";
 import { getUser } from "@/utils/auth";
+import { nprogress } from "@mantine/nprogress";
+import { modals } from "@mantine/modals";
+import { notifications } from "@mantine/notifications";
 
 const fetcher = async () => {
     return await getCertificateData();

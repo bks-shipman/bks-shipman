@@ -288,7 +288,7 @@ function VesselsContent() {
                                 onClick={() => { setFilter('All'); setSearchTerm(''); }}
                                 className="px-10 py-4 bg-slate-950 text-white rounded-2xl font-bold shadow-xl hover:bg-blue-600 transition-all active:scale-95 cursor-pointer"
                             >
-                                Clear All Search Parameters
+                                {lang === "id" ? "Hapus Semua Parameter Pencarian" : "Clear All Search Parameters"}
                             </button>
                         </div>
                     </div>

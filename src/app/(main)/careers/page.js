@@ -88,7 +88,7 @@ export default function Careers() {
         }
     };
     return (
-        <div className="pb-24 bg-white">
+        <div className="pb-24 bg-white overflow-hidden">
             <Hero
                 title={lang === "id" ? titleCareer?.title : titleCareer?.title_en}
                 subtitle={lang === "id" ? titleCareer?.subtitle : titleCareer?.subtitle_en}
@@ -148,8 +148,8 @@ export default function Careers() {
                         <MotionWrapper animation="slideInRight" duration={1} delay={0.3}>
                             <div className={`space-y-12 transition-all duration-1000 delay-300`}>
                                 <div className="flex items-end justify-between flex-wrap mb-12">
-                                    <h3 className="text-5xl font-serif font-bold text-slate-950">Active Vacancies</h3>
-                                    <span className="text-slate-400 font-bold text-sm uppercase tracking-widest">{career?.length} Opportunities</span>
+                                    <h3 className="text-5xl font-serif font-bold text-slate-950">{lang === "id" ? "Lowongan Aktif" : "Active Vacancies"}</h3>
+                                    <span className="text-slate-400 font-bold text-sm uppercase tracking-widest">{career?.length} {lang === "id" ? "Lowongan" : "Opportunities"}</span>
                                 </div>
 
                                 <MotionWrapper animation="scaleIn" duration={1} delay={0.8}>

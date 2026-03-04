@@ -110,76 +110,121 @@ export default function Home() {
   return (
     <div className="bg-white selection:bg-blue-600 selection:text-white w-full">
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center pt-40 overflow-hidden bg-slate-950">
-        <div className="absolute inset-0 z-0">
-          <Image
-            fill={true}
-            src="/ship-home.jpeg"
-            className="w-full h-full object-cover opacity-50 scale-105"
-            alt="Hero Background"
-          />
-          <div className="absolute inset-0 bg-linear-to-r from-slate-950 via-slate-950/70 to-transparent"></div>
-        </div>
+      <section className="relative min-h-screen flex items-center pt-32 pb-20 overflow-hidden bg-slate-950">
+        {/* Decorative Background Blobs */}
+        <div className="absolute top-0 right-0 w-[40vw] h-[50vh] bg-red-600/5 rounded-bl-full -z-10 blur-3xl"></div>
+        <div className="absolute -bottom-32 -left-32 w-[30rem] h-[30rem] bg-blue-800/5 rounded-full -z-10 blur-3xl"></div>
 
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-          <div className="max-w-3xl">
-            <MotionWrapper animation="slideInDown" duration={1} delay={0.3}>
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-400 text-xs font-bold uppercase tracking-widest mb-8 animate-in fade-in slide-in-from-left-4 duration-1000">
-                <Zap className="w-3.5 h-3.5" /> {lang === "id" ? titleHero?.tag : titleHero?.tag_en}
-              </div>
-            </MotionWrapper>
-            <MotionWrapper animation="slideLeft" duration={1} delay={0.3}>
-              <h1 className="text-[30px] md:text-6xl font-serif font-bold text-white mb-8 leading-[1.05] animate-in fade-in slide-in-from-bottom-6 duration-1000">
-                {lang === "id" ? titleHero?.title : titleHero?.title_en} <br />
-                <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-400 to-cyan-300">{lang === "id" ? titleHero?.title2 : titleHero?.title2_en}</span>
-              </h1>
-            </MotionWrapper>
-            <MotionWrapper animation="slideInUp" duration={1} delay={0.3}>
-              <p className="text-md md:text-lg text-slate-300/90 mb-12 leading-relaxed animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-200 font-light text-justify">
-                {lang === "id" ? titleHero?.subtitle : titleHero?.subtitle_en}
-              </p>
-            </MotionWrapper>
-            <MotionWrapper animation="slideInUp" duration={1} delay={0.3}>
-              <div className="flex flex-wrap gap-6 animate-in fade-in slide-in-from-bottom-10 duration-1000 delay-300 pb-20">
-                <Link href="/vessels" >
-                  <button className="px-10 py-5 bg-blue-600 hover:bg-blue-500 text-white rounded-full font-bold transition-all transform hover:scale-105 shadow-xl shadow-blue-600/20 flex items-center gap-2">
-                    {lang === "id" ? "Jelajahi Kapal" : "Explore Fleet"} <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                  </button>
-                </Link>
-                <Link href="/about" className="px-10 py-5 bg-white/5 hover:bg-white/10 text-white border border-white/20 rounded-full font-bold transition-all backdrop-blur-md">
-                  {lang === "id" ? "Cerita Kami" : "Our Story"}
-                </Link>
-              </div>
-            </MotionWrapper>
-          </div>
-        </div>
-        <div className="absolute bottom-12 right-11 hidden xl:block animate-in fade-in slide-in-from-right-12 duration-1000 delay-500">
-          <MotionWrapper animation="slideInRight" duration={1} delay={0.3}>
-            <div className="bg-slate-900/40 backdrop-blur-2xl border border-white/10 p-10 rounded-[2.5rem] grid grid-cols-2 gap-x-16 gap-y-10 min-w-112.5">
-              <div>
-                <div className="text-5xl font-serif font-bold text-white mb-2"><Counter end={vesselsCount} suffix="+" /></div>
-                <div className="text-slate-400 text-[10px] uppercase tracking-[0.2em] font-black">
-                  {lang === "id" ? "Kapal Dikelola" : "Vessels Managed"}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10">
+          <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-20">
+
+            {/* Kolom Kiri: Teks dan Tombol */}
+            <div className="flex-1 w-full max-w-2xl lg:max-w-none pt-10 lg:pt-0">
+              <MotionWrapper animation="slideInDown" duration={1} delay={0.2}>
+                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-400 text-xs font-bold uppercase tracking-widest mb-8 animate-in fade-in slide-in-from-left-4 duration-1000">
+                  <Zap className="w-3.5 h-3.5" /> {lang === "id" ? titleHero?.tag : titleHero?.tag_en}
                 </div>
+              </MotionWrapper>
+
+              <MotionWrapper animation="slideInLeft" duration={1} delay={0.3}>
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-white mb-6 lg:mb-8 leading-[1.15]">
+                  {lang === "id" ? titleHero?.title : titleHero?.title_en} <br className="hidden md:block" />
+                  <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-400 to-cyan-300">{lang === "id" ? titleHero?.title2 : titleHero?.title2_en}</span>
+                </h1>
+              </MotionWrapper>
+
+              {/* GAMBAR KHUSUS MOBILE (Muncul di antara Title dan Subtitle) */}
+              <div className="block lg:hidden w-full relative mb-8">
+                <MotionWrapper animation="scaleIn" duration={1} delay={0.4}>
+                  {/* Bentuk (rounded) disesuaikan agar manis di layar HP */}
+                  <div className="relative w-full h-[300px] sm:h-[400px] rounded-[2.5rem] overflow-hidden shadow-xl border-4 border-cyan-400">
+                    <Image
+                      fill
+                      src="/ship-home.jpeg"
+                      className="w-full h-full object-cover"
+                      alt="BKS Shipmanagement Hero Mobile"
+                      priority
+                    />
+                    <div className="absolute inset-0 bg-linear-to-tr from-slate-900/20 to-transparent"></div>
+                  </div>
+                </MotionWrapper>
               </div>
-              <div>
-                <div className="text-5xl font-serif font-bold text-white mb-2"><Counter end={99.8} suffix="%" /></div>
-                <div className="text-slate-400 text-[10px] uppercase tracking-[0.2em] font-black">
-                  {lang === "id" ? "Keandalan Teknis" : "Technical Reliability"}
+
+              <MotionWrapper animation="slideInUp" duration={1} delay={0.5}>
+                <p className="text-base w-full md:text-lg text-slate-300/90 mb-10 leading-relaxed font-light text-justify lg:max-w-xl">
+                  {lang === "id" ? titleHero?.subtitle : titleHero?.subtitle_en}
+                </p>
+              </MotionWrapper>
+
+              <MotionWrapper animation="slideInUp" duration={1} delay={0.6}>
+                <div className="flex flex-wrap gap-4 justify-center mb-12 lg:mb-16">
+                  <Link href="/vessels">
+                    <button className="px-10 py-5 bg-blue-600 hover:bg-blue-500 text-white rounded-full font-bold transition-all transform hover:scale-105 shadow-xl shadow-blue-600/20 flex items-center gap-2">
+                      {lang === "id" ? "Jelajahi Armada" : "Explore Fleet"} <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                    </button>
+                  </Link>
+                  <Link href="/about" className="px-10 py-5 bg-white/5 hover:bg-white/10 text-white border border-white/20 rounded-full font-bold transition-all backdrop-blur-md">
+                    {lang === "id" ? "Cerita Kami" : "Our Story"}
+                  </Link>
                 </div>
-              </div>
-              <div>
-                <div className="text-5xl font-serif font-bold text-white mb-2"><Counter end={exhibitionsCount} suffix="+" /></div>
-                <div className="text-slate-400 text-[10px] uppercase tracking-[0.2em] font-black">{lang === "id" ? "Exhibition dikelola" : "Exhibitions Managed"}</div>
-              </div>
-              <div>
-                <div className="text-5xl font-serif font-bold text-white mb-2"><Counter end={careersCount} suffix="" /></div>
-                <div className="text-slate-400 text-[10px] uppercase tracking-[0.2em] font-black">
-                  {lang === "id" ? "Lowongan Kerja" : "Job Openings"}
+              </MotionWrapper>
+
+              {/* Data Statistik */}
+              <MotionWrapper animation="slideInUp" duration={1} delay={0.7}>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-6 pt-8 border-t border-slate-100">
+                  <div>
+                    <div className="text-3xl font-serif font-bold text-slate-500 mb-1">
+                      <Counter end={vesselsCount} suffix="+" />
+                    </div>
+                    <div className="text-slate-300 text-[9px] uppercase tracking-widest font-bold">
+                      {lang === "id" ? "Kapal Dikelola" : "Vessels Managed"}
+                    </div>
+                  </div>
+                  <div>
+                    <div className="text-3xl font-serif font-bold text-slate-500 mb-1">
+                      <Counter end={99.8} suffix="%" />
+                    </div>
+                    <div className="text-slate-300 text-[9px] uppercase tracking-widest font-bold">
+                      {lang === "id" ? "Keandalan" : "Reliability"}
+                    </div>
+                  </div>
+                  <div>
+                    <div className="text-3xl font-serif font-bold text-slate-500 mb-1">
+                      <Counter end={exhibitionsCount} suffix="+" />
+                    </div>
+                    <div className="text-slate-300 text-[9px] uppercase tracking-widest font-bold">
+                      {lang === "id" ? "Exhibition" : "Exhibitions"}
+                    </div>
+                  </div>
+                  <div>
+                    <div className="text-3xl font-serif font-bold text-slate-500 mb-1">
+                      <Counter end={careersCount} suffix="" />
+                    </div>
+                    <div className="text-slate-300 text-[9px] uppercase tracking-widest font-bold">
+                      {lang === "id" ? "Lowongan" : "Job Openings"}
+                    </div>
+                  </div>
                 </div>
-              </div>
+              </MotionWrapper>
             </div>
-          </MotionWrapper>
+
+            {/* Kolom Kanan: Gambar KHUSUS DESKTOP (Disembunyikan di Mobile) */}
+            <div className="hidden lg:block flex-1 w-full relative">
+              <MotionWrapper animation="scaleIn" duration={1} delay={0.4}>
+                <div className="relative w-full h-[500px] lg:h-[700px] ml-auto lg:-mr-12 rounded-tl-[15rem] rounded-bl-[15rem] overflow-hidden shadow-2xl border-8 border-cyan-700">
+                  <Image
+                    fill
+                    src="/ship-home.jpeg"
+                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-1000"
+                    alt="BKS Shipmanagement Hero"
+                    priority
+                  />
+                  <div className="absolute inset-0 bg-linear-to-tr from-slate-900/20 to-transparent"></div>
+                </div>
+              </MotionWrapper>
+            </div>
+
+          </div>
         </div>
       </section>
 
@@ -531,7 +576,7 @@ export default function Home() {
 
           <div className="mt-20 text-center">
             <Link href="/about" className="inline-flex items-center gap-3 text-slate-900 font-bold tracking-widest uppercase text-[10px] hover:text-blue-600 transition-colors">
-              Read our full maritime philosophy <ArrowRight className="w-4 h-4" />
+              {lang === "id" ? "Baca filosofi maritim kami selengkapnya." : "Read our full maritime philosophy"} <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
         </div>

@@ -25,7 +25,7 @@ const {lang} = useLanguage();
     <div>
       <p
         className={` ${className} ${
-          expanded ? 'max-h-250' : 'max-h-30 overflow-hidden'
+          expanded ? 'max-h-250' : 'max-h-40 overflow-hidden'
         }`}
       >
         {displayedText}

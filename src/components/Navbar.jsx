@@ -29,7 +29,7 @@ export default function Navbar() {
     { name: lang === 'id' ? 'Tentang' : 'About', path: '/about' },
     { name: lang === 'id' ? 'Armada' : 'Fleet', path: '/vessels' },
     { name: lang === 'id' ? 'Karir' : 'Careers', path: '/careers' },
-    { name: 'Exhibitions', path: '/exhibitions' }, // Nama event biasanya tetap
+    { name: lang === 'id' ? 'Pameran': 'Exhibitions', path: '/exhibitions' }, // Nama event biasanya tetap
   ];
 
   const activeLinkClass = "text-blue-600 font-bold border-b-2 border-blue-600 pb-1";
@@ -43,11 +43,11 @@ export default function Navbar() {
             <div className={`rounded-xl transition-colors`}>
               <Image src={"/logo.png"} alt='logo' width={40} height={40} />
             </div>
-            <span className={`text-xl font-serif font-black tracking-tighter ${isScrolled ? 'text-slate-900' : 'text-white'}`}>BKS Shipmanagement</span>
+            <span className={`text-xs md:text-lg lg:text-xl font-serif font-black tracking-tighter ${isScrolled ? 'text-slate-900' : 'text-white'}`}>BKS Shipmanagement</span>
           </Link>
 
           {/* Desktop Nav */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden lg:flex items-center space-x-8">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
@@ -73,7 +73,7 @@ export default function Navbar() {
           </div>
 
           {/* Mobile Menu & Language Button */}
-          <div className="md:hidden flex items-center gap-4">
+          <div className="lg:hidden flex items-center gap-4">
             {/* Tombol Bahasa Mobile */}
             <button 
               onClick={toggleLanguage}
@@ -98,7 +98,7 @@ export default function Navbar() {
 
       {/* Mobile Nav */}
       {isOpen && (
-        <div className="md:hidden absolute top-full left-0 w-full bg-white border-b border-slate-100 shadow-2xl animate-in fade-in slide-in-from-top-2 duration-300">
+        <div className="lg:hidden absolute top-full left-0 w-full bg-white border-b border-slate-100 shadow-2xl animate-in fade-in slide-in-from-top-2 duration-300">
           <div className="px-4 pt-2 pb-8 space-y-1">
             {navLinks.map((link) => (
               <Link

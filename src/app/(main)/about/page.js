@@ -54,31 +54,31 @@ export default function About() {
             />
 
             {/* About Section */}
-            <section className="py-24 max-w-7xl mx-auto px-4">
+            <section className="py-24 max-w-7xl mx-auto px-4 overflow-hidden">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 font-poppins items-center">
                     <div>
                         <MotionWrapper animation="slideInLeft" duration={1} delay={0.3}>
-                            <h2 className="text-blue-600 text-sm tracking-[0.3em] font-bold uppercase mb-4">
-                                {lang === "id" ? "Tentang BKS Shipmanagementagement" : "About BKS Shipmanagementagement"}
+                            <h2 className="text-blue-600 text-xl lg:text-2xl font-poppins font-bold uppercase mb-4">
+                                {lang === "id" ? "Tentang BKS Shipmanagement" : "About BKS Shipmanagement"}
 
                             </h2>
                         </MotionWrapper>
 
                         <div className="space-y-6 text-slate-600">
                             <MotionWrapper animation="slideInUp" duration={1} delay={0.4}>
-                                <p className='text-lg whitespace-pre-line leading-relaxed font-light'>
+                                <p className='text-md lg:text-lg whitespace-pre-line leading-relaxed font-light'>
                                     {lang === "id" ? aboutUs?.description : aboutUs?.description_en}
                                 </p>
                             </MotionWrapper>
                         </div>
                     </div>
 
-                    <div className="relative h-full min-h-[400px] md:min-h-[500px]">
+                    <div className="relative h-full min-h-[300px] md:min-h-100 lg:min-h-[500px]">
                         <MotionWrapper animation="scaleIn" duration={1} delay={0.5}>
                             <Image
                                 src="/logo.png"
                                 fill
-                                className="rounded-[3rem] shadow-2xl object-cover"
+                                className="rounded-[3rem] shadow-2xl object-contain"
                                 alt="About BKS Shipmanagement"
                             />
                             {/* Opsional: Overlay gradient agar gambar lebih menyatu */}
@@ -95,15 +95,15 @@ export default function About() {
                         <div className="text-center mb-20 max-w-2xl mx-auto">
                             <MotionWrapper animation="slideInDown" duration={1} delay={0.2}>
                                 <div className="inline-flex items-center justify-center gap-2 mb-4 text-blue-600 font-bold tracking-[0.3em] uppercase text-xs">
-                                    <Award className="w-4 h-4" /> {titleCertificates?.tag || "CERTIFICATES"}
+                                    <Award className="w-4 h-4" /> {lang === "id" ? titleCertificates?.tag : titleCertificates?.tag_en}
                                 </div>
                             </MotionWrapper>
                             <MotionWrapper animation="slideInDown" duration={1} delay={0.3}>
                                 <h3 className="text-4xl md:text-5xl font-serif font-bold text-slate-900 mb-6">
-                                    {titleCertificates?.title || "Our Certificates"}
+                                    {lang === "id" ? titleCertificates?.title : titleCertificates?.title_en}
                                 </h3>
                                 <p className="text-slate-500 text-lg font-light leading-relaxed">
-                                    {titleCertificates?.subtitle || "Showcasing our commitment to excellence and compliance in the maritime industry."}
+                                    {lang === "id" ? titleCertificates?.subtitle : titleCertificates?.subtitle_en}
                                 </p>
                             </MotionWrapper>
                         </div>

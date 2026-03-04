@@ -126,18 +126,22 @@ function VesselsContent() {
                             <div className="hidden sm:flex items-center gap-2 text-slate-400 mr-2 font-bold text-[10px] uppercase tracking-[0.2em]">
                                 <Filter className="w-3 h-3" /> {lang === "id" ? "Filter Dengan" : "Filter By"}
                             </div>
-                            {vesselTypes.map((type) => (
-                                <button
-                                    key={type}
-                                    onClick={() => handleFilterChange(type)}
-                                    className={`px-6 py-3 rounded-xl font-bold text-xs uppercase tracking-wider transition-all cursor-pointer duration-300 ${filter === type
-                                        ? 'bg-slate-900 text-white shadow-lg shadow-slate-900/20 scale-105'
-                                        : 'bg-white text-slate-500 border border-slate-100 hover:border-slate-300 hover:text-slate-900'
-                                        }`}
-                                >
-                                    {type}
-                                </button>
-                            ))}
+                            {vesselTypes.map((type) => {
+                                const displayText = type === 'All'
+                                    ? (lang === 'id' ? 'Semua' : 'All')
+                                    : type;
+                                return (
+                                    <button
+                                        key={type}
+                                        onClick={() => handleFilterChange(type)}
+                                        className={`px-6 py-3 rounded-xl font-bold text-xs uppercase tracking-wider transition-all cursor-pointer duration-300 ${filter === type
+                                            ? 'bg-slate-900 text-white shadow-lg shadow-slate-900/20 scale-105'
+                                            : 'bg-white text-slate-500 border border-slate-100 hover:border-slate-300 hover:text-slate-900'
+                                            }`}
+                                    >
+                                        {displayText}
+                                    </button>)
+                            })}
                         </div>
                     </div>
                 </div>
@@ -175,7 +179,7 @@ function VesselsContent() {
                                 </div>
                                 <div className="absolute inset-0 bg-linear-to-t from-slate-950/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-10">
                                     <div className="flex items-center gap-3 text-white/80 text-xs font-medium translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                                        <Anchor className="w-4 h-4 text-blue-400" /> {lang === "id" ? "IMO Tergistrasi" : "IMO Registered"}
+                                        <Anchor className="w-4 h-4 text-blue-400" /> {lang === "id" ? "IMO Teregistrasi" : "IMO Registered"}
                                     </div>
                                 </div>
                             </div>
@@ -276,9 +280,9 @@ function VesselsContent() {
                             <div className="w-24 h-24 bg-slate-50 rounded-full flex items-center justify-center mx-auto mb-8 text-slate-300">
                                 <Search className="w-10 h-10" />
                             </div>
-                            <h4 className="text-3xl font-serif font-bold text-slate-950 mb-4">Vessel Not Found</h4>
+                            <h4 className="text-3xl font-serif font-bold text-slate-950 mb-4">{lang === "id" ? "Armada Tidak Ditemukan" : "Vessel Not Found"}</h4>
                             <p className="text-slate-500 mb-10 leading-relaxed font-medium">
-                                Our fleet radar couldn't locate "{searchTerm}". Please refine your search terms or select a different category.
+                                {lang === "id" ? `Radar armada kami tidak dapat menemukan "${searchTerm}". Harap perbaiki istilah pencarian Anda atau pilih kategori yang berbeda.` : `Our fleet radar couldn't locate "${searchTerm}". Please refine your search terms or select a different category.`}
                             </p>
                             <button
                                 onClick={() => { setFilter('All'); setSearchTerm(''); }}

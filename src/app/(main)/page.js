@@ -153,7 +153,7 @@ export default function Home() {
             </MotionWrapper>
           </div>
         </div>
-        <div className="absolute bottom-12 right-12 hidden xl:block animate-in fade-in slide-in-from-right-12 duration-1000 delay-500">
+        <div className="absolute bottom-12 right-11 hidden xl:block animate-in fade-in slide-in-from-right-12 duration-1000 delay-500">
           <MotionWrapper animation="slideInRight" duration={1} delay={0.3}>
             <div className="bg-slate-900/40 backdrop-blur-2xl border border-white/10 p-10 rounded-[2.5rem] grid grid-cols-2 gap-x-16 gap-y-10 min-w-112.5">
               <div>
@@ -262,27 +262,6 @@ export default function Home() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
                 <MotionWrapper animation="scaleIn" duration={1} delay={0.3}>
                   <div className="group">
-                    {/* Restored Icon for Mission */}
-                    <div className="w-14 h-14 rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center mb-8 group-hover:bg-blue-600 group-hover:border-blue-600 transition-all duration-500 transform group-hover:scale-110 group-hover:rotate-3">
-                      <Target className="w-7 h-7 text-blue-400 group-hover:text-white transition-colors" />
-                    </div>
-                    <h4 className="text-2xl font-bold mb-4">{lang === "id" ? "Misi Kami" : "The Mission"}</h4>
-                    {lang === "id" ?
-                      <ReadMore
-                        text={mission ? mission.description : ''}
-                        wordLimit={45}
-                        buttonColor="text-blue-400 hover:text-blue-300"
-                      /> :
-                      <ReadMore
-                        text={mission ? mission.description_en : ''}
-                        wordLimit={45}
-                        buttonColor="text-blue-400 hover:text-blue-300"
-                      />
-                    }
-                  </div>
-                </MotionWrapper>
-                <MotionWrapper animation="scaleIn" duration={1} delay={0.3}>
-                  <div className="group">
                     {/* Restored Icon for Vision */}
                     <div className="w-14 h-14 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center mb-8 group-hover:bg-cyan-500 group-hover:border-cyan-500 transition-all duration-500 transform group-hover:scale-110 group-hover:rotate-3">
                       <Eye className="w-7 h-7 text-cyan-400 group-hover:text-white transition-colors" />
@@ -303,6 +282,28 @@ export default function Home() {
 
                   </div>
                 </MotionWrapper>
+                <MotionWrapper animation="scaleIn" duration={1} delay={0.3}>
+                  <div className="group">
+                    {/* Restored Icon for Mission */}
+                    <div className="w-14 h-14 rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center mb-8 group-hover:bg-blue-600 group-hover:border-blue-600 transition-all duration-500 transform group-hover:scale-110 group-hover:rotate-3">
+                      <Target className="w-7 h-7 text-blue-400 group-hover:text-white transition-colors" />
+                    </div>
+                    <h4 className="text-2xl font-bold mb-4">{lang === "id" ? "Misi Kami" : "The Mission"}</h4>
+                    {lang === "id" ?
+                      <ReadMore
+                        text={mission ? mission.description : ''}
+                        wordLimit={45}
+                        buttonColor="text-blue-400 hover:text-blue-300"
+                      /> :
+                      <ReadMore
+                        text={mission ? mission.description_en : ''}
+                        wordLimit={45}
+                        buttonColor="text-blue-400 hover:text-blue-300"
+                      />
+                    }
+                  </div>
+                </MotionWrapper>
+
               </div>
             </div>
             {captain && (

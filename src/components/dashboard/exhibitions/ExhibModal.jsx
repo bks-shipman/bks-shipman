@@ -30,20 +30,27 @@ const [loading, setLoading] = useState(false);
   const form = useForm({
     initialValues: {
       name: "",
+      name:"",
       date: null,
       description: "",
+      description_en: "",
       photo: null,
     },
 
    validate: {
       name: (value) =>
-        !value ? "Name wajib diisi" : null,
+        !value ? "Name (ID) wajib diisi" : null,
+
+      name_en: (value) =>
+        !value ? "Name wajib (EN) diisi" : null,
 
       date: (value) =>
         !value ? "Date wajib diisi" : null,
 
       description: (value) =>
-        !value ? "Description wajib diisi" : null,
+        !value ? "Description (Indonesia) wajib diisi" : null,
+      description_en: (value) =>
+        !value ? "Description (English) wajib diisi" : null,
     },
   });
 
@@ -52,8 +59,10 @@ const [loading, setLoading] = useState(false);
     if (opened && exhibition) {
       form.setValues({
         name: exhibition.name || "",
+        name_en: exhibition.name_en || "",
         date: exhibition.date || null,
         description: exhibition.description || "",
+        description_en: exhibition.description_en || "",
         photo: exhibition.photo || "",
       });
 
@@ -76,7 +85,9 @@ const [loading, setLoading] = useState(false);
 
       const formData = new FormData();
       formData.append("name", values.name);
+      formData.append("name_en", values.name_en);
       formData.append("description", values.description);
+      formData.append("description_en", values.description_en);
       formData.append("date", values.date);
     
       if (values.photo) {
@@ -129,8 +140,13 @@ const [loading, setLoading] = useState(false);
       <form onSubmit={form.onSubmit(handleSubmit)} className="space-y-4">
 
         <TextInput
-          label="Exhibition Name"
+          label="Exhibition Name (Indonesia)"
           {...form.getInputProps("name")}
+        />
+
+        <TextInput
+          label="Exhibition Name (English)"
+          {...form.getInputProps("name_en")}
         />
 
         <DatePickerInput 
@@ -139,10 +155,16 @@ const [loading, setLoading] = useState(false);
         />
 
         <Textarea
-          label="Description"
+          label="Description (Indonesia)"
           autosize
           minRows={3}
           {...form.getInputProps("description")}
+        />
+        <Textarea
+          label="Description (English)"
+          autosize
+          minRows={3}
+          {...form.getInputProps("description_en")}
         />
 
         {/* ================= PHOTO ================= */}

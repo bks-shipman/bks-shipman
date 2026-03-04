@@ -49,7 +49,8 @@ export default function AboutUs() {
 
     const form = useForm({
         initialValues: {
-            description: ""
+            description: "",
+            description_en: ""
         },
         validateInputOnChange: true,
         validateInputOnBlur: true,
@@ -59,6 +60,10 @@ export default function AboutUs() {
                 !value
                     ? "Deskripsi harus diisi"
                     : null,
+            description_en: (value) =>
+                !value
+                    ? "Description must be filled"
+                    : null,
         }
     });
 
@@ -66,7 +71,8 @@ export default function AboutUs() {
     useEffect(() => {
         if (data) {
             form.setValues({
-                description: data.description || ""
+                description: data.description || "",
+                description_en: data.description_en || "",
             });
         }
     }, [data]);
@@ -79,6 +85,7 @@ export default function AboutUs() {
 
             await updateAboutUs({
                 description: values.description,
+                description_en: values.description_en,
             });
 
             notifications.show({
@@ -136,16 +143,37 @@ export default function AboutUs() {
                         </h3>
 
                         {user?.role === "ADMIN" ? (
+                            <>
+                            <Textarea
+                                label="Company Description (Indonesia)"
+                                autosize
+                                minRows={4}
+                                {...form.getInputProps("description")}
+                                />
+                            <Textarea
+                                label="Company Description (English)"
+                                autosize
+                                minRows={4}
+                                {...form.getInputProps("description_en")}
+                                />
+                            </>
+                        ) : (
+                            <>
                             <Textarea
                                 label="Company Description"
                                 autosize
                                 minRows={4}
+                                disabled
                                 {...form.getInputProps("description")}
-                            />
-                        ) : (
-                            <p>
-                                {data?.description}
-                            </p>
+                                />
+                            <Textarea
+                                label="Company Description"
+                                autosize
+                                minRows={4}
+                                disabled
+                                {...form.getInputProps("description_en")}
+                                />
+                            </>
                         )}
                     </div>
                     {/* ================= CONNECTIONS ================= */}

@@ -12,13 +12,13 @@ import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 import 'katex/dist/katex.min.css'; // WAJIB DIIMPORT: CSS agar pangkatnya rapi
 import MarkdownReadMore from '@/components/MarkdownReadMore';
-
+import { useLanguage } from '@/context/LanguageProvider';
 const fetcher = async () => {
     return await getVesselPage();
 }
 
 export default function Vessels() {
-
+    const { lang } = useLanguage();
     const [filter, setFilter] = useState('All');
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedVessel, setSelectedVessel] = useState(null);
@@ -73,8 +73,8 @@ export default function Vessels() {
     return (
         <div className="pb-24 bg-slate-50/50">
             <Hero
-                title={titleVessel?.title}
-                subtitle={titleVessel?.subtitle}
+                title={lang === "id" ? titleVessel?.title : titleVessel?.title_en}
+                subtitle={lang === "id" ? titleVessel?.subtitle : titleVessel?.subtitle_en}
                 imageUrl="/ship-vessel.jpeg"
             />
 
@@ -88,7 +88,7 @@ export default function Vessels() {
                             <Search className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-blue-600 transition-colors" />
                             <input
                                 type="text"
-                                placeholder="Search fleet by name..."
+                                placeholder={`${lang === "id" ? "Cari kapal berdasarkan nama" : "Search fleet by name..."}`}
                                 className="w-full pl-14 pr-12 py-4 bg-slate-50 border border-transparent rounded-2xl focus:outline-none focus:ring-4 focus:ring-blue-600/5 focus:bg-white focus:border-blue-600/20 transition-all text-slate-900 placeholder:text-slate-400 font-medium"
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
@@ -106,7 +106,7 @@ export default function Vessels() {
                         {/* Type Filters */}
                         <div className="flex flex-wrap gap-2 items-center grow justify-center lg:justify-start">
                             <div className="hidden sm:flex items-center gap-2 text-slate-400 mr-2 font-bold text-[10px] uppercase tracking-[0.2em]">
-                                <Filter className="w-3 h-3" /> Filter By
+                                <Filter className="w-3 h-3" /> {lang === "id" ? "Filter Dengan" : "Filter By"}
                             </div>
                             {vesselTypes.map((type) => (
                                 <button
@@ -128,7 +128,7 @@ export default function Vessels() {
                 <div className="mb-10 flex flex-col sm:flex-row justify-between items-center gap-4">
                     <h2 className="flex flex-col sm:flex-row md:items-center text-sm font-bold uppercase tracking-[0.3em]">
                         <span className="text-slate-400">
-                            Fleet Directory
+                            {lang === "id" ? "Direktori Armada" : "Fleet Directory"}
                         </span>
 
                         <span className="hidden sm:inline mx-2 text-slate-200">
@@ -136,7 +136,7 @@ export default function Vessels() {
                         </span>
 
                         <span className="text-slate-900">
-                            {filteredVessels.length} Vessels Found
+                            {filteredVessels.length} {lang === "id" ? "Kapal Ditemukan" : "Vessels Found"}
                         </span>
                     </h2>
                     {searchTerm && (
@@ -168,7 +168,7 @@ export default function Vessels() {
                                 {/* Hover Overlay */}
                                 <div className="absolute inset-0 bg-linear-to-t from-slate-950/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-10">
                                     <div className="flex items-center gap-3 text-white/80 text-xs font-medium translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                                        <Anchor className="w-4 h-4 text-blue-400" /> IMO Registered
+                                        <Anchor className="w-4 h-4 text-blue-400" /> {lang === "id" ? "IMO Tergistrasi" : "IMO Registered"}
                                     </div>
                                 </div>
                             </div>
@@ -182,7 +182,7 @@ export default function Vessels() {
                                 </div>
 
                                 <div className="text-slate-500 leading-relaxed mb-8 text-sm font-medium opacity-80 group-hover:opacity-100 transition-opacity">
-                                    <MarkdownReadMore text={vessel.description} wordLimit={100} />
+                                    <MarkdownReadMore text={lang === "id" ? vessel.description : vessel.description_en} wordLimit={100} />
                                 </div>
 
                                 <div className="pt-8 border-t border-slate-100 flex justify-between items-end">
@@ -191,7 +191,7 @@ export default function Vessels() {
                                             onClick={() => setSelectedVessel(vessel)}
                                             className="flex items-center gap-2 px-4 py-2 bg-slate-50 hover:bg-blue-600 hover:text-white rounded-xl text-xs font-bold uppercase tracking-widest transition-all duration-300 group/btn cursor-pointer text-black"
                                         >
-                                            <Info className="w-4 h-4 group-hover/btn:rotate-12 transition-transform" /> View Specifications
+                                            <Info className="w-4 h-4 group-hover/btn:rotate-12 transition-transform" /> {lang === "id" ? "Lihat Spesifikasi" : "View Specifications"}
                                         </button>
                                     </div>
 
@@ -256,7 +256,7 @@ export default function Vessels() {
                                                 remarkPlugins={[remarkMath]}
                                                 rehypePlugins={[rehypeKatex]}
                                             >
-                                                {selectedVessel.description}
+                                                {lang === "id" ? selectedVessel.description : selectedVessel.description_en}
                                             </ReactMarkdown>
                                         </div>
                                     </div>
@@ -264,15 +264,15 @@ export default function Vessels() {
                                     {/* The technical specs */}
                                     <div className="grid grid-cols-2 sm:grid-cols-3 gap-6 py-8 border-t border-slate-100 mt-8">
                                         <div className="space-y-2 bg-slate-50 p-4 rounded-2xl border border-slate-100">
-                                            <span className="block text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Year Built</span>
+                                            <span className="block text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">{lang === "id" ? "Tahun Dibuat" : "Year Built"}</span>
                                             <span className="text-lg md:text-xl font-bold text-slate-900">{selectedVessel.year}</span>
                                         </div>
                                         <div className="space-y-2 bg-slate-50 p-4 rounded-2xl border border-slate-100">
-                                            <span className="block text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">IMO Number</span>
+                                            <span className="block text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">{lang === "id" ? "Nomor IMO" : "IMO Number"}</span>
                                             <span className="text-lg md:text-xl font-bold text-slate-900">{selectedVessel.imo}</span>
                                         </div>
                                         <div className="space-y-2 bg-slate-50 p-4 rounded-2xl border border-slate-100 col-span-2 sm:col-span-1">
-                                            <span className="block text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Country</span>
+                                            <span className="block text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">{lang === "id" ? "Negara" : "Country"}</span>
                                             <span className="text-lg md:text-xl font-bold text-slate-900">{selectedVessel.country}</span>
                                         </div>
                                     </div>

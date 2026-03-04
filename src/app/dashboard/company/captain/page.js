@@ -64,6 +64,7 @@ export default function AboutUs() {
         initialValues: {
             name: "",
             quote: "",
+            quote_en: "",
             photo: null
         },
         validateInputOnChange: true,
@@ -76,7 +77,11 @@ export default function AboutUs() {
                     : null,
             quote: (value) =>
                 !value
-                    ? "Quote harus diisi"
+                    ? "Quote (Indonesia) harus diisi"
+                    : null,
+            quote_en: (value) =>
+                !value
+                    ? "Quote (English) harus diisi"
                     : null,
         }
     });
@@ -87,6 +92,7 @@ export default function AboutUs() {
             form.setValues({
                 name: data.name || "",
                 quote: data.quote || "",
+                quote_en: data.quote_en || "",
                 photo: data.photo || "",
             });
             if (data.photo) {
@@ -104,6 +110,7 @@ export default function AboutUs() {
             const formData = new FormData();
             formData.append("name", values.name);
             formData.append("quote", values.quote);
+            formData.append("quote_en", values.quote_en);
 
             if (values.photo) {
                 formData.append("photo", values.photo);
@@ -215,10 +222,16 @@ export default function AboutUs() {
                                     {...form.getInputProps("name")}
                                 />
                                 <Textarea
-                                    label="Captain Quote"
+                                    label="Captain Quote (Indonesia)"
                                     autosize
                                     minRows={4}
                                     {...form.getInputProps("quote")}
+                                />
+                                <Textarea
+                                    label="Captain Quote (English)"
+                                    autosize
+                                    minRows={4}
+                                    {...form.getInputProps("quote_en")}
                                 />
                             </>
                         ) : (
@@ -226,6 +239,7 @@ export default function AboutUs() {
                                 <Image src={data?.photo} alt="Captains" width={400} height={600} />
                                 <Text className="text-lg font-bold">{data?.name}</Text>
                                 <Text className="text-center italic text-slate-600">{`"${data?.quote}"`}</Text>
+                                <Text className="text-center italic text-slate-600">{`"${data?.quote_en}"`}</Text>
                             </div>
                         )}
 

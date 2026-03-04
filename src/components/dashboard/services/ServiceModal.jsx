@@ -29,15 +29,21 @@ const [loading, setLoading] = useState(false);
   const form = useForm({
     initialValues: {
       title: "",
+      title_en: "",
       description: "",
+      description_en: ""
     },
 
     validate: {
       title: (value) =>
-        !value ? "Title wajib diisi" : null,
+        !value ? "Title (Indonesia) wajib diisi" : null,
+      title_en: (value) =>
+        !value ? "Title (English) wajib diisi" : null,
 
       description: (value) =>
-        !value ? "Description wajib diisi" : null,
+        !value ? "Description (Indonesia) wajib diisi" : null,
+      description_en: (value) =>
+        !value ? "Description (English) wajib diisi" : null,
     },
   });
 
@@ -46,7 +52,9 @@ const [loading, setLoading] = useState(false);
     if (opened && service) {
       form.setValues({
         title: service.title || "",
+        title_en: service.title_en || "",
         description: service.description || "",
+        description_en: service.description_en || "",
       });
     }
 
@@ -63,7 +71,9 @@ const [loading, setLoading] = useState(false);
 
       const formData = new FormData();
       formData.append("title", values.title);
+      formData.append("title_en", values.title_en);
       formData.append("description", values.description);      
+      formData.append("description_en", values.description_en);      
 
       if (isEdit) {
         await updateService(service.id, formData);
@@ -110,15 +120,26 @@ const [loading, setLoading] = useState(false);
       <form onSubmit={form.onSubmit(handleSubmit)} className="space-y-4">
 
         <TextInput
-          label="Title"
+          label="Title (Indonesia)"
           {...form.getInputProps("title")}
+        />
+        <TextInput
+          label="Title (English)"
+          {...form.getInputProps("title_en")}
         />
 
         <Textarea
-          label="Description"
+          label="Description (Indonesia)"
           autosize
           minRows={3}
           {...form.getInputProps("description")}
+        />
+
+        <Textarea
+          label="Description (English)"
+          autosize
+          minRows={3}
+          {...form.getInputProps("description_en")}
         />
 
 

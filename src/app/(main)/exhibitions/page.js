@@ -11,12 +11,13 @@ import dayjs from 'dayjs';
 import Image from 'next/image';
 import Loading from '@/components/Loading';
 import { MotionWrapper } from '@/components/MotionWrapper';
-
+import { useLanguage } from '@/context/LanguageProvider';
 const fetcher = async () => {
     return await getExhibitionPage();
 };
 
 export default function Exhibitions() {
+    const { lang } = useLanguage();
     const { data, error, isLoading } = useSWR(
         'exhibition-page',
         fetcher,
@@ -51,8 +52,8 @@ export default function Exhibitions() {
     return (
         <div className="pb-0 bg-white">
             <Hero
-                title={titleExhibition?.title}
-                subtitle={titleExhibition?.subtitle}
+                title={lang === "id" ? titleExhibition?.title : titleExhibition?.title_en}
+                subtitle={lang === "id" ? titleExhibition?.subtitle : titleExhibition?.subtitle_en}
                 imageUrl="/exhibition.jpeg"
             />
 
@@ -124,16 +125,16 @@ export default function Exhibitions() {
                                         <div className="flex items-center gap-3 mb-8">
                                             <span className="w-8 h-px bg-blue-600"></span>
                                             <span className="text-[10px] font-black uppercase tracking-[0.3em] text-blue-600">
-                                                Event Profile {String(idx + 1).padStart(2, '0')}
+                                                {lang === "id" ? "Profil Acara" : "Event Profile"} {String(idx + 1).padStart(2, '0')}
                                             </span>
                                         </div>
 
                                         <h4 className="text-4xl lg:text-5xl font-serif font-bold text-slate-950 mb-8 leading-tight group-hover:text-blue-600 transition-colors duration-500">
-                                            {ex?.name}
+                                            {lang === "id" ? ex?.name : ex?.name_en}
                                         </h4>
 
                                         <ReadMore
-                                            text={ex?.description}
+                                            text={lang === "id" ? ex?.description : ex?.description_en}
                                             wordLimit={20}
                                             className='text-slate-500 text-lg leading-relaxed mb-12 font-light opacity-80 group-hover:opacity-100 transition-all whitespace-pre-line'
                                             buttonColor="text-blue-500 hover:text-blue-700"

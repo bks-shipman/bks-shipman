@@ -123,7 +123,7 @@ export default function Sidebar() {
         <div className="bg-white p-2 rounded-full mx-auto mb-4">
           <Image
             src="/logo.png"
-            alt="BKS SHIPMAN"
+            alt="BKS Shipmanagement"
             width={60}
             height={60}
             className="object-contain"

@@ -29,6 +29,7 @@ export default function VesselTypes() {
 
     const [editingId, setEditingId] = useState(null);
     const [editingValue, setEditingValue] = useState("");
+    const [editingValueEn, setEditingValueEn] = useState("");
     const [editError, setEditError] = useState("");
     const [actionLoading, setActionLoading] = useState(false);
 
@@ -37,9 +38,11 @@ export default function VesselTypes() {
     const form = useForm({
         initialValues: {
             title: "",
+            title_en: ""
         },
         validate: {
-            title: (v) => (!v ? "Value wajib diisi" : null),
+            title: (v) => (!v ? "Value (Indonesia) wajib diisi" : null),
+            title_en: (v) => (!v ? "Value (English) wajib diisi" : null),
         },
     });
 
@@ -51,11 +54,12 @@ export default function VesselTypes() {
 
             await createCoreValue({
                 title: values.title,
+                title_en: values.title_en
             });
 
             notifications.show({
                 title: "Berhasil",
-                message: "Vessel type berhasil ditambahkan.",
+                message: "Core value berhasil ditambahkan.",
                 color: "green",
             });
 
@@ -77,6 +81,7 @@ export default function VesselTypes() {
     const startEditing = (vesselType) => {
         setEditingId(vesselType.id);
         setEditingValue(vesselType.title);
+        setEditingValueEn(vesselType.title_en);
         setEditError("");
     };
 
@@ -92,16 +97,18 @@ export default function VesselTypes() {
 
             await updateCoreValue(editingId, {
                 title: editingValue,
+                title_en: editingValueEn
             });
 
             notifications.show({
                 title: "Data Diperbarui",
-                message: "Vessel type berhasil diperbarui.",
+                message: "Core value berhasil diperbarui.",
                 color: "green",
             });
 
             setEditingId(null);
             setEditingValue("");
+            setEditingValueEn("");
             setEditError("");
             mutate();
         } catch (err) {
@@ -151,7 +158,7 @@ export default function VesselTypes() {
 
             notifications.show({
                 title: "Data Dihapus",
-                message: "Vessel type berhasil dihapus.",
+                message: "Core value berhasil dihapus.",
                 color: "green",
             });
 
@@ -201,8 +208,14 @@ export default function VesselTypes() {
                     {user?.role === "ADMIN" && (
                         <>
                             <TextInput
-                                placeholder="New Core Value"
+                                placeholder="New Core Value (Indonesia)"
                                 {...form.getInputProps("title")}
+                                disabled={isEditing}
+                                className="grow"
+                            />
+                            <TextInput
+                                placeholder="New Core Value (English)"
+                                {...form.getInputProps("title_en")}
                                 disabled={isEditing}
                                 className="grow"
                             />
@@ -232,11 +245,25 @@ export default function VesselTypes() {
                                 <div className="flex items-center gap-3 w-full">
                                     <TextInput
                                         value={editingValue}
+                                        label="Core Value (Indonesia)"
                                         onChange={(e) => {
                                             setEditingValue(e.target.value);
                                             setEditError("");
                                         }}
                                         error={editError}
+                                        placeholder="New Core Value (Indonesia)"
+                                        className="grow"
+                                        size="xs"
+                                    />
+                                    <TextInput
+                                        value={editingValueEn}
+                                        label="Core Value (English)"
+                                        onChange={(e) => {
+                                            setEditingValueEn(e.target.value);
+                                            setEditError("");
+                                        }}
+                                        error={editError}
+                                        placeholder="New Core Value (English)"
                                         className="grow"
                                         size="xs"
                                     />

@@ -5,6 +5,7 @@ import ReactMarkdown from 'react-markdown';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 import 'katex/dist/katex.min.css';
+import { useLanguage } from '@/context/LanguageProvider';
 
 export default function MarkdownReadMore({
   text,
@@ -12,7 +13,10 @@ export default function MarkdownReadMore({
   wordLimit = 40, // Tetap kita pakai sebagai patokan untuk memunculkan tombol
   buttonColor = 'text-blue-400 hover:text-blue-300',
 }) {
+  const {lang} = useLanguage();
   const [expanded, setExpanded] = useState(false);
+  const close = lang === "id" ? "Tutup" : "Close"
+  const read = lang === "id" ? "Baca lebih lanjut" : "Read more"
 
   // Jika tidak ada teks, jangan render
   if (!text) return null;
@@ -49,7 +53,7 @@ export default function MarkdownReadMore({
           }}
           className={`mt-4 text-xs font-bold uppercase tracking-widest transition-colors cursor-pointer ${buttonColor}`}
         >
-          {expanded ? 'Tutup' : 'Baca lebih lanjut'}
+          {expanded ? close : read}
         </button>
       )}
     </div>

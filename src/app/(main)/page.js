@@ -16,11 +16,13 @@ import Counter from '@/components/Counter';
 import Loading from '@/components/Loading';
 import { MotionWrapper, StaggerContainer } from '@/components/MotionWrapper';
 import { motion, AnimatePresence } from 'motion/react';
+import { useLanguage } from '@/context/LanguageProvider';
 
 const fetcher = async () => {
   return await getLandingPage();
 }
 export default function Home() {
+  const { lang } = useLanguage();
   const [selectedImage, setSelectedImage] = useState(null);
   const [touchStart, setTouchStart] = useState(null);
   const [touchEnd, setTouchEnd] = useState(null);
@@ -123,29 +125,29 @@ export default function Home() {
           <div className="max-w-3xl">
             <MotionWrapper animation="slideInDown" duration={1} delay={0.3}>
               <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-400 text-xs font-bold uppercase tracking-widest mb-8 animate-in fade-in slide-in-from-left-4 duration-1000">
-                <Zap className="w-3.5 h-3.5" /> {titleHero?.tag}
+                <Zap className="w-3.5 h-3.5" /> {lang === "id" ? titleHero?.tag : titleHero?.tag_en}
               </div>
             </MotionWrapper>
             <MotionWrapper animation="slideLeft" duration={1} delay={0.3}>
-              <h1 className="text-[40px] md:text-8xl font-serif font-bold text-white mb-8 leading-[1.05] animate-in fade-in slide-in-from-bottom-6 duration-1000">
-                {titleHero?.title} <br />
-                <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-400 to-cyan-300">{titleHero?.title2}</span>
+              <h1 className="text-[30px] md:text-6xl font-serif font-bold text-white mb-8 leading-[1.05] animate-in fade-in slide-in-from-bottom-6 duration-1000">
+                {lang === "id" ? titleHero?.title : titleHero?.title_en} <br />
+                <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-400 to-cyan-300">{lang === "id" ? titleHero?.title2 : titleHero?.title2_en}</span>
               </h1>
             </MotionWrapper>
             <MotionWrapper animation="slideInUp" duration={1} delay={0.3}>
-              <p className="text-xl md:text-2xl text-slate-300/90 mb-12 leading-relaxed animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-200 font-light">
-                {titleHero?.subtitle}
+              <p className="text-md md:text-lg text-slate-300/90 mb-12 leading-relaxed animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-200 font-light text-justify">
+                {lang === "id" ? titleHero?.subtitle : titleHero?.subtitle_en}
               </p>
             </MotionWrapper>
             <MotionWrapper animation="slideInUp" duration={1} delay={0.3}>
               <div className="flex flex-wrap gap-6 animate-in fade-in slide-in-from-bottom-10 duration-1000 delay-300 pb-20">
                 <Link href="/vessels" >
                   <button className="px-10 py-5 bg-blue-600 hover:bg-blue-500 text-white rounded-full font-bold transition-all transform hover:scale-105 shadow-xl shadow-blue-600/20 flex items-center gap-2">
-                    Explore Fleet <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                    {lang === "id" ? "Jelajahi Kapal" : "Explore Fleet"} <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                   </button>
                 </Link>
                 <Link href="/about" className="px-10 py-5 bg-white/5 hover:bg-white/10 text-white border border-white/20 rounded-full font-bold transition-all backdrop-blur-md">
-                  Our Story
+                  {lang === "id" ? "Cerita Kami" : "Our Story"}
                 </Link>
               </div>
             </MotionWrapper>
@@ -156,19 +158,25 @@ export default function Home() {
             <div className="bg-slate-900/40 backdrop-blur-2xl border border-white/10 p-10 rounded-[2.5rem] grid grid-cols-2 gap-x-16 gap-y-10 min-w-112.5">
               <div>
                 <div className="text-5xl font-serif font-bold text-white mb-2"><Counter end={vesselsCount} suffix="+" /></div>
-                <div className="text-slate-400 text-[10px] uppercase tracking-[0.2em] font-black">Vessels Managed</div>
+                <div className="text-slate-400 text-[10px] uppercase tracking-[0.2em] font-black">
+                  {lang === "id" ? "Kapal Dikelola" : "Vessels Managed"}
+                </div>
               </div>
               <div>
                 <div className="text-5xl font-serif font-bold text-white mb-2"><Counter end={99.8} suffix="%" /></div>
-                <div className="text-slate-400 text-[10px] uppercase tracking-[0.2em] font-black">Technical Reliability</div>
+                <div className="text-slate-400 text-[10px] uppercase tracking-[0.2em] font-black">
+                  {lang === "id" ? "Keandalan Teknis" : "Technical Reliability"}
+                </div>
               </div>
               <div>
                 <div className="text-5xl font-serif font-bold text-white mb-2"><Counter end={exhibitionsCount} suffix="+" /></div>
-                <div className="text-slate-400 text-[10px] uppercase tracking-[0.2em] font-black">Exhibitions Managed</div>
+                <div className="text-slate-400 text-[10px] uppercase tracking-[0.2em] font-black">{lang === "id" ? "Exhibition dikelola" : "Exhibitions Managed"}</div>
               </div>
               <div>
                 <div className="text-5xl font-serif font-bold text-white mb-2"><Counter end={careersCount} suffix="" /></div>
-                <div className="text-slate-400 text-[10px] uppercase tracking-[0.2em] font-black">Job Openings</div>
+                <div className="text-slate-400 text-[10px] uppercase tracking-[0.2em] font-black">
+                  {lang === "id" ? "Lowongan Kerja" : "Job Openings"}
+                </div>
               </div>
             </div>
           </MotionWrapper>
@@ -181,18 +189,18 @@ export default function Home() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div className="mb-24">
               <MotionWrapper animation="slideInDown" duration={1} delay={0.3}>
-                <h2 className="text-blue-600 font-bold tracking-[0.3em] uppercase mb-4 text-xs">Our Services</h2>
+                <h2 className="text-blue-600 font-bold tracking-[0.3em] uppercase mb-4 text-xs">{lang === "id" ? titleServices?.tag : titleServices?.tag_en}</h2>
               </MotionWrapper>
               <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-8">
                 <MotionWrapper animation="slideInLeft" duration={1} delay={0.3}>
                   <h3 className="text-5xl md:text-6xl font-serif font-bold text-slate-900 max-w-2xl leading-tight">
-                    {titleServices?.title}
+                    {lang === "id" ? titleServices?.title : titleServices?.title_en}
                   </h3>
                 </MotionWrapper>
                 <MotionWrapper animation="slideInRight" duration={1} delay={0.3}>
 
                   <p className="text-slate-500 text-lg max-w-sm leading-relaxed">
-                    {titleServices?.subtitle}
+                    {lang === "id" ? titleServices?.subtitle : titleServices?.subtitle_en}
                   </p>
                 </MotionWrapper>
               </div>
@@ -211,9 +219,9 @@ export default function Home() {
                     <span className="inline-block px-3 py-1 bg-white border border-slate-200 text-slate-400 text-[9px] font-black uppercase tracking-[0.2em] rounded-lg mb-6 group-hover:border-blue-600/30 group-hover:text-blue-600 transition-all">
                       service
                     </span>
-                    <h4 className="text-2xl font-bold text-slate-900 mb-4 group-hover:text-blue-600 transition-colors">{s.title}</h4>
+                    <h4 className="text-2xl font-bold text-slate-900 mb-4 group-hover:text-blue-600 transition-colors">{lang === "id" ? s.title : s.title_en}</h4>
                     <ReadMore
-                      text={s.description}
+                      text={lang === "id" ? s.description : s.description_en}
                       wordLimit={12}
                       buttonColor="text-blue-400 hover:text-blue-600"
                     />
@@ -240,13 +248,13 @@ export default function Home() {
               <div>
                 <MotionWrapper animation="slideInDown" duration={1} delay={0.3}>
                   <h2 className="text-blue-400 font-bold tracking-[0.3em] uppercase mb-6 text-xs">
-                    {titleVM?.tag}
+                    {lang === "id" ? titleVM?.tag : titleVM?.tag_en}
                   </h2>
                 </MotionWrapper>
                 <MotionWrapper animation="slideInLeft" duration={1} delay={0.3}>
-                  <h3 className="text-[40px] md:text-7xl font-serif font-bold leading-tight">
-                    {titleVM?.title} <br />
-                    <span className="italic text-slate-500">{titleVM?.title2}</span>
+                  <h3 className="text-[30px] md:text-6xl font-serif font-bold leading-tight">
+                    {lang === "id" ? titleVM?.title : titleVM?.title_en} <br />
+                    <span className="italic text-slate-500">{lang === "id" ? titleVM?.title2 : titleVM?.title2_en}</span>
                   </h3>
                 </MotionWrapper>
               </div>
@@ -258,12 +266,19 @@ export default function Home() {
                     <div className="w-14 h-14 rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center mb-8 group-hover:bg-blue-600 group-hover:border-blue-600 transition-all duration-500 transform group-hover:scale-110 group-hover:rotate-3">
                       <Target className="w-7 h-7 text-blue-400 group-hover:text-white transition-colors" />
                     </div>
-                    <h4 className="text-2xl font-bold mb-4">The Mission</h4>
-                    <ReadMore
-                      text={mission ? mission.description : ''}
-                      wordLimit={45}
-                      buttonColor="text-blue-400 hover:text-blue-300"
-                    />
+                    <h4 className="text-2xl font-bold mb-4">{lang === "id" ? "Misi Kami" : "The Mission"}</h4>
+                    {lang === "id" ?
+                      <ReadMore
+                        text={mission ? mission.description : ''}
+                        wordLimit={45}
+                        buttonColor="text-blue-400 hover:text-blue-300"
+                      /> :
+                      <ReadMore
+                        text={mission ? mission.description_en : ''}
+                        wordLimit={45}
+                        buttonColor="text-blue-400 hover:text-blue-300"
+                      />
+                    }
                   </div>
                 </MotionWrapper>
                 <MotionWrapper animation="scaleIn" duration={1} delay={0.3}>
@@ -272,12 +287,19 @@ export default function Home() {
                     <div className="w-14 h-14 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center mb-8 group-hover:bg-cyan-500 group-hover:border-cyan-500 transition-all duration-500 transform group-hover:scale-110 group-hover:rotate-3">
                       <Eye className="w-7 h-7 text-cyan-400 group-hover:text-white transition-colors" />
                     </div>
-                    <h4 className="text-2xl font-bold mb-4">The Vision</h4>
-                    <ReadMore
-                      text={vision ? vision.description : ''}
-                      wordLimit={12}
-                      buttonColor="text-cyan-400 hover:text-cyan-300"
-                    />
+                    <h4 className="text-2xl font-bold mb-4">{lang === "id" ? "Visi Kami" : "The Vision"}</h4>
+                    {lang === "id" ?
+                      <ReadMore
+                        text={vision ? vision.description : ''}
+                        wordLimit={45}
+                        buttonColor="text-blue-400 hover:text-blue-300"
+                      /> :
+                      <ReadMore
+                        text={vision ? vision.description_en : ''}
+                        wordLimit={45}
+                        buttonColor="text-blue-400 hover:text-blue-300"
+                      />
+                    }
 
                   </div>
                 </MotionWrapper>
@@ -299,7 +321,7 @@ export default function Home() {
                 </MotionWrapper>
                 <MotionWrapper animation="rotateIn" duration={1} delay={0.3}>
                   <div className="absolute -left-4 -bottom-8 md:-bottom-10 md:-left-10 bg-white p-6 md:p-12 rounded-4xl shadow-2xl max-w-2xs md:max-w-sm">
-                    <p className="text-slate-900 font-serif font-bold text-lg md:text-2xl mb-4 italic leading-tight">"{captain?.quote}"</p>
+                    <p className="text-slate-900 font-serif font-bold text-lg md:text-2xl mb-4 italic leading-tight">"{lang === "id" ? captain?.quote : captain?.quote_en}"</p>
                     <div className="flex items-center gap-4">
                       <div className="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold text-xs">CEO</div>
                       <div>
@@ -321,10 +343,10 @@ export default function Home() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center max-w-2xl mx-auto mb-20">
               <MotionWrapper animation="slideInDown" duration={1} delay={0.3}>
-                <h2 className="text-blue-600 font-bold tracking-[0.3em] uppercase mb-4 text-xs">{titleGallery?.tag}</h2>
+                <h2 className="text-blue-600 font-bold tracking-[0.3em] uppercase mb-4 text-xs">{lang === "id" ? titleGallery?.tag : titleGallery?.tag_en}</h2>
               </MotionWrapper>
               <MotionWrapper animation="slideInDown" duration={1} delay={0.3}>
-                <h3 className="text-5xl font-serif font-bold text-slate-900">{titleGallery?.title}</h3>
+                <h3 className="text-5xl font-serif font-bold text-slate-900">{lang === "id" ? titleGallery?.title : titleGallery?.title_en}</h3>
               </MotionWrapper>
             </div>
 
@@ -478,14 +500,14 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-24">
             <MotionWrapper animation="slideInDown" duration={1} delay={0.3}>
-              <h2 className="text-blue-600 font-bold tracking-[0.3em] uppercase mb-4 text-xs">{titleCoreValues?.tag}</h2>
+              <h2 className="text-blue-600 font-bold tracking-[0.3em] uppercase mb-4 text-xs">{lang === "id" ? titleCoreValues?.tag : titleCoreValues?.tag_en}</h2>
             </MotionWrapper>
             <MotionWrapper animation="slideInDown" duration={1} delay={0.3}>
-              <h3 className="text-5xl font-serif font-bold text-slate-900 mb-6">{titleCoreValues?.title}</h3>
+              <h3 className="text-5xl font-serif font-bold text-slate-900 mb-6">{lang === "id" ? titleCoreValues?.title : titleCoreValues?.title_en}</h3>
             </MotionWrapper>
             <MotionWrapper animation="slideInDown" duration={1} delay={0.3}>
               <p className="text-slate-500 max-w-xl mx-auto text-lg leading-relaxed">
-                {titleCoreValues?.subtitle}
+                {lang === "id" ? titleCoreValues?.subtitle : titleCoreValues?.subtitle_en}
               </p>
             </MotionWrapper>
           </div>
@@ -500,7 +522,7 @@ export default function Home() {
                 <div className="w-1.5 h-8 bg-blue-600 rounded-full mr-6 group-hover:bg-white group-hover:h-12 transition-all duration-300"></div>
 
                 <h4 className="text-lg font-bold text-slate-900 group-hover:text-white transition-colors duration-300 leading-tight">
-                  {val.title}
+                  {lang === "id" ? val.title : val.title_en}
                 </h4>
               </div>
             ))}

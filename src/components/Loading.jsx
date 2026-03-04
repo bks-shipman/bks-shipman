@@ -40,7 +40,7 @@ export default function Loading() {
             width={72}
             height={72} 
             src="/logo.png" 
-            alt="BKS SHIPMAN Logo" 
+            alt="BKS Shipmanagement Logo" 
             className="w-full h-full object-contain drop-shadow-sm"
             />
         </div>

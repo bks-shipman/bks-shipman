@@ -34,7 +34,7 @@ export default function Login() {
 
             notifications.show({
                 title: "Login Berhasil",
-                message: "Selamat datang di Backoffice BKS SHIPMAN",
+                message: "Selamat datang di Backoffice BKS Shipmanagement",
                 color: "green",
             });
 
@@ -71,7 +71,7 @@ export default function Login() {
                             <Image src={"/logo.png"} alt='logo' width={40} height={40} />
 
                         </div>
-                        <span className="text-2xl font-serif font-black tracking-tighter text-white">BKS SHIPMAN</span>
+                        <span className="text-2xl font-serif font-black tracking-tighter text-white">BKS Shipmanagement</span>
                     </Link>
 
                     <div className="max-w-xl">
@@ -91,7 +91,7 @@ export default function Login() {
                     </div>
 
                     <div className="text-slate-500 text-[10px] uppercase tracking-[0.3em] font-black">
-                        © {year}  BKS SHIPMAN
+                        © {year}  BKS Shipmanagement
                     </div>
                 </div>
             </div>
@@ -103,7 +103,7 @@ export default function Login() {
                     <Link href="/" className="flex items-center gap-2">
                         <Image src={"/logo.png"} alt='logo' width={40} height={40} />
 
-                        <span className="text-lg font-serif font-black tracking-tighter text-slate-900">BKS SHIPMAN</span>
+                        <span className="text-lg font-serif font-black tracking-tighter text-slate-900">BKS Shipmanagement</span>
                     </Link>
                 </div>
 

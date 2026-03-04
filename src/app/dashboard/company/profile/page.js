@@ -101,7 +101,7 @@ export default function Company() {
                 address: values.address,
                 email: values.email,
                 gmapsUrl: values.gmapsUrl,
-                name: "BKS SHIPMAN",
+                name: "BKS Shipmanagement",
                 phone: values.phone,
                 phone_code: values.phone_code,
                 linkedin: values.linkedin,

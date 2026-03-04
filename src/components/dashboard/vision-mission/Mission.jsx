@@ -49,7 +49,8 @@ export default function Mission({role}) {
 
     const form = useForm({
         initialValues: {
-            description: ""
+            description: "",
+            description_en: ""
         },
         validateInputOnChange: true,
         validateInputOnBlur: true,
@@ -57,8 +58,13 @@ export default function Mission({role}) {
         validate: {
             description: (value) =>
                 !value
-                    ? "Deskripsi harus diisi"
+                    ? "Deskripsi (Indonesia) harus diisi"
                     : null,
+            description_en: (value) =>
+                !value
+                    ? "Deskripsi (English) harus diisi"
+                    : null,
+            
         }
     });
 
@@ -66,7 +72,8 @@ export default function Mission({role}) {
     useEffect(() => {
         if (data) {
             form.setValues({
-                description: data.description || ""
+                description: data.description || "",
+                description_en: data.description_en || ""
             });
         }
     }, [data]);
@@ -79,6 +86,7 @@ export default function Mission({role}) {
 
             await updateMission({
                 description: values.description,
+                description_en: values.description_en
             });
 
             notifications.show({
@@ -127,12 +135,20 @@ dark:border-slate-800/50 p-12 rounded-[2.5rem] border border-slate-100 shadow-xl
                             <Target className="w-5 h-5 text-blue-600" /> Mission
                         </h3>
                         {role === "ADMIN" ? (
+                            <>
                             <Textarea
-                            label="Company Mission"
+                            label="Company Mission (Indonesia)"
                             autosize
                             minRows={4}
                             {...form.getInputProps("description")}
                             />
+                            <Textarea
+                            label="Company Mission (English)"
+                            autosize
+                            minRows={4}
+                            {...form.getInputProps("description_en")}
+                            />
+                            </>
                         ) : (
                             <p>
                                 {data?.description}

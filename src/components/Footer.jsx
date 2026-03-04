@@ -50,7 +50,7 @@ if (isLoading) {
           <div className="space-y-4">
             <Link href="/" className="flex items-center gap-2">
               <Image src={"/logo.png"} alt='logo' width={40} height={40} />
-              <span className="text-xl font-serif font-bold text-white">BKS SHIPMAN</span>
+              <span className="text-xl font-serif font-bold text-white">BKS Shipmanagement</span>
             </Link>
             <p className="text-slate-400">Leading the way in global ship management with a commitment to safety and innovation.</p>
             <div className="flex space-x-4 pt-2">
@@ -101,7 +101,7 @@ if (isLoading) {
         </div>
         
         <div className="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-slate-500">
-          <p>© {year} BKS SHIPMAN. All rights reserved.</p>
+          <p>© {year} BKS Shipmanagement. All rights reserved.</p>
           <div className="flex space-x-6 mt-4 md:mt-0">
             <a href="#" className="hover:text-slate-300">Privacy Policy</a>
             <a href="#" className="hover:text-slate-300">Terms of Service</a>

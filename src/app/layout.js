@@ -11,6 +11,7 @@ import { ModalsProvider } from "@mantine/modals";
 import { NavigationProgress } from "@mantine/nprogress";
 import "@mantine/nprogress/styles.css";
 import { SpeedInsights } from "@vercel/speed-insights/next"
+import { LanguageProvider } from '@/context/LanguageProvider';
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -22,10 +23,10 @@ const poppins = Poppins({
 export const metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://bks-shipman.vercel.app'),
   title: {
-    default: "BKS SHIPMAN - Total Ship Management Solutions",
-    template: "%s | BKS SHIPMAN",
+    default: "BKS Shipmanagement - Total Ship Management Solutions",
+    template: "%s | BKS Shipmanagement",
   },
-  description: "BKS SHIPMAN menyediakan solusi manajemen kapal profesional termasuk manajemen teknis, kru, dan komersial.",
+  description: "BKS Shipmanagement menyediakan solusi manajemen kapal profesional termasuk manajemen teknis, kru, dan komersial.",
   manifest: "/site.webmanifest",
   icons: {
     icon: "/favicon-32x32.png",
@@ -35,13 +36,13 @@ export const metadata = {
     type: "website",
     locale: "id_ID",
     url: "/",
-    siteName: "BKS SHIPMAN",
+    siteName: "BKS Shipmanagement",
     images: [
       {
         url: "/og-image.png", // Taruh file ini di folder public
         width: 1200,
         height: 630,
-        alt: "BKS SHIPMAN Corporate",
+        alt: "BKS Shipmanagement Corporate",
       },
     ],
   },
@@ -67,7 +68,9 @@ export default async function RootLayout({ children }) {
             <NavigationProgress color="blue" />
             <Notifications />
             <ModalsProvider>
-              {children}
+              <LanguageProvider>
+                {children}
+              </LanguageProvider>
             </ModalsProvider>
           </MantineProvider>
         </main>

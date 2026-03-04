@@ -80,17 +80,12 @@ export default function TableView({ titles, onDeleteMany, onEdit, isAdmin }) {
                 Section
               </th>
               <th className="px-6 md:px-10 py-5 text-[10px] font-black text-slate-400 dark:text-slate-100 uppercase tracking-widest">
-                First Title
+                First Title (ID)
               </th>
               <th className="px-6 md:px-10 py-5 text-[10px] font-black text-slate-400 dark:text-slate-100 uppercase tracking-widest">
-                Second Title
+                First Title (EN)
               </th>
-              <th className="px-6 md:px-10 py-5 text-[10px] font-black text-slate-400 dark:text-slate-100 uppercase tracking-widest">
-                Subtitle
-              </th>
-              <th className="px-6 md:px-10 py-5 text-[10px] font-black text-slate-400 dark:text-slate-100 uppercase tracking-widest">
-                Tag
-              </th>
+             
               {isAdmin == "ADMIN" && (
 
                 <th className="px-6 md:px-10 py-5 text-[10px] font-black text-slate-400 dark:text-slate-100 uppercase tracking-widest text-right">
@@ -127,13 +122,7 @@ export default function TableView({ titles, onDeleteMany, onEdit, isAdmin }) {
                     {career.title}
                   </td>
                   <td className="px-6 md:px-10 py-6 font-bold text-slate-900 dark:text-slate-100">
-                    {career.title2}
-                  </td>
-                  <td className="px-6 md:px-10 py-6 font-bold text-slate-900 dark:text-slate-100">
-                    {career.subtitle}
-                  </td>
-                  <td className="px-6 md:px-10 py-6 font-bold text-slate-900 dark:text-slate-100">
-                    {career.tag}
+                    {career.title_en}
                   </td>
 
                   {isAdmin == "ADMIN" && (

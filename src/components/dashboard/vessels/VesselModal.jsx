@@ -31,6 +31,7 @@ const [loading, setLoading] = useState(false);
     initialValues: {
       name: "",
       description: "",
+      description_en: "",
       imo: "",
       year: "",
       country: "",
@@ -53,6 +54,7 @@ const [loading, setLoading] = useState(false);
       form.setValues({
         name: vessel.name || "",
         description: vessel.description || "",
+        description_en: vessel.description_en || "",
         imo: vessel.imo || "",
         year: vessel.year || "",
         country: vessel.country || "",
@@ -80,6 +82,7 @@ const [loading, setLoading] = useState(false);
       const formData = new FormData();
       formData.append("name", values.name);
       formData.append("description", values.description);
+      formData.append("description_en", values.description_en);
       formData.append("imo", values.imo);
       formData.append("year", values.year);
       formData.append("country", values.country);
@@ -166,10 +169,16 @@ const [loading, setLoading] = useState(false);
         />
 
         <Textarea
-          label="Description"
+          label="Description (Indonesia)"
           autosize
           minRows={3}
           {...form.getInputProps("description")}
+        />
+        <Textarea
+          label="Description (English)"
+          autosize
+          minRows={3}
+          {...form.getInputProps("description_en")}
         />
 
         {/* ================= PHOTO ================= */}

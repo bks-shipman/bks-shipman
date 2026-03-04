@@ -39,10 +39,14 @@ export default function TitleModal({
   const form = useForm({
     initialValues: {
       title: "",
+      title_en: "",
       title2: "",
+      title2_en: "",
       subtitle: "",
+      subtitle_en: "",
       type: "",
       tag: "",
+      tag_en: "",
     },
 
     validate: {
@@ -67,10 +71,14 @@ export default function TitleModal({
     if (opened && title) {
       form.setValues({
         title: title.title || "",
+        title_en: title.title_en || "",
         title2: title.title2 || "",
+        title2_en: title.title2_en || "",
         subtitle: title.subtitle || "",
+        subtitle_en: title.subtitle_en || "",
         type: title.type || "",
-        tag: title.tag || "",
+        tag: title.tag || "", 
+        tag_en: title.tag_en || "", 
       });
     }
 
@@ -145,33 +153,57 @@ export default function TitleModal({
         {/* CONDITIONAL FIELDS */}
 
         <TextInput
-          label="First Title"
+          label="First Title (Indonesia)"
           {...form.getInputProps("title")}
+        />
+        <TextInput
+          label="First Title (English)"
+          {...form.getInputProps("title_en")}
         />
         {(form.values.type === "HERO" ||
           form.values.type === "SERVICES" ||
           form.values.type === "VM") && (
+            <>
             <TextInput
-              label="Second Title"
+              label="Second Title (Indonesia)"
               {...form.getInputProps("title2")}
-            />
+              />
+            <TextInput
+              label="Second Title (English)"
+              {...form.getInputProps("title2_en")}
+              />
+            </>
         )}
 
         {(form.values.type === "HERO" || form.values.type === "CAREERS" || form.values.type === "SERVICES" || form.values.type === "ABOUTUS" || form.values.type === "VESSELS" || form.values.type === "EXHIBITIONS" || form.values.type === "CERTIFICATES") && (
+          <>
           <Textarea
-            label="Subtitle"
+            label="Subtitle (Indonesia)"
             autosize
             minRows={3}
             {...form.getInputProps("subtitle")}
           />
+          <Textarea
+            label="Subtitle (English)"
+            autosize
+            minRows={3}
+            {...form.getInputProps("subtitle_en")}
+          />
+          </>
         )}
 
         {(form.values.type === "SERVICES" ||
           form.values.type === "COREVALUES" || form.values.type === "HERO" || form.values.type === "VM" || form.values.type === "GALLERY" || form.values.type === "CERTIFICATES") && (
+            <>
           <TextInput
-            label="Tag"
+            label="Tag (Indonesia)"
             {...form.getInputProps("tag")}
           />
+          <TextInput
+            label="Tag (English)"
+            {...form.getInputProps("tag_en")}
+          />
+            </>
         )}
 
         <Button

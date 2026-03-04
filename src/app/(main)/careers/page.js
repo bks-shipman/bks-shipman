@@ -12,12 +12,13 @@ import Image from 'next/image';
 import { useState } from 'react';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
-
+import { useLanguage } from '@/context/LanguageProvider';
 const fetcher = async () => {
     return await getCareerPage();
 };
 
 export default function Careers() {
+    const { lang } = useLanguage();
     const [selectedImage, setSelectedImage] = useState(null);
     const [touchStart, setTouchStart] = useState(null);
     const [touchEnd, setTouchEnd] = useState(null);
@@ -89,8 +90,8 @@ export default function Careers() {
     return (
         <div className="pb-24 bg-white">
             <Hero
-                title={titleCareer?.title}
-                subtitle={titleCareer?.subtitle}
+                title={lang === "id" ? titleCareer?.title : titleCareer?.title_en}
+                subtitle={lang === "id" ? titleCareer?.subtitle : titleCareer?.subtitle_en}
                 imageUrl="/career.jpeg"
             />
 
@@ -102,10 +103,11 @@ export default function Careers() {
                         <MotionWrapper animation="slideInLeft" duration={1} delay={0.3}>
                             <div className={`sticky top-32 space-y-10 transition-all duration-1000 '}`}>
                                 <div>
-                                    <h2 className="text-blue-600 font-bold tracking-[0.3em] uppercase mb-4 text-xs">Recruitment Center</h2>
-                                    <h3 className="text-4xl font-serif font-bold text-slate-900 mb-6">Contact Our Team</h3>
+                                    <h2 className="text-blue-600 font-bold tracking-[0.3em] uppercase mb-4 text-xs">{lang === "id" ? "Pusat Rekrutmen" : "Recruitment Center"}</h2>
+                                    <h3 className="text-4xl font-serif font-bold text-slate-900 mb-6">{lang === "id" ? "Kontak Tim Kami" : "Contact Our Team"}</h3>
                                     <p className="text-slate-500 leading-relaxed mb-8">
-                                        Have questions about a role or your application? Our global talent acquisition team is available for direct inquiries.
+                                        {lang === "id" ? "Punya pertanyaan tentang suatu posisi atau lamaran Anda? Tim rekrutmen talenta global kami siap menjawab pertanyaan langsung Anda." : " Have questions about a role or your application? Our global talent acquisition team is available for direct inquiries."}
+
                                     </p>
                                 </div>
 
@@ -115,7 +117,7 @@ export default function Careers() {
                                             <Phone className="w-6 h-6" />
                                         </div>
                                         <div>
-                                            <span className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Direct Line</span>
+                                            <span className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">{lang === "id" ? "Kontak Langsung" : "Direct Line"}</span>
                                             <span className="text-slate-900 font-bold text-lg">+{phoneCode} {phone}</span>
                                         </div>
                                     </a>
@@ -125,7 +127,7 @@ export default function Careers() {
                                             <Mail className="w-6 h-6" />
                                         </div>
                                         <div>
-                                            <span className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Email Inquiry</span>
+                                            <span className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Email</span>
                                             <span className="block text-slate-900 font-bold text-lg break-all">{email}</span>
                                         </div>
                                     </Link>
@@ -134,7 +136,7 @@ export default function Careers() {
                                 <div className="pt-10 border-t border-slate-200">
                                     <div className="flex items-center gap-4 text-slate-400">
                                         <MessageSquare className="w-5 h-5" />
-                                        <span className="text-sm font-medium">Typical response time: <span className="text-slate-900">24-48 Hours</span></span>
+                                        <span className="text-sm font-medium">{lang === "id" ? "Waktu respon biasanya" : "Typical response time:"} <span className="text-slate-900">24-48 {lang === "id" ? "Jam" : "Hours"}</span></span>
                                     </div>
                                 </div>
                             </div>
@@ -153,8 +155,12 @@ export default function Careers() {
                                 <MotionWrapper animation="scaleIn" duration={1} delay={0.8}>
                                     {career?.map((job, idx) => {
                                         // Membersihkan dan memecah string menjadi array berdasarkan koma
-                                        const positionsList = job.positions ? job.positions.split(',').map(item => item.trim()).filter(Boolean) : [];
-                                        const requirementsList = job.requirements ? job.requirements.split(',').map(item => item.trim()).filter(Boolean) : [];
+                                        const rawPositions = lang === 'en' && job.positions_en ? job.positions_en : job.positions;
+                                        const rawRequirements = lang === 'en' && job.requirements_en ? job.requirements_en : job.requirements;
+
+                                        // 2. Baru kemudian string yang sudah terpilih itu dipecah (split) jadi array
+                                        const positionsList = rawPositions ? rawPositions.split(',').map(item => item.trim()).filter(Boolean) : [];
+                                        const requirementsList = rawRequirements ? rawRequirements.split(',').map(item => item.trim()).filter(Boolean) : [];
 
                                         return (
                                             <div
@@ -201,7 +207,7 @@ export default function Careers() {
                                                     {/* Title */}
                                                     <div>
                                                         <h4 className="text-3xl md:text-4xl font-serif font-bold text-slate-950 mb-6 group-hover:text-blue-600 transition-colors">
-                                                            {job.title}
+                                                            {lang === "id" ? job.title : job.title_en}
                                                         </h4>
                                                         <div className="h-1.5 w-20 bg-blue-600 mb-2 rounded-full"></div>
                                                     </div>
@@ -214,7 +220,7 @@ export default function Careers() {
                                                             <div>
                                                                 <h5 className="text-sm font-semibold tracking-[0.2em] uppercase text-slate-600 mb-6 flex items-center gap-2">
                                                                     <div className="w-2 h-2 rounded-full bg-blue-600"></div>
-                                                                    Available Positions
+                                                                    {lang === "id" ? "Posisi yang Tersedia" : "Available Positions"}
                                                                 </h5>
                                                                 <ul className="space-y-3">
                                                                     {positionsList.map((pos, i) => (
@@ -232,7 +238,7 @@ export default function Careers() {
                                                             <div>
                                                                 <h5 className="text-sm font-semibold tracking-[0.2em] uppercase text-slate-600 mb-6 flex items-center gap-2">
                                                                     <div className="w-2 h-2 rounded-full bg-green-500"></div>
-                                                                    Requirements
+                                                                    {lang === "id" ? "Persyaratan" : "Requirements"}
                                                                 </h5>
                                                                 <ul className="space-y-4">
                                                                     {requirementsList.map((req, i) => (

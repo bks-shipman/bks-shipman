@@ -18,6 +18,7 @@ import Image from "next/image";
 import { ImageUp } from "lucide-react";
 import { createService, updateService } from "@/utils/api/dashboard/services";
 import { createCareer, updateCareer } from "@/utils/api/dashboard/careers";
+import { title } from "motion/react-client";
 
 export default function CareerModal({
   opened,
@@ -31,8 +32,11 @@ const [loading, setLoading] = useState(false);
   const form = useForm({
     initialValues: {
       title: "",
+      title_en: "",
       positions: "",
+      positions_en: "",
       requirements: "",
+      requirements_en: "",
       photo: null,
 
     },
@@ -41,11 +45,19 @@ const [loading, setLoading] = useState(false);
       title: (value) =>
         !value ? "Title wajib diisi" : null,
 
+      title_en: (value) =>
+        !value ? "Title (English) wajib diisi" : null,
+
       positions: (value) =>
         !value ? "Positions wajib diisi" : null,
 
+      positions_en: (value) =>
+        !value ? "Positions (English) wajib diisi" : null,
+
       requirements: (value) =>
         !value ? "Requirements wajib diisi" : null,
+      requirements_en: (value) =>
+        !value ? "Requirements (English) wajib diisi" : null,
     },
   });
 
@@ -54,8 +66,11 @@ const [loading, setLoading] = useState(false);
     if (opened && career) {
       form.setValues({
         title: career.title || "",
+        title_en: career.title_en || "",
         positions: career.positions || "",
+        positions_en: career.positions_en || "",
         requirements: career.requirements || "",
+        requirements_en: career.requirements_en || "",
         photo: career.photo || "",
       });
        if (career.photo) {
@@ -77,7 +92,10 @@ const [loading, setLoading] = useState(false);
 
       const formData = new FormData();
       formData.append("title", values.title);
+      formData.append("title_en", values.title_en);
       formData.append("positions", values.positions);
+      formData.append("positions_en", values.positions_en);
+      formData.append("requirements_en", values.requirements_en);
       formData.append("requirements", values.requirements);
 
       if (values.photo) {
@@ -129,22 +147,41 @@ const [loading, setLoading] = useState(false);
       <form onSubmit={form.onSubmit(handleSubmit)} className="space-y-4">
 
         <TextInput
-          label="Title"
+          label="Title (Indonesia)"
           {...form.getInputProps("title")}
         />
 
+        <TextInput
+          label="Title (English)"
+          {...form.getInputProps("title_en")}
+        />
+
         <Textarea
-          label="Positions"
+          label="Positions (Indonesia)"
           autosize
           minRows={3}
           {...form.getInputProps("positions")}
         />
 
         <Textarea
-          label="Requirements"
+          label="Positions (English)"
+          autosize
+          minRows={3}
+          {...form.getInputProps("positions_en")}
+        />
+
+        <Textarea
+          label="Requirements (Indonesia)"
           autosize
           minRows={3}
           {...form.getInputProps("requirements")}
+        />
+
+        <Textarea
+          label="Requirements (English)"
+          autosize
+          minRows={3}
+          {...form.getInputProps("requirements_en")}
         />
 
           <div className="flex flex-col gap-3">

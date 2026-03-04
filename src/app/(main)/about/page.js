@@ -7,13 +7,13 @@ import useSWR from 'swr';
 import Loading from '@/components/Loading';
 import { MotionWrapper } from '@/components/MotionWrapper';
 import { Award } from 'lucide-react'; // Tambahkan icon jika ingin lebih manis
-
+import { useLanguage } from '@/context/LanguageProvider';
 const fetcher = async () => {
     return await getAboutPage();
 };
 
 export default function About() {
-
+    const { lang } = useLanguage();
     const { data, error, isLoading } = useSWR(
         'about-page',
         fetcher,
@@ -48,8 +48,8 @@ export default function About() {
     return (
         <div className="bg-white">
             <Hero
-                title={titleAboutUs?.title}
-                subtitle={titleAboutUs?.subtitle}
+                title={lang === "id" ? titleAboutUs?.title : titleAboutUs?.title_en}
+                subtitle={lang === "id" ? titleAboutUs?.subtitle : titleAboutUs?.subtitle_en}
                 imageUrl="https://bks-shipman.com/images/576/22219807/crew-Mtf7_GJIQLNzvsJu_HJ0jA.jpg"
             />
 
@@ -59,14 +59,15 @@ export default function About() {
                     <div>
                         <MotionWrapper animation="slideInLeft" duration={1} delay={0.3}>
                             <h2 className="text-blue-600 text-sm tracking-[0.3em] font-bold uppercase mb-4">
-                                About BKS SHIPMAN
+                                {lang === "id" ? "Tentang BKS Shipmanagementagement" : "About BKS Shipmanagementagement"}
+
                             </h2>
                         </MotionWrapper>
 
                         <div className="space-y-6 text-slate-600">
                             <MotionWrapper animation="slideInUp" duration={1} delay={0.4}>
                                 <p className='text-lg whitespace-pre-line leading-relaxed font-light'>
-                                    {aboutUs?.description}
+                                    {lang === "id" ? aboutUs?.description : aboutUs?.description_en}
                                 </p>
                             </MotionWrapper>
                         </div>
@@ -78,7 +79,7 @@ export default function About() {
                                 src="/logo.png"
                                 fill
                                 className="rounded-[3rem] shadow-2xl object-cover"
-                                alt="About BKS SHIPMAN"
+                                alt="About BKS Shipmanagement"
                             />
                             {/* Opsional: Overlay gradient agar gambar lebih menyatu */}
                             <div className="absolute inset-0 rounded-[3rem] shadow-[inset_0_0_50px_rgba(0,0,0,0.1)]"></div>

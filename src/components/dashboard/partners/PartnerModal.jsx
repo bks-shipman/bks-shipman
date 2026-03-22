@@ -15,67 +15,48 @@ import { nprogress } from "@mantine/nprogress";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { ImageUp } from "lucide-react";
-import { createExhibition, updateExhibition } from "@/utils/api/dashboard/exhibitions";
+import { createPartner, updatePartner} from "@/utils/api/dashboard/partners";
 import { DatePickerInput } from "@mantine/dates";
 
-export default function ExhibModal({
+export default function PartnerModal({
   opened,
   onClose,
-  exhibition,
+  partner,
   onSuccess,
 }) {
-  const isEdit = !!exhibition;
+  const isEdit = !!partner;
   const [preview, setPreview] = useState(null);
 const [loading, setLoading] = useState(false);
   const form = useForm({
     initialValues: {
       name: "",
-      name_en: "",
-      date: null,
-      description: "",
-      description_en: "",
       photo: null,
     },
 
    validate: {
       name: (value) =>
-        !value ? "Name (ID) wajib diisi" : null,
-
-      name_en: (value) =>
-        !value ? "Name wajib (EN) diisi" : null,
-
-      date: (value) =>
-        !value ? "Date wajib diisi" : null,
-
-      description: (value) =>
-        !value ? "Description (Indonesia) wajib diisi" : null,
-      description_en: (value) =>
-        !value ? "Description (English) wajib diisi" : null,
+        !value ? "Name wajib diisi" : null,
     },
   });
 
   // ================= SET DATA WHEN EDIT =================
   useEffect(() => {
-    if (opened && exhibition) {
+    if (opened && partner) {
       form.setValues({
-        name: exhibition.name || "",
-        name_en: exhibition.name_en || "",
-        date: exhibition.date || null,
-        description: exhibition.description || "",
-        description_en: exhibition.description_en || "",
-        photo: exhibition.photo || "",
+        name: partner.name || "",
+        photo: partner.photo || "",
       });
 
-      if (exhibition.photo) {
-        setPreview(exhibition.photo);
+      if (partner.photo) {
+        setPreview(partner.photo);
       }
     }
 
-    if (opened && !exhibition) {
+    if (opened && !partner) {
       form.reset();
       setPreview(null);
     }
-  }, [exhibition, opened]);
+  }, [partner, opened]);
 
   // ================= SUBMIT =================
   const handleSubmit = async (values) => {
@@ -85,26 +66,21 @@ const [loading, setLoading] = useState(false);
 
       const formData = new FormData();
       formData.append("name", values.name);
-      formData.append("name_en", values.name_en);
-      formData.append("description", values.description);
-      formData.append("description_en", values.description_en);
-      formData.append("date", values.date);
-    
       if (values.photo) {
         formData.append("photo", values.photo);
       }
 
       if (isEdit) {
-        await updateExhibition(exhibition.id, formData);
+        await updatePartner(partner.id, formData);
       } else {
-        await createExhibition(formData);
+        await createPartner(formData);
       }
 
       notifications.show({
         title: "Berhasil",
         message: isEdit
-          ? "Exhibition berhasil diupdate"
-          : "Exhibition berhasil dibuat",
+          ? "partner berhasil diupdate"
+          : "partner berhasil dibuat",
         color: "green",
       });
 
@@ -132,7 +108,7 @@ const [loading, setLoading] = useState(false);
     <Modal
       opened={opened}
       onClose={onClose}
-      title={isEdit ? "Edit Exhibition" : "Create Exhibition"}
+      title={isEdit ? "Edit Partner" : "Create Partner"}
       centered
       size="lg"
       radius="xl"
@@ -140,31 +116,8 @@ const [loading, setLoading] = useState(false);
       <form onSubmit={form.onSubmit(handleSubmit)} className="space-y-4">
 
         <TextInput
-          label="Exhibition Name (Indonesia)"
+          label="Partner Name"
           {...form.getInputProps("name")}
-        />
-
-        <TextInput
-          label="Exhibition Name (English)"
-          {...form.getInputProps("name_en")}
-        />
-
-        <DatePickerInput 
-        label="Exhibition Date"
-        {...form.getInputProps("date")}
-        />
-
-        <Textarea
-          label="Description (Indonesia)"
-          autosize
-          minRows={3}
-          {...form.getInputProps("description")}
-        />
-        <Textarea
-          label="Description (English)"
-          autosize
-          minRows={3}
-          {...form.getInputProps("description_en")}
         />
 
         {/* ================= PHOTO ================= */}
@@ -218,7 +171,7 @@ const [loading, setLoading] = useState(false);
         </div>
 
         <Button type="submit" disabled={!form.isValid()} loading={loading} fullWidth radius="xl">
-          {isEdit ? "Update Exhibition" : "Create Exhibition"}
+          {isEdit ? "Update partner" : "Create partner"}
         </Button>
       </form>
     </Modal>

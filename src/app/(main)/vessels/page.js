@@ -45,6 +45,15 @@ function VesselsContent() {
     const titleVessel = data?.titles;
     const vessels = data?.vessels;
 
+    // --- [BARU] PROTEKSI HALAMAN ---
+    // Cek apakah halaman diizinkan tampil berdasarkan data konfigurasi di BE
+    useEffect(() => {
+        // Asumsi data.visible dari Promise.all di Backend
+        if (data && data.visible && data.visible.isActive === false) {
+            router.replace('/');
+        }
+    }, [data, router]);
+
     const vesselTypes = useMemo(() => {
         if (!vessels) return [];
         const types = vessels.map(v => v?.vesselType?.name);
@@ -73,8 +82,14 @@ function VesselsContent() {
         }
     }, [searchParams]);
 
+    // Tampilkan Loading
     if (isLoading) return <Loading />;
 
+    // --- [BARU] MENCEGAH KEDIP SEBELUM REDIRECT ---
+    // Jika data menunjukkan halaman nonaktif, jangan render apa-apa agar UI tidak "bocor"
+    if (data?.visible?.isActive === false) return null;
+
+    // Error handling
     if (error) {
         return (
             <div className="flex justify-center items-center h-screen">

@@ -26,6 +26,7 @@ import {
   CalendarCheck2,
   FileUser,
   Captions,
+  Handshake,
 } from "lucide-react";
 
 export default function Sidebar() {
@@ -68,6 +69,11 @@ export default function Sidebar() {
           label: "Services", 
           icon: Wrench,
           path: "/dashboard/company/services" 
+        },
+        {
+          label: "Partners", 
+          icon: Handshake,
+          path: "/dashboard/company/partners" 
         },
         ] 
       }, 

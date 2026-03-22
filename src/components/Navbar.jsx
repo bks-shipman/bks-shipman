@@ -3,17 +3,27 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Ship, Menu, X, Globe } from 'lucide-react'; // Tambahkan Globe
+import { Ship, Menu, X, Globe } from 'lucide-react';
 import Image from 'next/image';
-import { useLanguage } from '@/context/LanguageProvider'; // Import hook bahasa
+import { useLanguage } from '@/context/LanguageProvider';
+import useSWR from 'swr';
+import axiosInstance from '@/utils/axios'; // Pastikan path ini benar
+
+// Fetcher untuk mengambil semua status halaman dari public API
+const fetcher = async (url) => {
+  const res = await axiosInstance.get(url);
+  return res.data;
+};
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname();
   
-  // Panggil state dan fungsi dari Context
   const { lang, toggleLanguage } = useLanguage();
+
+  // Ambil semua data PageConfig dari Backend (Nembak ke public route)
+  const { data: configs } = useSWR('/page-configs', fetcher);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -23,14 +33,27 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Contoh: Jika kamu ingin translate menu navbar juga
+  // 1. Definisikan Link beserta Enum Key-nya
+  // 2. Filter langsung berdasarkan data dari Backend
   const navLinks = [
     { name: lang === 'id' ? 'Beranda' : 'Home', path: '/' },
     { name: lang === 'id' ? 'Tentang' : 'About', path: '/about' },
-    { name: lang === 'id' ? 'Armada' : 'Fleet', path: '/vessels' },
-    { name: lang === 'id' ? 'Karir' : 'Careers', path: '/careers' },
-    { name: lang === 'id' ? 'Pameran': 'Exhibitions', path: '/exhibitions' }, // Nama event biasanya tetap
-  ];
+    { name: lang === 'id' ? 'Armada' : 'Fleet', path: '/vessels', enumKey: 'VESSELS' },
+    { name: lang === 'id' ? 'Karir' : 'Careers', path: '/careers', enumKey: 'CAREERS' },
+    { name: lang === 'id' ? 'Pameran': 'Exhibitions', path: '/exhibitions', enumKey: 'EXHIBITIONS' },
+  ].filter(link => {
+    // Jika link tidak punya enumKey (seperti Home/About), selalu tampilkan
+    if (!link.enumKey) return true;
+
+    // Jika data dari BE belum termuat, default-nya kita tampilkan saja dulu biar gak kedip
+    if (!configs) return true;
+
+    // Cari status konfigurasi yang sesuai dengan enumKey
+    const pageConfig = configs.find(c => c.key === link.enumKey);
+
+    // Jika ada datanya dan isActive false, sembunyikan. Selain itu, tampilkan.
+    return pageConfig?.isActive !== false;
+  });
 
   const activeLinkClass = "text-blue-600 font-bold border-b-2 border-blue-600 pb-1";
   const idleLinkClass = "text-slate-500 hover:text-blue-600 transition-all duration-300 font-medium pb-1 border-b-2 border-transparent";
@@ -39,7 +62,7 @@ export default function Navbar() {
     <nav className={`fixed w-full z-50 transition-all duration-500 ${isScrolled ? 'bg-white/90 backdrop-blur-xl shadow-sm py-4 border-b border-slate-100' : 'bg-transparent py-8'}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center">
-          <Link href="/" className="flex items-center gap-1 group">
+          <Link href="/" onClick={() => window.scrollTo(0,0)} className="flex items-center gap-1 group">
             <div className={`rounded-xl transition-colors`}>
               <Image src={"/logo.png"} alt='logo' width={40} height={40} />
             </div>
@@ -52,6 +75,7 @@ export default function Navbar() {
               <Link
                 key={link.name}
                 href={link.path}
+                onClick={() => window.scrollTo(0,0)}
                 className={`text-[13px] uppercase tracking-[0.2em] ${pathname === link.path ? activeLinkClass : (isScrolled ? idleLinkClass : 'text-slate-300 hover:text-white transition-colors font-medium')}`}
               >
                 {link.name}
@@ -74,7 +98,6 @@ export default function Navbar() {
 
           {/* Mobile Menu & Language Button */}
           <div className="lg:hidden flex items-center gap-4">
-            {/* Tombol Bahasa Mobile */}
             <button 
               onClick={toggleLanguage}
               className={`flex items-center justify-center w-8 h-8 rounded-full border transition-all ${
@@ -88,7 +111,7 @@ export default function Navbar() {
 
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className={`p-2 rounded-lg transition-colors ${isScrolled ? 'text-slate-900 hover:bg-slate-100' : 'text-white hover:bg-white/10'}`}
+              className={`p-2 rounded-lg transition-colors cursor-pointer ${isScrolled ? 'text-slate-900 hover:bg-slate-100' : 'text-white hover:bg-white/10'}`}
             >
               {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
@@ -104,7 +127,10 @@ export default function Navbar() {
               <Link
                 key={link.name}
                 href={link.path}
-                onClick={() => setIsOpen(false)}
+                onClick={() => {
+                  setIsOpen(false);
+                  window.scrollTo(0,0);
+                }}
                 className={`block px-4 py-5 text-sm font-bold font-poppins tracking-widest uppercase rounded-2xl ${pathname === link.path ? 'text-blue-600 bg-blue-50' : 'text-slate-600 hover:bg-slate-50'}`}
               >
                 {link.name}

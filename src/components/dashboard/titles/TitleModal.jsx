@@ -24,6 +24,7 @@ const SECTION_OPTIONS = [
   { value: "EXHIBITIONS", label: "Exhibitions" },
   { value: "CAREERS", label: "Careers" },
   { value: "CERTIFICATES", label: "Certificates" },
+  { value: "PARTNERS", label: "Partners" },
 ];
 
 export default function TitleModal({
@@ -175,7 +176,7 @@ export default function TitleModal({
             </>
         )}
 
-        {(form.values.type === "HERO" || form.values.type === "CAREERS" || form.values.type === "SERVICES" || form.values.type === "ABOUTUS" || form.values.type === "VESSELS" || form.values.type === "EXHIBITIONS" || form.values.type === "CERTIFICATES") && (
+        {(form.values.type === "HERO" || form.values.type === "CAREERS" || form.values.type === "SERVICES" || form.values.type === "ABOUTUS" || form.values.type === "VESSELS" || form.values.type === "EXHIBITIONS" || form.values.type === "CERTIFICATES" || form.values.type === "PARTNERS") && (
           <>
           <Textarea
             label="Subtitle (Indonesia)"
@@ -193,7 +194,7 @@ export default function TitleModal({
         )}
 
         {(form.values.type === "SERVICES" ||
-          form.values.type === "COREVALUES" || form.values.type === "HERO" || form.values.type === "VM" || form.values.type === "GALLERY" || form.values.type === "CERTIFICATES") && (
+          form.values.type === "COREVALUES" || form.values.type === "HERO" || form.values.type === "VM" || form.values.type === "GALLERY" || form.values.type === "CERTIFICATES" || form.values.type === "PARTNERS") && (
             <>
           <TextInput
             label="Tag (Indonesia)"

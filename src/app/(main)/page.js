@@ -151,7 +151,7 @@ export default function Home() {
               </div>
 
               <MotionWrapper animation="slideInUp" duration={1} delay={0.5}>
-                <p className="text-base w-full md:text-lg text-slate-300/90 mb-10 leading-relaxed font-light text-justify lg:max-w-xl">
+                <p className="text-base w-full md:text-lg text-slate-300/90 mb-10 leading-relaxed font-light text-justify lg:max-w-xl whitespace-pre-line">
                   {lang === "id" ? titleHero?.subtitle : titleHero?.subtitle_en}
                 </p>
               </MotionWrapper>

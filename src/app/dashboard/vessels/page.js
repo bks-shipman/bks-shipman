@@ -53,7 +53,7 @@ export default function Vessels() {
             notifications.show({
                 title: "Berhasil",
                 message: `Halaman Vessels sekarang ${val ? 'Aktif (Muncul)' : 'Nonaktif (Tersembunyi)'}`,
-                color: "blue",
+                color: "green",
             });
 
             await mutateConfig();

@@ -352,7 +352,7 @@ export default function Home() {
               </div>
             </div>
             {captain && (
-              <div className="relative">
+              <div className="relative pb-30">
                 <MotionWrapper animation="flipIn" duration={1} delay={0.3}>
                   <div className="aspect-4/5 rounded-[3rem] overflow-hidden shadow-2xl relative">
                     <Image
@@ -366,12 +366,12 @@ export default function Home() {
                   </div>
                 </MotionWrapper>
                 <MotionWrapper animation="rotateIn" duration={1} delay={0.3}>
-                  <div className="absolute -left-4 -bottom-8 md:-bottom-10 md:-left-10 bg-white p-6 md:p-12 rounded-4xl shadow-2xl max-w-2xs md:max-w-sm">
-                    <p className="text-slate-900 font-serif font-bold text-lg md:text-2xl mb-4 italic leading-tight">"{lang === "id" ? captain?.quote : captain?.quote_en}"</p>
+                  <div className="absolute -left-4 -bottom-8 md:-bottom-10 md:-left-10 bg-white p-6 md:p-12 rounded-4xl shadow-2xl max-w-2xs md:max-w-md lg:max-w-lg">
+                    <p className="text-slate-900 font-serif font-bold text-base md:text-lg lg:text-2xl mb-4 italic leading-tight">"{lang === "id" ? captain?.quote : captain?.quote_en}"</p>
                     <div className="flex items-center gap-4">
                       <div className="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold text-xs">CEO</div>
                       <div>
-                        <p className="text-slate-900 font-bold text-sm tracking-tight">Capt. {captain?.name}</p>
+                        <p className="text-slate-900 font-bold text-sm tracking-tight">{captain?.name}</p>
                         <p className="text-slate-400 text-[10px] font-black uppercase tracking-widest">Chief Executive Officer</p>
                       </div>
                     </div>

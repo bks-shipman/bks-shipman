@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import Link from 'next/link';
 import {
   ArrowRight, X, ChevronLeft, ChevronRight,
@@ -18,6 +18,14 @@ import { MotionWrapper, StaggerContainer } from '@/components/MotionWrapper';
 import { motion, AnimatePresence } from 'motion/react';
 import { useLanguage } from '@/context/LanguageProvider';
 
+const HERO_VIDEOS = [
+  '/video/vid-1.mp4',
+  '/video/vid-2.mp4',
+  '/video/vid-3.mp4',
+  '/video/vid-4.mp4',
+  '/video/vid-5.mp4'
+];
+
 const fetcher = async () => {
   return await getLandingPage();
 }
@@ -26,6 +34,26 @@ export default function Home() {
   const [selectedImage, setSelectedImage] = useState(null);
   const [touchStart, setTouchStart] = useState(null);
   const [touchEnd, setTouchEnd] = useState(null);
+  const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
+  const videoRefs = useRef([]);
+
+  useEffect(() => {
+    HERO_VIDEOS.forEach((_, idx) => {
+      const vid = videoRefs.current[idx];
+      if (vid) {
+        if (idx === currentVideoIndex) {
+          vid.currentTime = 0;
+          vid.play().catch((err) => console.log("Autoplay failed:", err));
+        } else {
+          vid.pause();
+        }
+      }
+    });
+  }, [currentVideoIndex]);
+
+  const handleVideoEnded = () => {
+    setCurrentVideoIndex((prev) => (prev + 1) % HERO_VIDEOS.length);
+  };
 
   const minSwipeDistance = 50;
   const { data, error, isLoading } = useSWR(
@@ -111,120 +139,119 @@ export default function Home() {
     <div className="bg-white selection:bg-blue-600 selection:text-white w-full">
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center pt-32 pb-20 overflow-hidden bg-slate-950">
+        {/* Background Video Slider */}
+        <div className="absolute inset-0 w-full h-full overflow-hidden z-0">
+          {/* Subtle dark overlay to make text pop */}
+          <div className="absolute inset-0 bg-slate-950/75 z-10"></div>
+          {HERO_VIDEOS.map((src, index) => (
+            <video
+              key={index}
+              ref={(el) => { videoRefs.current[index] = el; }}
+              src={src}
+              autoPlay={index === 0}
+              muted
+              playsInline
+              preload="auto"
+              className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out ${currentVideoIndex === index ? 'opacity-100' : 'opacity-0 pointer-events-none'
+                }`}
+              onEnded={handleVideoEnded}
+            />
+          ))}
+        </div>
+
         {/* Decorative Background Blobs */}
-        <div className="absolute top-0 right-0 w-[40vw] h-[50vh] bg-red-600/5 rounded-bl-full -z-10 blur-3xl"></div>
-        <div className="absolute -bottom-32 -left-32 w-[30rem] h-[30rem] bg-blue-800/5 rounded-full -z-10 blur-3xl"></div>
+        <div className="absolute top-0 right-0 w-[40vw] h-[50vh] bg-red-600/5 rounded-bl-full z-5 blur-3xl pointer-events-none"></div>
+        <div className="absolute -bottom-32 -left-32 w-[30rem] h-[30rem] bg-blue-800/5 rounded-full z-5 blur-3xl pointer-events-none"></div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10">
-          <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-20">
-
-            {/* Kolom Kiri: Teks dan Tombol */}
-            <div className="flex-1 w-full max-w-2xl lg:max-w-none pt-10 lg:pt-0">
-              <MotionWrapper animation="slideInDown" duration={1} delay={0.2}>
-                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-400 text-xs font-bold uppercase tracking-widest mb-8 animate-in fade-in slide-in-from-left-4 duration-1000">
-                  <Zap className="w-3.5 h-3.5" /> {lang === "id" ? titleHero?.tag : titleHero?.tag_en}
-                </div>
-              </MotionWrapper>
-
-              <MotionWrapper animation="slideInLeft" duration={1} delay={0.3}>
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-white mb-6 lg:mb-8 leading-[1.15]">
-                  {lang === "id" ? titleHero?.title : titleHero?.title_en} <br className="hidden md:block" />
-                  <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-400 to-cyan-300">{lang === "id" ? titleHero?.title2 : titleHero?.title2_en}</span>
-                </h1>
-              </MotionWrapper>
-
-              {/* GAMBAR KHUSUS MOBILE (Muncul di antara Title dan Subtitle) */}
-              <div className="block lg:hidden w-full relative mb-8">
-                <MotionWrapper animation="scaleIn" duration={1} delay={0.4}>
-                  {/* Bentuk (rounded) disesuaikan agar manis di layar HP */}
-                  <div className="relative w-full h-[300px] sm:h-[400px] rounded-[2.5rem] overflow-hidden shadow-xl border-4 border-cyan-400">
-                    <Image
-                      fill
-                      src="/ship-home.jpeg"
-                      className="w-full h-full object-cover"
-                      alt="BKS Shipmanagement Hero Mobile"
-                      priority
-                    />
-                    <div className="absolute inset-0 bg-linear-to-tr from-slate-900/20 to-transparent"></div>
-                  </div>
-                </MotionWrapper>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10 flex flex-col items-center justify-center text-center">
+          <div className="max-w-3xl w-full pt-10 lg:pt-0">
+            <MotionWrapper animation="slideInDown" duration={1} delay={0.2}>
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-400 text-xs font-bold uppercase tracking-widest mb-8 animate-in fade-in slide-in-from-left-4 duration-1000">
+                <Zap className="w-3.5 h-3.5" /> {lang === "id" ? titleHero?.tag : titleHero?.tag_en}
               </div>
+            </MotionWrapper>
 
-              <MotionWrapper animation="slideInUp" duration={1} delay={0.5}>
-                <p className="text-base w-full md:text-lg text-slate-300/90 mb-10 leading-relaxed font-light text-justify lg:max-w-xl whitespace-pre-line">
-                  {lang === "id" ? titleHero?.subtitle : titleHero?.subtitle_en}
-                </p>
-              </MotionWrapper>
+            <MotionWrapper animation="slideInLeft" duration={1} delay={0.3}>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-white mb-6 lg:mb-8 leading-[1.15]">
+                {lang === "id" ? titleHero?.title : titleHero?.title_en} <br className="hidden md:block" />
+                <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-400 to-cyan-300">{lang === "id" ? titleHero?.title2 : titleHero?.title2_en}</span>
+              </h1>
+            </MotionWrapper>
+            {/* 
+            <MotionWrapper animation="slideInUp" duration={1} delay={0.5}>
+              <p className="text-base w-full md:text-lg text-slate-300/90 mb-10 leading-relaxed font-light text-center lg:max-w-2xl mx-auto whitespace-pre-line">
+                {lang === "id" ? titleHero?.subtitle : titleHero?.subtitle_en}
+              </p>
+            </MotionWrapper> */}
 
-              <MotionWrapper animation="slideInUp" duration={1} delay={0.6}>
-                <div className="flex flex-wrap gap-4 justify-center mb-12 lg:mb-16">
-                  <Link href="/vessels">
-                    <button className="px-10 py-5 bg-blue-600 hover:bg-blue-500 text-white rounded-full font-bold transition-all transform hover:scale-105 shadow-xl shadow-blue-600/20 flex items-center gap-2">
-                      {lang === "id" ? "Jelajahi Armada" : "Explore Fleet"} <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                    </button>
-                  </Link>
-                  <Link href="/about" className="px-10 py-5 bg-white/5 hover:bg-white/10 text-white border border-white/20 rounded-full font-bold transition-all backdrop-blur-md">
-                    {lang === "id" ? "Cerita Kami" : "Our Story"}
-                  </Link>
-                </div>
-              </MotionWrapper>
+            <MotionWrapper animation="slideInUp" duration={1} delay={0.6}>
+              <div className="flex flex-wrap gap-4 justify-center mb-12 lg:mb-16">
+                <Link href="/vessels">
+                  <button className="px-10 py-5 bg-blue-600 hover:bg-blue-500 text-white rounded-full font-bold transition-all transform hover:scale-105 shadow-xl shadow-blue-600/20 flex items-center gap-2 cursor-pointer">
+                    {lang === "id" ? "Jelajahi Armada" : "Explore Fleet"} <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                  </button>
+                </Link>
+                <Link href="/about" className="px-10 py-5 bg-white/5 hover:bg-white/10 text-white border border-white/20 rounded-full font-bold transition-all backdrop-blur-md cursor-pointer">
+                  {lang === "id" ? "Cerita Kami" : "Our Story"}
+                </Link>
+              </div>
+            </MotionWrapper>
 
-              {/* Data Statistik */}
-              <MotionWrapper animation="slideInUp" duration={1} delay={0.7}>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-6 pt-8 border-t border-slate-100">
-                  <div>
-                    <div className="text-3xl font-serif font-bold text-slate-500 mb-1">
-                      <Counter end={vesselsCount} suffix="+" />
-                    </div>
-                    <div className="text-slate-300 text-[9px] uppercase tracking-widest font-bold">
-                      {lang === "id" ? "Kapal Dikelola" : "Vessels Managed"}
-                    </div>
+            {/* Data Statistik */}
+            <MotionWrapper animation="slideInUp" duration={1} delay={0.7}>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-6 pt-8 border-t border-white/10">
+                <div className="text-center">
+                  <div className="text-3xl font-serif font-bold text-white mb-1">
+                    <Counter end={vesselsCount} suffix="+" />
                   </div>
-                  <div>
-                    <div className="text-3xl font-serif font-bold text-slate-500 mb-1">
-                      <Counter end={99.8} suffix="%" />
-                    </div>
-                    <div className="text-slate-300 text-[9px] uppercase tracking-widest font-bold">
-                      {lang === "id" ? "Keandalan" : "Reliability"}
-                    </div>
-                  </div>
-                  <div>
-                    <div className="text-3xl font-serif font-bold text-slate-500 mb-1">
-                      <Counter end={exhibitionsCount} suffix="+" />
-                    </div>
-                    <div className="text-slate-300 text-[9px] uppercase tracking-widest font-bold">
-                      {lang === "id" ? "Exhibition" : "Exhibitions"}
-                    </div>
-                  </div>
-                  <div>
-                    <div className="text-3xl font-serif font-bold text-slate-500 mb-1">
-                      <Counter end={careersCount} suffix="" />
-                    </div>
-                    <div className="text-slate-300 text-[9px] uppercase tracking-widest font-bold">
-                      {lang === "id" ? "Lowongan" : "Job Openings"}
-                    </div>
+                  <div className="text-slate-300 text-[9px] uppercase tracking-widest font-bold">
+                    {lang === "id" ? "Kapal Dikelola" : "Vessels Managed"}
                   </div>
                 </div>
-              </MotionWrapper>
-            </div>
-
-            {/* Kolom Kanan: Gambar KHUSUS DESKTOP (Disembunyikan di Mobile) */}
-            <div className="hidden lg:block flex-1 w-full relative">
-              <MotionWrapper animation="scaleIn" duration={1} delay={0.4}>
-                <div className="relative w-full h-[500px] lg:h-[700px] ml-auto lg:-mr-12 rounded-tl-[15rem] rounded-bl-[15rem] overflow-hidden shadow-2xl border-8 border-cyan-700">
-                  <Image
-                    fill
-                    src="/ship-home.jpeg"
-                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-1000"
-                    alt="BKS Shipmanagement Hero"
-                    priority
-                  />
-                  <div className="absolute inset-0 bg-linear-to-tr from-slate-900/20 to-transparent"></div>
+                <div className="text-center">
+                  <div className="text-3xl font-serif font-bold text-white mb-1">
+                    <Counter end={99.8} suffix="%" />
+                  </div>
+                  <div className="text-slate-300 text-[9px] uppercase tracking-widest font-bold">
+                    {lang === "id" ? "Keandalan" : "Reliability"}
+                  </div>
                 </div>
-              </MotionWrapper>
-            </div>
-
+                <div className="text-center">
+                  <div className="text-3xl font-serif font-bold text-white mb-1">
+                    <Counter end={exhibitionsCount} suffix="+" />
+                  </div>
+                  <div className="text-slate-300 text-[9px] uppercase tracking-widest font-bold">
+                    {lang === "id" ? "Exhibition" : "Exhibitions"}
+                  </div>
+                </div>
+                <div className="text-center">
+                  <div className="text-3xl font-serif font-bold text-white mb-1">
+                    <Counter end={careersCount} suffix="" />
+                  </div>
+                  <div className="text-slate-300 text-[9px] uppercase tracking-widest font-bold">
+                    {lang === "id" ? "Lowongan" : "Job Openings"}
+                  </div>
+                </div>
+              </div>
+            </MotionWrapper>
           </div>
+        </div>
+
+        {/* Video Slider Dots Indicator */}
+        <div className="absolute bottom-10 right-4 sm:right-8 lg:right-16 z-20 flex items-center gap-3">
+          {HERO_VIDEOS.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentVideoIndex(index)}
+              className={`group relative h-2.5 rounded-full transition-all duration-500 cursor-pointer ${currentVideoIndex === index ? 'w-8 bg-blue-500' : 'w-2.5 bg-white/30 hover:bg-white/50'
+                }`}
+              aria-label={`Go to video ${index + 1}`}
+            >
+              {currentVideoIndex === index && (
+                <span className="absolute inset-0 bg-blue-400 rounded-full animate-ping opacity-75"></span>
+              )}
+            </button>
+          ))}
         </div>
       </section>
 

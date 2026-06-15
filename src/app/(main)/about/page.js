@@ -9,6 +9,11 @@ import { MotionWrapper } from '@/components/MotionWrapper';
 import { Award, Briefcase, Eye, Target } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageProvider';
 
+const ABOUT_VIDEOS = [
+    '/video/vid-2.mp4',
+    '/video/vid-3.mp4'
+];
+
 const fetcher = async () => {
     return await getAboutPage();
 };
@@ -49,6 +54,7 @@ export default function About() {
                 title={lang === "id" ? titleAboutUs?.title : titleAboutUs?.title_en}
                 subtitle={lang === "id" ? titleAboutUs?.subtitle : titleAboutUs?.subtitle_en}
                 imageUrl="https://bks-shipman.com/images/576/22219807/crew-Mtf7_GJIQLNzvsJu_HJ0jA.jpg"
+                videoUrls={ABOUT_VIDEOS}
             />
 
             {/* About Section */}

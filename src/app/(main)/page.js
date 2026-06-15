@@ -310,7 +310,7 @@ export default function Home() {
       }
 
       {/* Vision/Mission Section - Restored with Icons */}
-      <section className="py-32 bg-slate-950 text-white relative">
+      {/* <section className="py-32 bg-slate-950 text-white relative">
         <div className="absolute inset-0 overflow-hidden opacity-20">
           <div className="absolute -top-24 -left-24 w-96 h-96 bg-blue-600 rounded-full blur-[120px]"></div>
           <div className="absolute bottom-48 right-0 w-80 h-80 bg-cyan-400 rounded-full blur-[100px]"></div>
@@ -337,279 +337,284 @@ export default function Home() {
                 <MotionWrapper animation="scaleIn" duration={1} delay={0.3}>
                   <div className="group">
                     {/* Restored Icon for Vision */}
-                    <div className="w-14 h-14 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center mb-8 group-hover:bg-cyan-500 group-hover:border-cyan-500 transition-all duration-500 transform group-hover:scale-110 group-hover:rotate-3">
-                      <Eye className="w-7 h-7 text-cyan-400 group-hover:text-white transition-colors" />
-                    </div>
-                    <h4 className="text-2xl font-bold mb-4">{lang === "id" ? "Visi Kami" : "The Vision"}</h4>
-                    {lang === "id" ?
-                      <ReadMore
-                        text={vision ? vision.description : ''}
-                        wordLimit={45}
-                        buttonColor="text-blue-400 hover:text-blue-300"
-                      /> :
-                      <ReadMore
-                        text={vision ? vision.description_en : ''}
-                        wordLimit={45}
-                        buttonColor="text-blue-400 hover:text-blue-300"
-                      />
-                    }
+      <div className="w-14 h-14 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center mb-8 group-hover:bg-cyan-500 group-hover:border-cyan-500 transition-all duration-500 transform group-hover:scale-110 group-hover:rotate-3">
+        <Eye className="w-7 h-7 text-cyan-400 group-hover:text-white transition-colors" />
+      </div>
+      <h4 className="text-2xl font-bold mb-4">{lang === "id" ? "Visi Kami" : "The Vision"}</h4>
+      {lang === "id" ?
+        <ReadMore
+          text={vision ? vision.description : ''}
+          wordLimit={45}
+          buttonColor="text-blue-400 hover:text-blue-300"
+        /> :
+        <ReadMore
+          text={vision ? vision.description_en : ''}
+          wordLimit={45}
+          buttonColor="text-blue-400 hover:text-blue-300"
+        />
+      }
 
-                  </div>
-                </MotionWrapper>
-                <MotionWrapper animation="scaleIn" duration={1} delay={0.3}>
-                  <div className="group">
-                    {/* Restored Icon for Mission */}
-                    <div className="w-14 h-14 rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center mb-8 group-hover:bg-blue-600 group-hover:border-blue-600 transition-all duration-500 transform group-hover:scale-110 group-hover:rotate-3">
-                      <Target className="w-7 h-7 text-blue-400 group-hover:text-white transition-colors" />
-                    </div>
-                    <h4 className="text-2xl font-bold mb-4">{lang === "id" ? "Misi Kami" : "The Mission"}</h4>
-                    {lang === "id" ?
-                      <ReadMore
-                        text={mission ? mission.description : ''}
-                        wordLimit={45}
-                        buttonColor="text-blue-400 hover:text-blue-300"
-                      /> :
-                      <ReadMore
-                        text={mission ? mission.description_en : ''}
-                        wordLimit={45}
-                        buttonColor="text-blue-400 hover:text-blue-300"
-                      />
-                    }
-                  </div>
-                </MotionWrapper>
-
-              </div>
-            </div>
-            {captain && (
-              <div className="relative pb-30">
-                <MotionWrapper animation="flipIn" duration={1} delay={0.3}>
-                  <div className="aspect-4/5 rounded-[3rem] overflow-hidden shadow-2xl relative">
-                    <Image
-                      src={captain?.photo || ""}
-                      width={1000}
-                      height={2000}
-                      className="w-full h-full object-cover grayscale-[0.2] hover:grayscale-0 transition-all duration-700"
-                      alt="Vessel Detail"
-                    />
-                    <div className="absolute inset-0 bg-blue-900/20 mix-blend-multiply"></div>
-                  </div>
-                </MotionWrapper>
-                <MotionWrapper animation="rotateIn" duration={1} delay={0.3}>
-                  <div className="absolute -left-4 -bottom-8 md:-bottom-10 md:-left-10 bg-white p-6 md:p-12 rounded-4xl shadow-2xl max-w-2xs md:max-w-md lg:max-w-lg">
-                    <p className="text-slate-900 font-serif font-bold text-base md:text-lg lg:text-2xl mb-4 italic leading-tight">"{lang === "id" ? captain?.quote : captain?.quote_en}"</p>
-                    <div className="flex items-center gap-4">
-                      <div className="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold text-xs">CEO</div>
-                      <div>
-                        <p className="text-slate-900 font-bold text-sm tracking-tight">{captain?.name}</p>
-                        <p className="text-slate-400 text-[10px] font-black uppercase tracking-widest">Chief Executive Officer</p>
-                      </div>
-                    </div>
-                  </div>
-                </MotionWrapper>
-              </div>
-            )}
-          </div>
-        </div>
-      </section>
-
-      {/* Gallery Section */}
-      {gallery && gallery.length > 2 && (
-        <section className="py-32 bg-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center max-w-2xl mx-auto mb-20">
-              <MotionWrapper animation="slideInDown" duration={1} delay={0.3}>
-                <h2 className="text-blue-600 font-bold tracking-[0.3em] uppercase mb-4 text-xs">{lang === "id" ? titleGallery?.tag : titleGallery?.tag_en}</h2>
-              </MotionWrapper>
-              <MotionWrapper animation="slideInDown" duration={1} delay={0.3}>
-                <h3 className="text-5xl font-serif font-bold text-slate-900">{lang === "id" ? titleGallery?.title : titleGallery?.title_en}</h3>
-              </MotionWrapper>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-6 h-175">
-              <div
-                className="md:col-span-7 group relative overflow-hidden rounded-[2.5rem] cursor-pointer"
-                onClick={() => openGallery(0)}
-              >
-                <Image
-                  src={gallery[0]?.photo}
-                  width={600}
-                  height={400}
-                  className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
-                  alt="Gallery 1"
-                />
-                <div className="absolute inset-0 bg-linear-to-t from-slate-950/90 via-slate-950/20 to-transparent flex items-end p-12 opacity-0 group-hover:opacity-100 transition-all duration-500">
-                  <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform">
-                    <span className="block text-blue-400 text-[10px] font-black uppercase tracking-[0.3em] mb-2">{gallery[0]?.type}</span>
-                    <span className="text-white text-3xl font-serif font-bold">{gallery[0]?.name}</span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="md:col-span-5 flex flex-col gap-6">
-                <div
-                  className="h-1/2 group relative overflow-hidden rounded-[2.5rem] cursor-pointer"
-                  onClick={() => openGallery(1)}
-                >
-                  <Image
-                    src={gallery[1]?.photo || ""}
-                    width={600}
-                    height={400}
-                    className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
-                    alt="Gallery 2"
-                  />
-                  <div className="absolute inset-0 bg-slate-900/60 opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center">
-                    <div className="text-center p-6 border border-white/20 rounded-2xl backdrop-blur-sm">
-                      <span className="text-white font-bold tracking-widest uppercase text-xs">{gallery[1]?.name}</span>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  className="h-1/2 group relative overflow-hidden rounded-[2.5rem] cursor-pointer"
-                  onClick={() => openGallery(2)}
-                >
-                  <Image
-                    src={gallery[2]?.photo || ""}
-                    width={600}
-                    height={400}
-                    className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
-                    alt="Gallery 3"
-                  />
-                  <div className="absolute inset-0 bg-slate-900/60 opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center">
-                    <div className="text-center p-6 border border-white/20 rounded-2xl backdrop-blur-sm">
-                      <span className="text-white font-bold tracking-widest uppercase text-xs">{gallery[2]?.name}</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-      )}
-
-      {selectedImage !== null && (
-        <div
-          className="fixed inset-0 z-100 flex items-center justify-center bg-black/95 backdrop-blur-3xl p-4 md:p-12 animate-in fade-in duration-500"
-          // Tambahkan 3 baris di bawah ini
-          onTouchStart={onTouchStart}
-          onTouchMove={onTouchMove}
-          onTouchEnd={onTouchEnd}
-        >
-          {/* Tombol Close */}
-          <button
-            onClick={() => setSelectedImage(null)}
-            className="cursor-pointer absolute top-8 right-8 text-white/50 hover:text-white transition-colors z-110"
-          >
-            <X className="w-10 h-10" />
-          </button>
-
-          {/* Tombol Prev (Sembunyikan di Mobile jika ingin clean, karena sudah ada swipe) */}
-          <button
-            onClick={prevImage}
-            className="md:flex absolute left-8 top-1/2 -translate-y-1/2 p-4 bg-black/60 hover:bg-black/70 cursor-pointer rounded-full text-white transition-colors z-110"
-          >
-            <ChevronLeft className="w-8 h-8" />
-          </button>
-
-          <div className="max-w-5xl w-full relative flex flex-col items-center justify-center">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={selectedImage}
-                drag="x"
-                dragConstraints={{ left: 0, right: 0 }}
-                dragElastic={0.7}
-                onDragEnd={handleDragEnd}
-                initial={{ opacity: 0, scale: 0.95, x: 50 }}
-                animate={{ opacity: 1, scale: 1, x: 0 }}
-                exit={{ opacity: 0, scale: 0.95, x: -50 }}
-                transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                className="w-full flex flex-col items-center cursor-grab active:cursor-grabbing touch-none"
-              >
-
-                {/* PERBAIKAN UTAMA DI SINI */}
-                {/* Kita hapus aspect-ratio dan gunakan tinggi maksimal berdasarkan layar (vh) */}
-                <div className="relative w-full h-[60vh] md:h-[70vh] flex items-center justify-center">
-                  <Image
-                    fill // Biarkan Next.js yang menghitung dimensinya
-                    src={gallery[selectedImage]?.photo}
-                    alt={gallery[selectedImage]?.name}
-                    // Gunakan object-contain agar gambar UTUH 100% tidak ada yang dipotong
-                    className="object-contain pointer-events-none drop-shadow-2xl rounded-xl"
-                    priority
-                  />
-
-                  {/* Indikator Angka */}
-                  <div className="absolute top-0 right-4 md:right-0 bg-black/60 backdrop-blur-md px-4 py-1.5 rounded-full text-white/80 text-[10px] font-black tracking-widest z-10">
-                    {selectedImage + 1} / {gallery.length}
-                  </div>
-                </div>
-
-                {/* Caption Teks */}
-                <div className="mt-8 text-center max-w-2xl px-4 pointer-events-none">
-                  <h2 className="text-white text-3xl md:text-4xl font-serif font-bold mb-4 tracking-tight leading-tight">
-                    <Link
-                      href={`/${gallery[selectedImage]?.type}s`}
-                      className="hover:underline pointer-events-auto cursor-pointer"
-                    >
-                      {gallery[selectedImage]?.name}
-                    </Link>
-                  </h2>
-                  <div className="h-1.5 w-16 bg-blue-600 mx-auto rounded-full shadow-lg shadow-blue-600/50"></div>
-                </div>
-
-              </motion.div>
-            </AnimatePresence>
-          </div>
-
-          {/* Tombol Next */}
-          <button
-            onClick={nextImage}
-            className="md:flex absolute right-8 top-1/2 -translate-y-1/2 p-4 bg-black/60 hover:bg-black/70 cursor-pointer rounded-full text-white transition-colors z-110"
-          >
-            <ChevronRight className="w-8 h-8" />
-          </button>
-        </div>
-      )}
-
-      {/* Core Values Section - Scalable and Icon-Free */}
-      <section className="py-32 bg-slate-50 relative overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-24">
-            <MotionWrapper animation="slideInDown" duration={1} delay={0.3}>
-              <h2 className="text-blue-600 font-bold tracking-[0.3em] uppercase mb-4 text-xs">{lang === "id" ? titleCoreValues?.tag : titleCoreValues?.tag_en}</h2>
-            </MotionWrapper>
-            <MotionWrapper animation="slideInDown" duration={1} delay={0.3}>
-              <h3 className="text-5xl font-serif font-bold text-slate-900 mb-6">{lang === "id" ? titleCoreValues?.title : titleCoreValues?.title_en}</h3>
-            </MotionWrapper>
-            <MotionWrapper animation="slideInDown" duration={1} delay={0.3}>
-              <p className="text-slate-500 max-w-xl mx-auto text-lg leading-relaxed">
-                {lang === "id" ? titleCoreValues?.subtitle : titleCoreValues?.subtitle_en}
-              </p>
-            </MotionWrapper>
-          </div>
-
-          <StaggerContainer className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 justify-center'>
-            {coreValues?.map((val, i) => (
-              <div
-                key={i}
-                className="bg-white p-8 group border border-slate-100 rounded-2xl hover:bg-blue-600 transition-all duration-300 flex items-center shadow-sm hover:shadow-xl hover:shadow-blue-600/20"
-              >
-                {/* Visual Accent (Left Border) */}
-                <div className="w-1.5 h-8 bg-blue-600 rounded-full mr-6 group-hover:bg-white group-hover:h-12 transition-all duration-300"></div>
-
-                <h4 className="text-lg font-bold text-slate-900 group-hover:text-white transition-colors duration-300 leading-tight">
-                  {lang === "id" ? val.title : val.title_en}
-                </h4>
-              </div>
-            ))}
-          </StaggerContainer>
-
-          <div className="mt-20 text-center">
-            <Link href="/about" className="inline-flex items-center gap-3 text-slate-900 font-bold tracking-widest uppercase text-[10px] hover:text-blue-600 transition-colors">
-              {lang === "id" ? "Baca filosofi maritim kami selengkapnya." : "Read our full maritime philosophy"} <ArrowRight className="w-4 h-4" />
-            </Link>
-          </div>
-        </div>
-      </section>
     </div>
+                </MotionWrapper >
+    <MotionWrapper animation="scaleIn" duration={1} delay={0.3}>
+      <div className="group">
+        {/* Restored Icon for Mission */}
+        <div className="w-14 h-14 rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center mb-8 group-hover:bg-blue-600 group-hover:border-blue-600 transition-all duration-500 transform group-hover:scale-110 group-hover:rotate-3">
+          <Target className="w-7 h-7 text-blue-400 group-hover:text-white transition-colors" />
+        </div>
+        <h4 className="text-2xl font-bold mb-4">{lang === "id" ? "Misi Kami" : "The Mission"}</h4>
+        {lang === "id" ?
+          <ReadMore
+            text={mission ? mission.description : ''}
+            wordLimit={45}
+            buttonColor="text-blue-400 hover:text-blue-300"
+          /> :
+          <ReadMore
+            text={mission ? mission.description_en : ''}
+            wordLimit={45}
+            buttonColor="text-blue-400 hover:text-blue-300"
+          />
+        }
+      </div>
+    </MotionWrapper>
+
+              </div >
+            </div >
+    { captain && (
+      <div className="relative pb-30">
+        <MotionWrapper animation="flipIn" duration={1} delay={0.3}>
+          <div className="aspect-4/5 rounded-[3rem] overflow-hidden shadow-2xl relative">
+            <Image
+              src={captain?.photo || ""}
+              width={1000}
+              height={2000}
+              className="w-full h-full object-cover grayscale-[0.2] hover:grayscale-0 transition-all duration-700"
+              alt="Vessel Detail"
+            />
+            <div className="absolute inset-0 bg-blue-900/20 mix-blend-multiply"></div>
+          </div>
+        </MotionWrapper>
+        <MotionWrapper animation="rotateIn" duration={1} delay={0.3}>
+          <div className="absolute -left-4 -bottom-8 md:-bottom-10 md:-left-10 bg-white p-6 md:p-12 rounded-4xl shadow-2xl max-w-2xs md:max-w-md lg:max-w-lg">
+            <p className="text-slate-900 font-serif font-bold text-base md:text-lg lg:text-2xl mb-4 italic leading-tight">"{lang === "id" ? captain?.quote : captain?.quote_en}"</p>
+            <div className="flex items-center gap-4">
+              <div className="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold text-xs">CEO</div>
+              <div>
+                <p className="text-slate-900 font-bold text-sm tracking-tight">{captain?.name}</p>
+                <p className="text-slate-400 text-[10px] font-black uppercase tracking-widest">Chief Executive Officer</p>
+              </div>
+            </div>
+          </div>
+        </MotionWrapper>
+      </div>
+    )
+}
+          </div >
+        </div >
+      </section > */}
+
+{/* Gallery Section */ }
+{
+  gallery && gallery.length > 2 && (
+    <section className="py-32 bg-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center max-w-2xl mx-auto mb-20">
+          <MotionWrapper animation="slideInDown" duration={1} delay={0.3}>
+            <h2 className="text-blue-600 font-bold tracking-[0.3em] uppercase mb-4 text-xs">{lang === "id" ? titleGallery?.tag : titleGallery?.tag_en}</h2>
+          </MotionWrapper>
+          <MotionWrapper animation="slideInDown" duration={1} delay={0.3}>
+            <h3 className="text-2xl md:text-5xl font-serif font-bold text-slate-900">{lang === "id" ? titleGallery?.title : titleGallery?.title_en}</h3>
+          </MotionWrapper>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 h-175">
+          <div
+            className="md:col-span-7 group relative overflow-hidden rounded-[2.5rem] cursor-pointer"
+            onClick={() => openGallery(0)}
+          >
+            <Image
+              src={gallery[0]?.photo}
+              width={600}
+              height={400}
+              className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+              alt="Gallery 1"
+            />
+            <div className="absolute inset-0 bg-linear-to-t from-slate-950/90 via-slate-950/20 to-transparent flex items-end p-12 opacity-0 group-hover:opacity-100 transition-all duration-500">
+              <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform">
+                <span className="block text-blue-400 text-[10px] font-black uppercase tracking-[0.3em] mb-2">{gallery[0]?.type}</span>
+                <span className="text-white text-3xl font-serif font-bold">{gallery[0]?.name}</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="md:col-span-5 flex flex-col gap-6">
+            <div
+              className="h-1/2 group relative overflow-hidden rounded-[2.5rem] cursor-pointer"
+              onClick={() => openGallery(1)}
+            >
+              <Image
+                src={gallery[1]?.photo || ""}
+                width={600}
+                height={400}
+                className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                alt="Gallery 2"
+              />
+              <div className="absolute inset-0 bg-slate-900/60 opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center">
+                <div className="text-center p-6 border border-white/20 rounded-2xl backdrop-blur-sm">
+                  <span className="text-white font-bold tracking-widest uppercase text-xs">{gallery[1]?.name}</span>
+                </div>
+              </div>
+            </div>
+            <div
+              className="h-1/2 group relative overflow-hidden rounded-[2.5rem] cursor-pointer"
+              onClick={() => openGallery(2)}
+            >
+              <Image
+                src={gallery[2]?.photo || ""}
+                width={600}
+                height={400}
+                className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                alt="Gallery 3"
+              />
+              <div className="absolute inset-0 bg-slate-900/60 opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center">
+                <div className="text-center p-6 border border-white/20 rounded-2xl backdrop-blur-sm">
+                  <span className="text-white font-bold tracking-widest uppercase text-xs">{gallery[2]?.name}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+{
+  selectedImage !== null && (
+    <div
+      className="fixed inset-0 z-100 flex items-center justify-center bg-black/95 backdrop-blur-3xl p-4 md:p-12 animate-in fade-in duration-500"
+      // Tambahkan 3 baris di bawah ini
+      onTouchStart={onTouchStart}
+      onTouchMove={onTouchMove}
+      onTouchEnd={onTouchEnd}
+    >
+      {/* Tombol Close */}
+      <button
+        onClick={() => setSelectedImage(null)}
+        className="cursor-pointer absolute top-8 right-8 text-white/50 hover:text-white transition-colors z-110"
+      >
+        <X className="w-10 h-10" />
+      </button>
+
+      {/* Tombol Prev (Sembunyikan di Mobile jika ingin clean, karena sudah ada swipe) */}
+      <button
+        onClick={prevImage}
+        className="md:flex absolute left-8 top-1/2 -translate-y-1/2 p-4 bg-black/60 hover:bg-black/70 cursor-pointer rounded-full text-white transition-colors z-110"
+      >
+        <ChevronLeft className="w-8 h-8" />
+      </button>
+
+      <div className="max-w-5xl w-full relative flex flex-col items-center justify-center">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={selectedImage}
+            drag="x"
+            dragConstraints={{ left: 0, right: 0 }}
+            dragElastic={0.7}
+            onDragEnd={handleDragEnd}
+            initial={{ opacity: 0, scale: 0.95, x: 50 }}
+            animate={{ opacity: 1, scale: 1, x: 0 }}
+            exit={{ opacity: 0, scale: 0.95, x: -50 }}
+            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+            className="w-full flex flex-col items-center cursor-grab active:cursor-grabbing touch-none"
+          >
+
+            {/* PERBAIKAN UTAMA DI SINI */}
+            {/* Kita hapus aspect-ratio dan gunakan tinggi maksimal berdasarkan layar (vh) */}
+            <div className="relative w-full h-[60vh] md:h-[70vh] flex items-center justify-center">
+              <Image
+                fill // Biarkan Next.js yang menghitung dimensinya
+                src={gallery[selectedImage]?.photo}
+                alt={gallery[selectedImage]?.name}
+                // Gunakan object-contain agar gambar UTUH 100% tidak ada yang dipotong
+                className="object-contain pointer-events-none drop-shadow-2xl rounded-xl"
+                priority
+              />
+
+              {/* Indikator Angka */}
+              <div className="absolute top-0 right-4 md:right-0 bg-black/60 backdrop-blur-md px-4 py-1.5 rounded-full text-white/80 text-[10px] font-black tracking-widest z-10">
+                {selectedImage + 1} / {gallery.length}
+              </div>
+            </div>
+
+            {/* Caption Teks */}
+            <div className="mt-8 text-center max-w-2xl px-4 pointer-events-none">
+              <h2 className="text-white text-3xl md:text-4xl font-serif font-bold mb-4 tracking-tight leading-tight">
+                <Link
+                  href={`/${gallery[selectedImage]?.type}s`}
+                  className="hover:underline pointer-events-auto cursor-pointer"
+                >
+                  {gallery[selectedImage]?.name}
+                </Link>
+              </h2>
+              <div className="h-1.5 w-16 bg-blue-600 mx-auto rounded-full shadow-lg shadow-blue-600/50"></div>
+            </div>
+
+          </motion.div>
+        </AnimatePresence>
+      </div>
+
+      {/* Tombol Next */}
+      <button
+        onClick={nextImage}
+        className="md:flex absolute right-8 top-1/2 -translate-y-1/2 p-4 bg-black/60 hover:bg-black/70 cursor-pointer rounded-full text-white transition-colors z-110"
+      >
+        <ChevronRight className="w-8 h-8" />
+      </button>
+    </div>
+  )
+}
+
+{/* Core Values Section - Scalable and Icon-Free */ }
+<section className="py-32 bg-slate-50 relative overflow-hidden">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="text-center mb-24">
+      <MotionWrapper animation="slideInDown" duration={1} delay={0.3}>
+        <h2 className="text-blue-600 font-bold tracking-[0.3em] uppercase mb-4 text-xs">{lang === "id" ? titleCoreValues?.tag : titleCoreValues?.tag_en}</h2>
+      </MotionWrapper>
+      <MotionWrapper animation="slideInDown" duration={1} delay={0.3}>
+        <h3 className="text-2xl md:text-5xl font-serif font-bold text-slate-900 mb-6">{lang === "id" ? titleCoreValues?.title : titleCoreValues?.title_en}</h3>
+      </MotionWrapper>
+      <MotionWrapper animation="slideInDown" duration={1} delay={0.3}>
+        <p className="text-slate-500 max-w-xl mx-auto text-base leading-relaxed">
+          {lang === "id" ? titleCoreValues?.subtitle : titleCoreValues?.subtitle_en}
+        </p>
+      </MotionWrapper>
+    </div>
+
+    <StaggerContainer className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 justify-center'>
+      {coreValues?.map((val, i) => (
+        <div
+          key={i}
+          className="bg-white p-8 group border border-slate-100 rounded-2xl hover:bg-blue-600 transition-all duration-300 flex items-center shadow-sm hover:shadow-xl hover:shadow-blue-600/20"
+        >
+          {/* Visual Accent (Left Border) */}
+          <div className="w-1.5 h-8 bg-blue-600 rounded-full mr-6 group-hover:bg-white group-hover:h-12 transition-all duration-300"></div>
+
+          <h4 className="text-lg font-bold text-slate-900 group-hover:text-white transition-colors duration-300 leading-tight">
+            {lang === "id" ? val.title : val.title_en}
+          </h4>
+        </div>
+      ))}
+    </StaggerContainer>
+
+    <div className="mt-20 text-center">
+      <Link href="/about" className="inline-flex items-center gap-3 text-slate-900 font-bold tracking-widest uppercase text-[10px] hover:text-blue-600 transition-colors">
+        {lang === "id" ? "Baca filosofi maritim kami selengkapnya." : "Read our full maritime philosophy"} <ArrowRight className="w-4 h-4" />
+      </Link>
+    </div>
+  </div>
+</section>
+    </div >
   );
 }

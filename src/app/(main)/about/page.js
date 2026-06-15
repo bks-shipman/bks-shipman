@@ -6,7 +6,7 @@ import { getAboutPage } from '@/utils/api/aboutPage';
 import useSWR from 'swr';
 import Loading from '@/components/Loading';
 import { MotionWrapper } from '@/components/MotionWrapper';
-import { Award, Briefcase } from 'lucide-react'; // Tambahkan icon Briefcase untuk Partner
+import { Award, Briefcase, Eye, Target } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageProvider';
 
 const fetcher = async () => {
@@ -30,6 +30,8 @@ export default function About() {
     const aboutUs = data?.aboutUs;
     const certificates = data?.certificates || [];
     const partners = data?.partners || [];
+    const vision = data?.vision;
+    const missions = data?.missions;
 
     if (isLoading) return <Loading />;
 
@@ -61,7 +63,7 @@ export default function About() {
 
                         <div className="space-y-6 text-slate-600">
                             <MotionWrapper animation="slideInUp" duration={1} delay={0.4}>
-                                <p className='text-md lg:text-lg whitespace-pre-line leading-relaxed font-light'>
+                                <p className='text-base lg:text-lg whitespace-pre-line leading-relaxed font-light'>
                                     {lang === "id" ? aboutUs?.description : aboutUs?.description_en}
                                 </p>
                             </MotionWrapper>
@@ -82,6 +84,47 @@ export default function About() {
                 </div>
             </section>
 
+            {/* Vision & Mission Section */}
+            <section className="py-20">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16">
+                        {/* Vision Card */}
+                        {vision && (
+                            <MotionWrapper animation="slideInLeft" duration={1} delay={0.3}>
+                                <div className="bg-white p-10 rounded-[2rem] border border-slate-100 transition-all duration-500 flex flex-col items-center text-center h-full">
+                                    <div className="w-16 h-16 rounded-2xl bg-cyan-50 border border-cyan-100 flex items-center justify-center mb-6 text-cyan-600">
+                                        <Eye className="w-8 h-8" />
+                                    </div>
+                                    <h3 className="text-2xl font-bold text-slate-900 mb-4 font-poppins">
+                                        {lang === "id" ? "Visi Kami" : "Our Vision"}
+                                    </h3>
+                                    <p className="text-slate-500 leading-relaxed font-light text-base max-w-md">
+                                        {lang === "id" ? vision.description : vision.description_en}
+                                    </p>
+                                </div>
+                            </MotionWrapper>
+                        )}
+
+                        {/* Mission Card */}
+                        {missions && (
+                            <MotionWrapper animation="slideInRight" duration={1} delay={0.3}>
+                                <div className="bg-white p-10 rounded-[2rem] border border-slate-100 transition-all duration-500 flex flex-col items-center text-center h-full">
+                                    <div className="w-16 h-16 rounded-2xl bg-blue-50 border border-blue-100 flex items-center justify-center mb-6 text-blue-600">
+                                        <Target className="w-8 h-8" />
+                                    </div>
+                                    <h3 className="text-2xl font-bold text-slate-900 mb-4 font-poppins">
+                                        {lang === "id" ? "Misi Kami" : "Our Mission"}
+                                    </h3>
+                                    <p className="text-slate-500 leading-relaxed font-light text-base max-w-md">
+                                        {lang === "id" ? missions.description : missions.description_en}
+                                    </p>
+                                </div>
+                            </MotionWrapper>
+                        )}
+                    </div>
+                </div>
+            </section>
+
             {/* Certificates Section */}
             {certificates && certificates.length > 0 && (
                 <section className="py-32 bg-slate-50 relative overflow-hidden border-t border-slate-100">
@@ -93,10 +136,10 @@ export default function About() {
                                 </div>
                             </MotionWrapper>
                             <MotionWrapper animation="slideInDown" duration={1} delay={0.3}>
-                                <h3 className="text-4xl md:text-5xl font-serif font-bold text-slate-900 mb-6">
+                                <h3 className="text-2xl md:text-5xl font-serif font-bold text-slate-900 mb-6">
                                     {lang === "id" ? titleCertificates?.title : titleCertificates?.title_en}
                                 </h3>
-                                <p className="text-slate-500 text-lg font-light leading-relaxed">
+                                <p className="text-slate-500 text-base font-light leading-relaxed">
                                     {lang === "id" ? titleCertificates?.subtitle : titleCertificates?.subtitle_en}
                                 </p>
                             </MotionWrapper>
@@ -145,10 +188,10 @@ export default function About() {
                                 </div>
                             </MotionWrapper>
                             <MotionWrapper animation="slideInDown" duration={1} delay={0.3}>
-                                <h3 className="text-3xl md:text-5xl font-serif font-bold text-slate-900 mb-6">
+                                <h3 className="text-2xl md:text-5xl font-serif font-bold text-slate-900 mb-6">
                                     {lang === "id" ? titlePartners?.title : titlePartners?.title_en}
                                 </h3>
-                                <p className="text-slate-500 text-lg font-light leading-relaxed">
+                                <p className="text-slate-500 text-base font-light leading-relaxed">
                                     {lang === "id" ? titlePartners?.subtitle : titlePartners?.subtitle_en}
                                 </p>
                             </MotionWrapper>

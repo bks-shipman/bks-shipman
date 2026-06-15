@@ -75,7 +75,7 @@ export default function Login() {
                     </Link>
 
                     <div className="max-w-xl">
-                        <h2 className="text-5xl lg:text-7xl font-serif font-bold text-white mb-8 leading-tight">
+                        <h2 className="text-2xl md:text-5xl font-serif font-bold text-white mb-8 leading-tight">
                             Integrated <br />
                             <span className="text-blue-400">Fleet Operations</span>
                         </h2>

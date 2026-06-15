@@ -26,6 +26,7 @@ const HERO_VIDEOS = [
   '/video/vid-5.mp4'
 ];
 
+
 const fetcher = async () => {
   return await getLandingPage();
 }
@@ -186,19 +187,19 @@ export default function Home() {
 
             <MotionWrapper animation="slideInUp" duration={1} delay={0.6}>
               <div className="flex flex-wrap gap-4 justify-center mb-12 lg:mb-16">
-                <Link href="/vessels">
+                {/* <Link href="/vessels">
                   <button className="px-10 py-5 bg-blue-600 hover:bg-blue-500 text-white rounded-full font-bold transition-all transform hover:scale-105 shadow-xl shadow-blue-600/20 flex items-center gap-2 cursor-pointer">
                     {lang === "id" ? "Jelajahi Armada" : "Explore Fleet"} <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                   </button>
-                </Link>
-                <Link href="/about" className="px-10 py-5 bg-white/5 hover:bg-white/10 text-white border border-white/20 rounded-full font-bold transition-all backdrop-blur-md cursor-pointer">
+                </Link> */}
+                <Link href="/about" className="px-10 py-5 bg-white/5 hover:bg-white/10 text-white border border-white/20 rounded-full font-bold transition-all backdrop-blur-md cursor-pointer text-base">
                   {lang === "id" ? "Cerita Kami" : "Our Story"}
                 </Link>
               </div>
             </MotionWrapper>
 
             {/* Data Statistik */}
-            <MotionWrapper animation="slideInUp" duration={1} delay={0.7}>
+            {/* <MotionWrapper animation="slideInUp" duration={1} delay={0.7}>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-6 pt-8 border-t border-white/10">
                 <div className="text-center">
                   <div className="text-3xl font-serif font-bold text-white mb-1">
@@ -233,7 +234,7 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-            </MotionWrapper>
+            </MotionWrapper> */}
           </div>
         </div>
 
@@ -259,49 +260,50 @@ export default function Home() {
       {services && services.length > 0 && (
         <section className="py-32 relative overflow-hidden bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div className="mb-24">
+            <div className="mb-16 lg:mb-24 text-center max-w-3xl mx-auto">
               <MotionWrapper animation="slideInDown" duration={1} delay={0.3}>
                 <h2 className="text-blue-600 font-bold tracking-[0.3em] uppercase mb-4 text-xs">{lang === "id" ? titleServices?.tag : titleServices?.tag_en}</h2>
               </MotionWrapper>
-              <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-8">
-                <MotionWrapper animation="slideInLeft" duration={1} delay={0.3}>
-                  <h3 className="text-5xl md:text-6xl font-serif font-bold text-slate-900 max-w-2xl leading-tight">
-                    {lang === "id" ? titleServices?.title : titleServices?.title_en}
-                  </h3>
-                </MotionWrapper>
-                <MotionWrapper animation="slideInRight" duration={1} delay={0.3}>
-
-                  <p className="text-slate-500 text-lg max-w-sm leading-relaxed">
-                    {lang === "id" ? titleServices?.subtitle : titleServices?.subtitle_en}
-                  </p>
-                </MotionWrapper>
-              </div>
+              <MotionWrapper animation="slideInUp" duration={1} delay={0.3}>
+                <h3 className="text-2xl md:text-5xl font-serif font-bold text-slate-900 mb-6 leading-tight">
+                  {lang === "id" ? titleServices?.title : titleServices?.title_en}
+                </h3>
+              </MotionWrapper>
+              <MotionWrapper animation="slideInUp" duration={1} delay={0.4}>
+                <p className="text-slate-500 text-base max-w-xl mx-auto leading-relaxed">
+                  {lang === "id" ? titleServices?.subtitle : titleServices?.subtitle_en}
+                </p>
+              </MotionWrapper>
             </div>
 
-            {/* <div className="grid justify-center grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"> */}
-            <StaggerContainer className="grid justify-center grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <StaggerContainer className="grid justify-center grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {services.map((s, idx) => (
-                <div key={idx} className="group p-10 bg-slate-50 border border-slate-100 rounded-[2.5rem] hover:bg-white hover:shadow-2xl hover:shadow-blue-900/5 transition-all duration-700 relative overflow-hidden flex flex-col min-h-100">
-                  {/* Dynamic Watermark Number */}
-                  <div className="text-8xl font-black font-serif text-slate-400/50 absolute top-6 right-8 group-hover:text-blue-600/50 transition-colors duration-500">
-                    {String(idx + 1).padStart(2, '0')}
+                <div key={idx} className="group p-8 bg-white border border-slate-100 rounded-[2rem] shadow-sm hover:shadow-2xl hover:shadow-slate-200/50 transition-all duration-500 relative overflow-hidden flex flex-col justify-between min-h-[300px]">
+                  {/* Top Bar Accent */}
+                  <div className="absolute top-0 left-0 w-full h-1.5 bg-slate-100 group-hover:bg-blue-600 transition-colors duration-500" />
+
+                  <div className="relative z-10 flex flex-col flex-grow">
+                    <span className="inline-block self-start px-3 py-1 bg-slate-50 border border-slate-200 text-slate-400 text-[9px] font-black uppercase tracking-[0.2em] rounded-lg mb-6 group-hover:border-blue-600/30 group-hover:text-blue-600 transition-all">
+                      service {String(idx + 1).padStart(2, '0')}
+                    </span>
+                    <h4 className="text-2xl font-bold text-slate-900 mb-4 group-hover:text-blue-600 transition-colors">
+                      {lang === "id" ? s.title : s.title_en}
+                    </h4>
+                    <p className="text-slate-500 text-sm leading-relaxed mb-6 flex-grow line-clamp-4">
+                      {lang === "id" ? s.description : s.description_en}
+                    </p>
                   </div>
 
                   <div className="relative z-10 mt-auto">
-                    <span className="inline-block px-3 py-1 bg-white border border-slate-200 text-slate-400 text-[9px] font-black uppercase tracking-[0.2em] rounded-lg mb-6 group-hover:border-blue-600/30 group-hover:text-blue-600 transition-all">
-                      service
-                    </span>
-                    <h4 className="text-2xl font-bold text-slate-900 mb-4 group-hover:text-blue-600 transition-colors">{lang === "id" ? s.title : s.title_en}</h4>
-                    <ReadMore
-                      text={lang === "id" ? s.description : s.description_en}
-                      wordLimit={12}
-                      buttonColor="text-blue-400 hover:text-blue-600"
-                    />
+                    <Link href={`/services/${s.id}`}>
+                      <button className="px-3 py-2 bg-blue-500 hover:bg-blue-400 text-white text-[10px] rounded-lg transition-all duration-300 cursor-pointer">
+                        {lang === "id" ? "Temukan Lebih Banyak" : "Discover More"}
+                      </button>
+                    </Link>
                   </div>
                 </div>
               ))}
             </StaggerContainer>
-            {/* </div> */}
           </div>
         </section>
       )

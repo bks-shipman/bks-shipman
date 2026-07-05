@@ -202,7 +202,7 @@ export default function Home() {
               <div className="grid grid-cols-2 md:grid-cols-4 gap-6 pt-8 border-t border-white/10">
                 <div className="text-center">
                   <div className="text-3xl font-serif font-bold text-white mb-1">
-                    <Counter end={vesselsCount} suffix="+" />
+                    <Counter end={10} suffix="+" />
                   </div>
                   <div className="text-slate-300 text-[9px] uppercase tracking-widest font-bold">
                     {lang === "id" ? "Kapal Dikelola" : "Vessels Managed"}
